@@ -1,5 +1,6 @@
 \bin
 \ArchivosPacientes
+\ArchivosPacientes\*
 \ArchivosPacientes\*.*
 \ConnectionDispensario\ConnectionDispensario\bin
 \ConnectionDispensario\ConnectionDispensario\obj
