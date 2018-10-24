@@ -1,10 +1,9 @@
 bin
+**\obj
 ArchivosPacientes
 ArchivosPacientes\*
 ArchivosPacientes\*.*
-ConnectionDispensario\ConnectionDispensario\bin
-ConnectionDispensario\ConnectionDispensario\obj
-ConnectionDispensario\ConnectionDispensario\obj\**
-ConnectionDispensario\ConnectionDispensario\
+**\bin
 *.csproj.user
 **\Debug
+**\.vs
