@@ -1,0 +1,7 @@
+\bin
+\ArchivosPacientes
+\ConnectionDispensario\ConnectionDispensario\bin
+\ConnectionDispensario\ConnectionDispensario\obj
+\ConnectionDispensario\ConnectionDispensario\obj\*.*
+\ConnectionDispensario\ConnectionDispensario\
+*.csproj.user
