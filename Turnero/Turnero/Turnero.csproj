@@ -184,6 +184,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Reports\ReportC2.rdlc" />
     <EmbeddedResource Include="Reports\ReportePrueba.rdlc" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
