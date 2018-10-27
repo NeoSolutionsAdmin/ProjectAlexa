@@ -175,6 +175,11 @@ namespace ConnectionDispensario.Modelos.Reporting
 
     }
 
+    public class C2Item
+    {
+
+    }
+
     public class C1
     {
         public int totalplandesalud=0;

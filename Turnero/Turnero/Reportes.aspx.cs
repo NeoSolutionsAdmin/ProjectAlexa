@@ -20,37 +20,53 @@ namespace Christoc.Modules.Turnero
             {
                 string filename = Guid.NewGuid().ToString() + ".pdf";
                 filenamefield.Value = filename;
-                RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC1.rdlc");
-
-                ConnectionDispensario.Modelos.Reporting.C1 C1 = new ConnectionDispensario.Modelos.Reporting.C1();
-
-                int PID = int.Parse(Request["PID"].ToString());
-                int UID = int.Parse(Request["UID"].ToString());
-                string Y = Request["Y"].ToString();
-                string MS = Request["MS"].ToString();
-                string ME = Request["ME"].ToString();
-                string DS = Request["DS"].ToString();
-                string DE = Request["DE"].ToString();
-                string HS = Request["HS"].ToString();
-                string HE = Request["HE"].ToString();
-                string Est = Request["EST"].ToString();
-
-                string datestart = Y + "-" + MS + "-" + DS + " " + HS + ":00:00";
-                string dateend = Y + "-" + ME + "-" + DE + " " + HE + ":00:00";
+                if (Request["C1"] != null) GenerateC1();
+                if (Request["C2"] != null) GenerateC2();
 
 
-                
-                List<ConnectionDispensario.Modelos.Reporting.C1Item> LIST = C1.GetC1(DateTime.Parse(datestart),DateTime.Parse(dateend), int.Parse(Request["UID"].ToString()), "Finalizado");
-                if (LIST == null) {
-                    LIST = new List<ConnectionDispensario.Modelos.Reporting.C1Item>();
-                }
-                UserController UC = new UserController();
-                UserInfo UI = UC.GetUser(int.Parse(Request["PID"].ToString()), int.Parse(Request["UID"].ToString()));
-                
-                ReportDataSource RDS = new ReportDataSource("DS1", LIST);
-                RV.LocalReport.DataSources.Add(RDS);
-                
-                RV.LocalReport.SetParameters(new ReportParameter[] {
+                RV.LocalReport.Refresh();
+                byte[] b = RV.LocalReport.Render("PDF");
+
+
+                string path = Server.MapPath(DotNetNuke.Entities.Portals.PortalSettings.Current.HomeDirectory);
+                File.WriteAllBytes(path + "\\"+filename,b);
+            }
+        }
+
+        protected void GenerateC1()
+        {
+            RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC1.rdlc");
+
+            ConnectionDispensario.Modelos.Reporting.C1 C1 = new ConnectionDispensario.Modelos.Reporting.C1();
+
+            int PID = int.Parse(Request["PID"].ToString());
+            int UID = int.Parse(Request["UID"].ToString());
+            string Y = Request["Y"].ToString();
+            string MS = Request["MS"].ToString();
+            string ME = Request["ME"].ToString();
+            string DS = Request["DS"].ToString();
+            string DE = Request["DE"].ToString();
+            string HS = Request["HS"].ToString();
+            string HE = Request["HE"].ToString();
+            string Est = Request["EST"].ToString();
+
+            string datestart = Y + "-" + MS + "-" + DS + " " + HS + ":00:00";
+            string dateend = Y + "-" + ME + "-" + DE + " " + HE + ":00:00";
+
+
+
+            List<ConnectionDispensario.Modelos.Reporting.C1Item> LIST = C1.GetC1(DateTime.Parse(datestart), DateTime.Parse(dateend), int.Parse(Request["UID"].ToString()), "Finalizado");
+            if (LIST == null)
+            {
+                LIST = new List<ConnectionDispensario.Modelos.Reporting.C1Item>();
+            }
+            UserController UC = new UserController();
+            UserInfo UI = UC.GetUser(int.Parse(Request["PID"].ToString()), int.Parse(Request["UID"].ToString()));
+
+            ReportDataSource RDS = new ReportDataSource("DS1", LIST);
+            RV.LocalReport.DataSources.Add(RDS);
+
+            RV.LocalReport.SetParameters(new ReportParameter[] {
                     new ReportParameter("NombreMedico",UI.FirstName + " " + UI.LastName),
                     new ReportParameter("Establecimiento","Dispensario Municipal \"Dr. H Weihmuller\""),
                     new ReportParameter("Servicio",UI.Profile.GetPropertyValue("Puesto")),
@@ -84,18 +100,31 @@ namespace Christoc.Modules.Turnero
                     new ReportParameter("Total",(LIST.Count).ToString()),
                     new ReportParameter("TotalCtrlEmb",(C1.totalcontrolembarazo).ToString()),
                     new ReportParameter("Fecha", DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year)
-
-
-                });
-                
-                
-                RV.LocalReport.Refresh();
-                byte[] b = RV.LocalReport.Render("PDF");
-
-
-                string path = Server.MapPath(DotNetNuke.Entities.Portals.PortalSettings.Current.HomeDirectory);
-                File.WriteAllBytes(path + "\\"+filename,b);
-            }
+                    });
         }
+
+        protected void GenerateC2()
+        {
+            if (Request["servicio"] != null)
+            {
+                DotNetNuke.Entities.Portals.PortalController PC = new DotNetNuke.Entities.Portals.PortalController();
+                System.Collections.ArrayList AL = DotNetNuke.Entities.Users.UserController.GetUsers(0);
+
+                for (int A = 0; A < AL.Count; A++)
+                {
+                    DotNetNuke.Entities.Users.UserInfo UI = AL[A] as UserInfo;
+
+                    if (UI.IsInRole("Servicio:" + Request["servicio"]) == true)
+                    {
+
+
+
+                    }
+                }
+            }
+            
+            
+        }
+
     }
 }
