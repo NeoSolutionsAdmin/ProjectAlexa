@@ -158,7 +158,12 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
-
+        public DataTable GetDialyServices(int userid)
+        {
+            DispensarioACDataSet.SelectC1FromUserIdDataTable DT = new DispensarioACDataSet.SelectC1FromUserIdDataTable();
+            DispensarioACDataSetTableAdapters.SelectC1FromUserIdTableAdapter TA = new DispensarioACDataSetTableAdapters.SelectC1FromUserIdTableAdapter();
+            TA.Fill(DT, userid);
+        }
 
 
     }
