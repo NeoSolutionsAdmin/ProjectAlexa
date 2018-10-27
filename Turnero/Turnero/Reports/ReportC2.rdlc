@@ -4871,16 +4871,6 @@
             </Border>
           </Style>
         </PageHeader>
-        <PageFooter>
-          <Height>1.02444cm</Height>
-          <PrintOnFirstPage>true</PrintOnFirstPage>
-          <PrintOnLastPage>true</PrintOnLastPage>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </PageFooter>
         <PageHeight>21cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>
         <LeftMargin>2cm</LeftMargin>
