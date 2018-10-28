@@ -108,6 +108,7 @@
     <Compile Include="Modelos\APF.cs" />
     <Compile Include="Modelos\APP.cs" />
     <Compile Include="Modelos\Diente.cs" />
+    <Compile Include="Modelos\Reporting\C2.cs" />
     <Compile Include="Modelos\Riesgo.cs" />
     <Compile Include="Modelos\Toxicologia.cs" />
     <Compile Include="Modelos\Medicacion.cs" />

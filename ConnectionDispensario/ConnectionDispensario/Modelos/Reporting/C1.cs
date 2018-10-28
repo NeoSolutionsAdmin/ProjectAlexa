@@ -174,72 +174,8 @@ namespace ConnectionDispensario.Modelos.Reporting
 
 
     }
-
-    public class C2Item
-    {
-        int dia;
-        int horasAtencion;
-
-        int menor1m;
-        int menor1f;
-
-        int ano1m;
-        int ano1f;
-
-        int ano2a4m;
-        int ano2a4f;
-
-        int ano5a9m;
-        int ano5a9f;
-
-        int ano10a14m;
-        int ano10a14f;
-
-        int ano15a49m;
-        int ano15a49f;
-
-        int ano50ymasm;
-        int ano50ymasf;
-
-        int totalm;
-        int totalf;
-        int totalTotal;
-        int totalPregnant;
-
-        public int Dia { get => dia; set => dia = value; }
-        public int HorasAtencion { get => horasAtencion; set => horasAtencion = value; }
-        public int Menor1m { get => menor1m; set => menor1m = value; }
-        public int Menor1f { get => menor1f; set => menor1f = value; }
-        public int Ano1m { get => ano1m; set => ano1m = value; }
-        public int Ano1f { get => ano1f; set => ano1f = value; }
-        public int Ano2a4m { get => ano2a4m; set => ano2a4m = value; }
-        public int Ano2a4f { get => ano2a4f; set => ano2a4f = value; }
-        public int Ano5a9m { get => ano5a9m; set => ano5a9m = value; }
-        public int Ano5a9f { get => ano5a9f; set => ano5a9f = value; }
-        public int Ano10a14m { get => ano10a14m; set => ano10a14m = value; }
-        public int Ano10a14f { get => ano10a14f; set => ano10a14f = value; }
-        public int Ano15a49m { get => ano15a49m; set => ano15a49m = value; }
-        public int Ano15a49f { get => ano15a49f; set => ano15a49f = value; }
-        public int Ano50ymasm { get => ano50ymasm; set => ano50ymasm = value; }
-        public int Ano50ymasf { get => ano50ymasf; set => ano50ymasf = value; }
-
-        public int Totalm
-        {
-            get => menor1m + ano1m + ano2a4m + ano5a9m + ano10a14m + ano15a49m + ano50ymasm;
-            set => totalm = value;
-        }
-        public int Totalf
-        {
-            get => menor1f + ano1f + ano2a4f + ano5a9f + ano10a14f + ano15a49f + ano50ymasf;
-            set => totalf = value;
-        }
-        public int TotalTotal
-        {
-            get => totalm + totalf;
-            set => totalTotal = value;
-        }
-        public int TotalPregnant { get => totalPregnant; set => totalPregnant = value; }
-    }
+    
+    
 
     public class C1
     {
@@ -352,42 +288,5 @@ namespace ConnectionDispensario.Modelos.Reporting
         }
     }
 
-    public class C2
-    {
-        public int totalHsAtencion = 0;
-
-        public int totalmenor1m = 0;
-        public int totalmenor1f = 0;
-        public int totalmenor1 = 0;
-
-        public int total1anom = 0;
-        public int total1anof = 0;
-        public int total1ano = 0;
-
-        public int total2a4m = 0;
-        public int total2a4f = 0;
-        public int total2a4 = 0;
-
-        public int total5a9m = 0;
-        public int total5a9f = 0;
-        public int total5a9 = 0;
-
-        public int total10a14m = 0;
-        public int total10a14f = 0;
-        public int total10a14 = 0;
-
-        public int total15a49m = 0;
-        public int total15a49f = 0;
-        public int total15a49 = 0;
-
-        public int total50ymasm = 0;
-        public int total50ymasf = 0;
-        public int total50ymas = 0;
-
-        public int totalm = 0;
-        public int totalf = 0;
-        public int totalTotalTotal = 0;
-        public int totalPregnant = 0;
-
-    }
+    
 }
