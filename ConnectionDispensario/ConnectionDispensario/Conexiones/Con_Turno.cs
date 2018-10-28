@@ -158,11 +158,36 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
-        public DataTable GetDialyServices(int userid)
+        public DataTable GetallC1(int userid)
         {
             DispensarioACDataSet.SelectC1FromUserIdDataTable DT = new DispensarioACDataSet.SelectC1FromUserIdDataTable();
             DispensarioACDataSetTableAdapters.SelectC1FromUserIdTableAdapter TA = new DispensarioACDataSetTableAdapters.SelectC1FromUserIdTableAdapter();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            TA.Connection = SQLCONN;
             TA.Fill(DT, userid);
+            if (DT.Rows.Count > 0)
+            {
+                return DT;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool InsertC1(int UserId, DateTime fechac1, int CantHoras)
+        {
+            QTACustomizado QTA = new QTACustomizado();
+            int cant = QTA.InsertRegistroC1(UserId, CantHoras, Utils.Conversiones.SQL_To_FullString_DateTime(DateTime.Now));
+            if (cant == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
