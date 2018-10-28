@@ -203,6 +203,7 @@ namespace ConnectionDispensario.Modelos.Reporting
         public List<C1Item> GetC1(DateTime Start, DateTime End, int Iduser, string estado)
         {
             List<Turno> T = Modelos.Turno.GetTurnosByPeriod(Start, End, Iduser, estado);
+            
             int count = 0;
 
             if (T != null)

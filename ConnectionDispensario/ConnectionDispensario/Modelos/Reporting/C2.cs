@@ -75,60 +75,38 @@ namespace ConnectionDispensario.Modelos.Reporting
 
     public class C2
     {
-        public int totalHsAtencion = 0;
+        public List<int> HorasAtencionPorDia;
 
-        public int totalmenor1m = 0;
-        public int totalmenor1f = 0;
-        public int totalmenor1 = 0;
-
-        public int total1anom = 0;
-        public int total1anof = 0;
-        public int total1ano = 0;
-
-        public int total2a4m = 0;
-        public int total2a4f = 0;
-        public int total2a4 = 0;
-
-        public int total5a9m = 0;
-        public int total5a9f = 0;
-        public int total5a9 = 0;
-
-        public int total10a14m = 0;
-        public int total10a14f = 0;
-        public int total10a14 = 0;
-
-        public int total15a49m = 0;
-        public int total15a49f = 0;
-        public int total15a49 = 0;
-
-        public int total50ymasm = 0;
-        public int total50ymasf = 0;
-        public int total50ymas = 0;
-
-        public int totalm = 0;
-        public int totalf = 0;
-        public int totalTotalTotal = 0;
-        public int totalPregnant = 0;
+        public List<C1Item> ItemsDeC1;
 
         public C2(int UserId)
         {
             int cantidadDiaMes = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
             C1 c1 = new C1();
-            c1.GetC1(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), new DateTime(DateTime.Now.Year, DateTime.Now.Month, cantidadDiaMes), UserId ,"Finalizado");
+            ItemsDeC1 = c1.GetC1(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), new DateTime(DateTime.Now.Year, DateTime.Now.Month, cantidadDiaMes).AddHours(23), UserId ,"Finalizado");
             int totalhsatencion = 0;
             Conexiones.Con_Turno T = new Conexiones.Con_Turno();
             DataTable DT =  T.GetallC1(UserId);
             List<int> HorasPorDia = new List<int>();
             for (int a = 0; a < cantidadDiaMes; a++)
             {
+                HorasPorDia.Add(0);
                 for (int b = 0; b < DT.Rows.Count;b++)
                 {
                     DateTime fechac1 = DateTime.Parse(DT.Rows[a]["fechaC1"].ToString());
                     int canthor = int.Parse(DT.Rows[a]["CantidadHoras"].ToString());
-                    if ()
+                    if (fechac1.Month == DateTime.Now.Month)
+                    {
+                        HorasPorDia[HorasPorDia.Count - 1] = HorasPorDia[HorasPorDia.Count - 1] + canthor;
+                    }
 
                 }
             }
+
+            
+            
+            
+
         }
 
     }

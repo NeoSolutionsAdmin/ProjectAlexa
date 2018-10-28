@@ -56,6 +56,10 @@ namespace Christoc.Modules.Turnero
 
 
             List<ConnectionDispensario.Modelos.Reporting.C1Item> LIST = C1.GetC1(DateTime.Parse(datestart), DateTime.Parse(dateend), int.Parse(Request["UID"].ToString()), "Finalizado");
+            ConnectionDispensario.Conexiones.Con_Turno CT = new ConnectionDispensario.Conexiones.Con_Turno();
+            ;
+            CT.InsertC1(UID,DateTime.Now, (DateTime.Parse(dateend)-DateTime.Parse(dateend)).Hours);
+
             if (LIST == null)
             {
                 LIST = new List<ConnectionDispensario.Modelos.Reporting.C1Item>();
