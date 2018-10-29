@@ -30,6 +30,7 @@ namespace Christoc.Modules.Turnero
 
                 string path = Server.MapPath(DotNetNuke.Entities.Portals.PortalSettings.Current.HomeDirectory);
                 File.WriteAllBytes(path + "\\"+filename,b);
+                Response.Redirect("/Portals/0/"+filename);
             }
         }
 
@@ -109,25 +110,83 @@ namespace Christoc.Modules.Turnero
 
         protected void GenerateC2()
         {
+            RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC2.rdlc");
+            List<ConnectionDispensario.Modelos.Reporting.C2Item> itemsC2 = new List<ConnectionDispensario.Modelos.Reporting.C2Item>();
+
+            //Buscar dentro de los usuarios que cumplan con el servicio
             if (Request["servicio"] != null)
             {
-                DotNetNuke.Entities.Portals.PortalController PC = new DotNetNuke.Entities.Portals.PortalController();
+                //DotNetNuke.Entities.Portals.PortalController PC = new DotNetNuke.Entities.Portals.PortalController();
                 System.Collections.ArrayList AL = DotNetNuke.Entities.Users.UserController.GetUsers(0);
 
-                for (int A = 0; A < AL.Count; A++)
+                for (int dia = 0; dia < DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); dia++)
                 {
-                    DotNetNuke.Entities.Users.UserInfo UI = AL[A] as UserInfo;
-
-                    if (UI.IsInRole("Servicio:" + Request["servicio"]) == true)
+                    itemsC2.Add(new ConnectionDispensario.Modelos.Reporting.C2Item());
+                    itemsC2[dia].Dia = dia + 1;
+                    for (int A = 0; A < AL.Count; A++)
                     {
+                        DotNetNuke.Entities.Users.UserInfo UI = AL[A] as UserInfo;
 
+                        if (UI.IsInRole("Servicio:" + Request["servicio"]) == true)
+                        {
+                            ConnectionDispensario.Modelos.Reporting.C2 datosTemp = new ConnectionDispensario.Modelos.Reporting.C2(UI.UserID);
 
+                            itemsC2[dia].HorasAtencion += datosTemp.HorasAtencionPorDia[dia];
 
+                            //Consiguiendo datos de la C1 del usuario A
+                            if (datosTemp.ItemsDeC1 != null)
+                            {
+                                for (int i = 0; i < datosTemp.ItemsDeC1.Count; i++)
+                                {
+                                    if (dia + 1 == datosTemp.ItemsDeC1[i].FechaDeAtencion.Day)
+                                    {
+                                        if (datosTemp.ItemsDeC1[i].Menor1f == "X") itemsC2[dia].Menor1f++;
+                                        if (datosTemp.ItemsDeC1[i].Menor1m == "X") itemsC2[dia].Menor1m++;
+
+                                        if (datosTemp.ItemsDeC1[i].Ano1f == "X") itemsC2[dia].Ano1f++;
+                                        if (datosTemp.ItemsDeC1[i].Ano1m == "X") itemsC2[dia].Ano1m++;
+
+                                        if (datosTemp.ItemsDeC1[i].Ano2a4f == "X") itemsC2[dia].Ano2a4f++;
+                                        if (datosTemp.ItemsDeC1[i].Ano2a4m == "X") itemsC2[dia].Ano2a4m++;
+
+                                        if (datosTemp.ItemsDeC1[i].Ano5a9f == "X") itemsC2[dia].Ano5a9f++;
+                                        if (datosTemp.ItemsDeC1[i].Ano5a9m == "X") itemsC2[dia].Ano5a9m++;
+
+                                        if (datosTemp.ItemsDeC1[i].Ano10a14f == "X") itemsC2[dia].Ano10a14f++;
+                                        if (datosTemp.ItemsDeC1[i].Ano10a14m == "X") itemsC2[dia].Ano10a14m++;
+
+                                        if (datosTemp.ItemsDeC1[i].Ano15a49f == "X") itemsC2[dia].Ano15a49f++;
+                                        if (datosTemp.ItemsDeC1[i].Ano15a49m == "X") itemsC2[dia].Ano15a49m++;
+
+                                        if (datosTemp.ItemsDeC1[i].Ano50ymasf == "X") itemsC2[dia].Ano50ymasf++;
+                                        if (datosTemp.ItemsDeC1[i].Ano50ymasm == "X") itemsC2[dia].Ano50ymasf++;
+
+                                        if (datosTemp.ItemsDeC1[i].Controlembarazo == "X") itemsC2[dia].TotalPregnant++;
+                                    }
+
+                                }
+                            }
+
+                        }
                     }
+
                 }
+
             }
-            
-            
+
+            ReportDataSource RDS = new ReportDataSource("DataSetC2", itemsC2);
+            RV.LocalReport.DataSources.Add(RDS);
+            RV.LocalReport.SetParameters(new ReportParameter[] {
+                    new ReportParameter("Establecimiento","Dispensario Municipal \"Dr. H Weihmuller\""),
+                    new ReportParameter("Departamento", "LosheyHouse"),
+                    new ReportParameter("NombreServicio",Request["servicio"].ToString()),
+                    new ReportParameter("CodigoEstablecimiento","4200026"),
+                    new ReportParameter("CodigoServicio","..."),
+                    new ReportParameter("Mes", DateTime.Today.Month.ToString() ),
+                    new ReportParameter("Anio", DateTime.Today.Year.ToString() )
+                    
+            });
+
         }
 
     }

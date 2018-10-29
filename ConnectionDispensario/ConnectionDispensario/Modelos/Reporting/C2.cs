@@ -67,7 +67,8 @@ namespace ConnectionDispensario.Modelos.Reporting
         }
         public int TotalTotal
         {
-            get => totalm + totalf;
+            get => menor1m + ano1m + ano2a4m + ano5a9m + ano10a14m + ano15a49m + ano50ymasm
+                        + menor1f + ano1f + ano2a4f + ano5a9f + ano10a14f + ano15a49f + ano50ymasf;
             set => totalTotal = value;
         }
         public int TotalPregnant { get => totalPregnant; set => totalPregnant = value; }
@@ -75,9 +76,11 @@ namespace ConnectionDispensario.Modelos.Reporting
 
     public class C2
     {
-        public List<int> HorasAtencionPorDia;
+        public C2() { }
+        public List<int> HorasAtencionPorDia = new List<int>();
 
-        public List<C1Item> ItemsDeC1;
+        public List<C1Item> ItemsDeC1 = new List<C1Item>();
+        public List<C2Item> GetC2() { return null; }
 
         public C2(int UserId)
         {
@@ -90,18 +93,22 @@ namespace ConnectionDispensario.Modelos.Reporting
             List<int> HorasPorDia = new List<int>();
             for (int a = 0; a < cantidadDiaMes; a++)
             {
+
                 HorasPorDia.Add(0);
+                if (DT != null) { 
                 for (int b = 0; b < DT.Rows.Count;b++)
                 {
-                    DateTime fechac1 = DateTime.Parse(DT.Rows[a]["fechaC1"].ToString());
-                    int canthor = int.Parse(DT.Rows[a]["CantidadHoras"].ToString());
-                    if (fechac1.Month == DateTime.Now.Month)
+                    DateTime fechac1 = DateTime.Parse(DT.Rows[b]["fechaC1"].ToString());
+                    int canthor = int.Parse(DT.Rows[b]["CantidadHoras"].ToString());
+                    if (fechac1.Month == DateTime.Now.Month && fechac1.Day == a+1)
                     {
                         HorasPorDia[HorasPorDia.Count - 1] = HorasPorDia[HorasPorDia.Count - 1] + canthor;
                     }
 
+                    }
                 }
             }
+            HorasAtencionPorDia = HorasPorDia;
 
             
             
