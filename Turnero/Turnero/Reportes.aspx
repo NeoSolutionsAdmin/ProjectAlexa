@@ -16,8 +16,17 @@
         <input type="hidden" id="filenamefield" runat="server" value="">
     </form>
     <script>    
-        archivo = $("#filenamefield").val()
-        window.location.href = "/Portals/0/" + archivo;
+    /*    archivo = $("#filenamefield").val()
+        window.location.href = "/Portals/0/" + archivo;*/
     </script>
+    <% 
+    for (int a = 0; a < Session.Count; a++)
+    {
+        string key = Session.Keys[a];
+        string value = Session[a].ToString();
+        Response.Write("<p>" + key + ":" + value + "</p>");
+    }
+
+    %>
 </body>
 </html>

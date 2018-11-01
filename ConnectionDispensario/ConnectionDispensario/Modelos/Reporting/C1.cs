@@ -283,6 +283,8 @@ namespace ConnectionDispensario.Modelos.Reporting
                     }
                    
                 }
+                
+
                 return C1List;
             }
             else 

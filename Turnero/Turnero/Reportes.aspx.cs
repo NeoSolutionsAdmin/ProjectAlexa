@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using ConnectionDispensario.Modelos.Reporting;
 
 namespace Christoc.Modules.Turnero
 {
@@ -16,21 +17,30 @@ namespace Christoc.Modules.Turnero
         {
             filenamefield.ClientIDMode = ClientIDMode.Static;
 
-            if (!IsPostBack) 
+            if (!IsPostBack)
             {
                 string filename = Guid.NewGuid().ToString() + ".pdf";
                 filenamefield.Value = filename;
+                bool Validate = true;
+                if (Request["C1"] == null && Request["C2"] == null && Request["C3"] == null)
+                {
+                    Validate = false;
+                }
                 if (Request["C1"] != null) GenerateC1();
                 if (Request["C2"] != null) GenerateC2();
+                if (Request["C3"] != null) GenerateC3();
+
+                if (Validate == true)
+                {
+                    RV.LocalReport.Refresh();
+                    byte[] b = RV.LocalReport.Render("PDF");
 
 
-                RV.LocalReport.Refresh();
-                byte[] b = RV.LocalReport.Render("PDF");
+                    string path = Server.MapPath(DotNetNuke.Entities.Portals.PortalSettings.Current.HomeDirectory);
+                    File.WriteAllBytes(path + "\\" + filename, b);
+                }
+                Response.Redirect("/Portals/0/" + filename);
 
-
-                string path = Server.MapPath(DotNetNuke.Entities.Portals.PortalSettings.Current.HomeDirectory);
-                File.WriteAllBytes(path + "\\"+filename,b);
-                Response.Redirect("/Portals/0/"+filename);
             }
         }
 
@@ -54,12 +64,16 @@ namespace Christoc.Modules.Turnero
             string datestart = Y + "-" + MS + "-" + DS + " " + HS + ":00:00";
             string dateend = Y + "-" + ME + "-" + DE + " " + HE + ":00:00";
 
-
+            ConnectionDispensario.Conexiones.Con_Turno Conturn = new ConnectionDispensario.Conexiones.Con_Turno();
+            TimeSpan TS = DateTime.Parse(datestart) - DateTime.Parse(dateend);
+            int hour = Convert.ToInt32(decimal.Parse(TS.TotalHours.ToString()));
+            if (hour < 0) hour = hour * -1;
+            Conturn.InsertC1(UID, DateTime.Now, hour);
 
             List<ConnectionDispensario.Modelos.Reporting.C1Item> LIST = C1.GetC1(DateTime.Parse(datestart), DateTime.Parse(dateend), int.Parse(Request["UID"].ToString()), "Finalizado");
             ConnectionDispensario.Conexiones.Con_Turno CT = new ConnectionDispensario.Conexiones.Con_Turno();
-            ;
-            CT.InsertC1(UID,DateTime.Now, (DateTime.Parse(dateend)-DateTime.Parse(dateend)).Hours);
+            
+            
 
             if (LIST == null)
             {
@@ -108,6 +122,23 @@ namespace Christoc.Modules.Turnero
                     });
         }
 
+        protected void GenerateC3()
+        {
+
+
+            RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC3.rdlc");
+            List<ConnectionDispensario.Modelos.Reporting.C3Item> itemsC3 = new C3().GetC3();
+            ReportDataSource RDS = new ReportDataSource("DataSetC3", itemsC3);
+            RV.LocalReport.SetParameters(new ReportParameter[] {
+                    new ReportParameter("ano",DateTime.Now.Year.ToString()),
+                    new ReportParameter("mes",DateTime.Now.Month.ToString()),
+            new ReportParameter("ResponsableLlenado","____________________"),
+            new ReportParameter("Fecha",DateTime.Now.Day.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Year.ToString())});
+            RV.LocalReport.DataSources.Add(RDS);
+
+
+        }
+
         protected void GenerateC2()
         {
             RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC2.rdlc");
@@ -123,50 +154,55 @@ namespace Christoc.Modules.Turnero
                 {
                     itemsC2.Add(new ConnectionDispensario.Modelos.Reporting.C2Item());
                     itemsC2[dia].Dia = dia + 1;
-                    for (int A = 0; A < AL.Count; A++)
+                    if (AL != null && itemsC2!=null)
                     {
-                        DotNetNuke.Entities.Users.UserInfo UI = AL[A] as UserInfo;
-
-                        if (UI.IsInRole("Servicio:" + Request["servicio"]) == true)
+                        for (int A = 0; A < AL.Count; A++)
                         {
-                            ConnectionDispensario.Modelos.Reporting.C2 datosTemp = new ConnectionDispensario.Modelos.Reporting.C2(UI.UserID);
+                            DotNetNuke.Entities.Users.UserInfo UI = AL[A] as UserInfo;
 
-                            itemsC2[dia].HorasAtencion += datosTemp.HorasAtencionPorDia[dia];
-
-                            //Consiguiendo datos de la C1 del usuario A
-                            if (datosTemp.ItemsDeC1 != null)
+                            if (UI.IsInRole("Servicio:" + Request["servicio"]) == true)
                             {
-                                for (int i = 0; i < datosTemp.ItemsDeC1.Count; i++)
+                                ConnectionDispensario.Modelos.Reporting.C2 datosTemp = new ConnectionDispensario.Modelos.Reporting.C2(UI.UserID);
+
+                                itemsC2[dia].HorasAtencion += datosTemp.HorasAtencionPorDia[dia];
+
+                                //Consiguiendo datos de la C1 del usuario A
+                                if (datosTemp.ItemsDeC1 != null)
                                 {
-                                    if (dia + 1 == datosTemp.ItemsDeC1[i].FechaDeAtencion.Day)
+                                    for (int i = 0; i < datosTemp.ItemsDeC1.Count; i++)
                                     {
-                                        if (datosTemp.ItemsDeC1[i].Menor1f == "X") itemsC2[dia].Menor1f++;
-                                        if (datosTemp.ItemsDeC1[i].Menor1m == "X") itemsC2[dia].Menor1m++;
+                                        if (dia + 1 == datosTemp.ItemsDeC1[i].FechaDeAtencion.Day)
+                                        {
+                                            if (datosTemp.ItemsDeC1[i].Menor1f == "X") itemsC2[dia].Menor1f++;
+                                            if (datosTemp.ItemsDeC1[i].Menor1m == "X") itemsC2[dia].Menor1m++;
 
-                                        if (datosTemp.ItemsDeC1[i].Ano1f == "X") itemsC2[dia].Ano1f++;
-                                        if (datosTemp.ItemsDeC1[i].Ano1m == "X") itemsC2[dia].Ano1m++;
+                                            if (datosTemp.ItemsDeC1[i].Ano1f == "X") itemsC2[dia].Ano1f++;
+                                            if (datosTemp.ItemsDeC1[i].Ano1m == "X") itemsC2[dia].Ano1m++;
 
-                                        if (datosTemp.ItemsDeC1[i].Ano2a4f == "X") itemsC2[dia].Ano2a4f++;
-                                        if (datosTemp.ItemsDeC1[i].Ano2a4m == "X") itemsC2[dia].Ano2a4m++;
+                                            if (datosTemp.ItemsDeC1[i].Ano2a4f == "X") itemsC2[dia].Ano2a4f++;
+                                            if (datosTemp.ItemsDeC1[i].Ano2a4m == "X") itemsC2[dia].Ano2a4m++;
 
-                                        if (datosTemp.ItemsDeC1[i].Ano5a9f == "X") itemsC2[dia].Ano5a9f++;
-                                        if (datosTemp.ItemsDeC1[i].Ano5a9m == "X") itemsC2[dia].Ano5a9m++;
+                                            if (datosTemp.ItemsDeC1[i].Ano5a9f == "X") itemsC2[dia].Ano5a9f++;
+                                            if (datosTemp.ItemsDeC1[i].Ano5a9m == "X") itemsC2[dia].Ano5a9m++;
 
-                                        if (datosTemp.ItemsDeC1[i].Ano10a14f == "X") itemsC2[dia].Ano10a14f++;
-                                        if (datosTemp.ItemsDeC1[i].Ano10a14m == "X") itemsC2[dia].Ano10a14m++;
+                                            if (datosTemp.ItemsDeC1[i].Ano10a14f == "X") itemsC2[dia].Ano10a14f++;
+                                            if (datosTemp.ItemsDeC1[i].Ano10a14m == "X") itemsC2[dia].Ano10a14m++;
 
-                                        if (datosTemp.ItemsDeC1[i].Ano15a49f == "X") itemsC2[dia].Ano15a49f++;
-                                        if (datosTemp.ItemsDeC1[i].Ano15a49m == "X") itemsC2[dia].Ano15a49m++;
+                                            if (datosTemp.ItemsDeC1[i].Ano15a49f == "X") itemsC2[dia].Ano15a49f++;
+                                            if (datosTemp.ItemsDeC1[i].Ano15a49m == "X") itemsC2[dia].Ano15a49m++;
 
-                                        if (datosTemp.ItemsDeC1[i].Ano50ymasf == "X") itemsC2[dia].Ano50ymasf++;
-                                        if (datosTemp.ItemsDeC1[i].Ano50ymasm == "X") itemsC2[dia].Ano50ymasf++;
+                                            if (datosTemp.ItemsDeC1[i].Ano50ymasf == "X") itemsC2[dia].Ano50ymasf++;
+                                            if (datosTemp.ItemsDeC1[i].Ano50ymasm == "X") itemsC2[dia].Ano50ymasf++;
 
-                                        if (datosTemp.ItemsDeC1[i].Controlembarazo == "X") itemsC2[dia].TotalPregnant++;
+
+
+                                            if (datosTemp.ItemsDeC1[i].Controlembarazo == "X") itemsC2[dia].TotalPregnant++;
+                                        }
+
                                     }
-
                                 }
-                            }
 
+                            }
                         }
                     }
 
@@ -178,13 +214,13 @@ namespace Christoc.Modules.Turnero
             RV.LocalReport.DataSources.Add(RDS);
             RV.LocalReport.SetParameters(new ReportParameter[] {
                     new ReportParameter("Establecimiento","Dispensario Municipal \"Dr. H Weihmuller\""),
-                    new ReportParameter("Departamento", "LosheyHouse"),
+                    new ReportParameter("Departamento", "Gral. San Martin"),
                     new ReportParameter("NombreServicio",Request["servicio"].ToString()),
                     new ReportParameter("CodigoEstablecimiento","4200026"),
                     new ReportParameter("CodigoServicio","..."),
                     new ReportParameter("Mes", DateTime.Today.Month.ToString() ),
                     new ReportParameter("Anio", DateTime.Today.Year.ToString() )
-                    
+
             });
 
         }

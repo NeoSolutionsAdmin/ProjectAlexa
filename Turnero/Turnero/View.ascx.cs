@@ -148,7 +148,7 @@ namespace Christoc.Modules.Turnero
             int HS = int.Parse(HoraStart.SelectedItem.Text);
             int HE = int.Parse(HoraEnd.SelectedItem.Text);
             string Establecimiento = lstEstablecimiento.SelectedValue;
-            string parameters = "IDP=" + PortalId.ToString()
+            string parameters = "C1=1&IDP=" + PortalId.ToString()
                 + "&UID=" + UserId.ToString()
                 + "&PID=" + PortalId.ToString()
                 + "&Y=" + AÑO.ToString()
