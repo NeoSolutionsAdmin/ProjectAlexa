@@ -190,9 +190,9 @@
                 if (CT.Count != 0)
                 {
 
-                    
+
                     Response.Write("<tr>");
-                    
+
                     Response.Write("<th>Nro.</th>");
                     Response.Write("<th>Nombre</th>");
                     Response.Write("<th>Estado</th>");
@@ -202,28 +202,37 @@
                     Response.Write("<th>Accion</th>");
                     Response.Write("</tr>");
 
+                    List<Turno> NewList = new List<Turno>();
 
                     for (int a = CT.Count - 1; a > -1; a--)
                     {
+                        NewList.Add(CT[a]);
+                    }
 
-                        string Class = CT[a].Esstado;
+                    int limit = 0;
+                    if (NewList.Count < 20) limit = NewList.Count; else limit = 30;
+
+                    for (int a = 0;a<limit;a++)
+                    {
+
+                        string Class = NewList[a].Esstado;
                         Response.Write("<tr class=' CLS" + Class + "'>");
 
 
-                        Response.Write("<td>" + CT[a].IDT.ToString() + "</td>");
+                        Response.Write("<td>" + NewList[a].IDT.ToString() + "</td>");
                         if (CT[a].Pac != null)
                         {
-                            Response.Write("<td>" + CT[a].Pac.APELLIDO + " " + CT[a].Pac.NOMBRE + "</td>");
+                            Response.Write("<td>" + NewList[a].Pac.APELLIDO + " " + NewList[a].Pac.NOMBRE + "</td>");
                         }
-                        else 
+                        else
                         {
                             Response.Write("<td style=\"color:red;font-weight:bolder\"> Paciente inexistente en la base de datos </td>");
                         }
-                        Response.Write("<td>" + CT[a].Esstado + "</td>");
-                        Response.Write("<td>" + CT[a].FechaRecepcion.ToString() + "</td>");
-                        if (CT[a].Esstado == "Progreso" || CT[a].Esstado == "Finalizado")
+                        Response.Write("<td>" + NewList[a].Esstado + "</td>");
+                        Response.Write("<td>" + NewList[a].FechaRecepcion.ToString() + "</td>");
+                        if (NewList[a].Esstado == "Progreso" || NewList[a].Esstado == "Finalizado")
                         {
-                            Response.Write("<td>" + CT[a].FechaComienzo.ToString() + "</td>");
+                            Response.Write("<td>" + NewList[a].FechaComienzo.ToString() + "</td>");
                         }
                         else
                         {
@@ -231,9 +240,9 @@
                         }
 
 
-                        if (CT[a].Esstado == "Finalizado")
+                        if (NewList[a].Esstado == "Finalizado")
                         {
-                            Response.Write("<td>" + CT[a].FechaFinal.ToString() + "</td>");
+                            Response.Write("<td>" + NewList[a].FechaFinal.ToString() + "</td>");
                         }
                         else
                         {
@@ -243,23 +252,23 @@
 
 
                         Response.Write("<td>");
-                        switch (CT[a].Esstado)
+                        switch (NewList[a].Esstado)
                         {
-                            case "Espera": Response.Write("<input type='button' value='Ingresar' onclick='Ingresar(" + CT[a].IDT + ")'/>");
-                                Response.Write("<input type='button' value='Cancelar' onclick='Cancelar(" + CT[a].IDT + ")'/>");
+                            case "Espera": Response.Write("<input type='button' value='Ingresar' onclick='Ingresar(" + NewList[a].IDT + ")'/>");
+                                Response.Write("<input type='button' value='Cancelar' onclick='Cancelar(" + NewList[a].IDT + ")'/>");
                                 break;
                             case "Progreso":
-                                Response.Write("<input type='button' value='Finalizar' onclick='Finalizar(" + CT[a].IDT + ")'/>");
+                                Response.Write("<input type='button' value='Finalizar' onclick='Finalizar(" + NewList[a].IDT + ")'/>");
                                 break;
 
                             case "Finalizado":
-                                if (CT[a].DiagnosticoFinal == null)
+                                if (NewList[a].DiagnosticoFinal == null)
                                 {
-                                    Response.Write("<input type='button' value='Ins. Diagnostico' onclick='InsertarDiagnosticoFinal(" + CT[a].IDT + ",\"" + CT[a].Pac.NOMBRE + " " + CT[a].Pac.APELLIDO + "\")'/>");
+                                    Response.Write("<input type='button' value='Ins. Diagnostico' onclick='InsertarDiagnosticoFinal(" + NewList[a].IDT + ",\"" + NewList[a].Pac.NOMBRE + " " + NewList[a].Pac.APELLIDO + "\")'/>");
                                 }
                                 else
                                 {
-                                    Response.Write("<b>" + CT[a].DiagnosticoFinal + "</b>");
+                                    Response.Write("<b>" + NewList[a].DiagnosticoFinal + "</b>");
                                 }
                                 /*Response.Write("<input type='button' value='Derivar'/>");
                                 */
