@@ -45,8 +45,39 @@ namespace Christoc.Modules.Turnero
             Response.Redirect("/Turnos");
         }
 
+        private void PreparacionDeJornada()
+        {
+            Jornada J = Jornada.GetLast(UserId);
+            if (J != null)
+            {
+                if (J.End != null)
+                {
+                    StartJornada.Visible = true;
+                    Session.Remove("EstadoJornada");
+                    //tablaturnos.Visible = false;
+                    EndJornada.Visible = false;
+                }
+                else
+                {
+                    EndJornada.Visible = true;
+                    //tablaturnos.Visible = true;
+                    StartJornada.Visible = false;
+                    Session.Add("EstadoJornada", "Activa");
+                }
+            }
+            else
+            {
+                //tablaturnos.Visible = false;
+                EndJornada.Visible = false;
+                StartJornada.Visible = true;
+                Session.Remove("EstadoJornada");
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            PreparacionDeJornada();
 
             Turno T = null;
             if (Request["IDT"] != null) 
@@ -161,6 +192,42 @@ namespace Christoc.Modules.Turnero
                 + "&EST=" + Establecimiento;
             Response.Redirect("/DesktopModules/Turnero/Reportes.aspx?" + parameters);
 
+        }
+
+        protected void StartJornada_Click(object sender, EventArgs e)
+        {
+            Jornada.Insert(UserId);
+            Response.Redirect("/Turnos");
+        }
+
+        protected void EndJornada_Click(object sender, EventArgs e)
+        {
+            Jornada J = Jornada.GetLast(UserId);
+            J.ExitJornada();
+            int DS = J.Start.Day;
+            int DE = J.End.Value.Day;
+            int MESS = J.Start.Month;
+            int MESE = J.End.Value.Month;
+            int AÑO = J.Start.Year;
+            int HS = J.Start.Hour;
+            int HE = J.End.Value.Hour;
+            int MinStart = J.Start.Minute;
+            int MinEnd = J.End.Value.Minute;
+            string Establecimiento = lstEstablecimiento.SelectedValue;
+            string parameters = "C1=1&IDP=" + PortalId.ToString()
+                + "&UID=" + UserId.ToString()
+                + "&PID=" + PortalId.ToString()
+                + "&Y=" + AÑO.ToString()
+                + "&MS=" + MESS.ToString()
+                + "&ME=" + MESE.ToString()
+                + "&DS=" + DS.ToString()
+                + "&DE=" + DE.ToString()
+                + "&HS=" + HS.ToString()
+                + "&HE=" + HE.ToString()
+                + "&MinStart=" + MinStart.ToString()
+                + "&MinEnd=" + MinEnd.ToString()
+                + "&EST=" + Establecimiento;
+            Response.Redirect("/DesktopModules/Turnero/Reportes.aspx?" + parameters);
         }
     }
 }

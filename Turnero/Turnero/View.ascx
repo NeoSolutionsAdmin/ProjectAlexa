@@ -1,6 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.Turnero.View" %>
 <%@ Import Namespace="ConnectionDispensario.Modelos" %>
-<input type="button" id="C1Button" value="C1" onclick="abrirC1Form()" />
+
+<!--<input type="button" id="C1Button" value="C1" onclick="abrirC1Form()" />!-->
+
+<asp:Button runat="server" Text="COMENZAR JORNADA" ID="StartJornada" OnClick="StartJornada_Click" /><asp:Button runat="server" Text="FINALIZAR JORNADA" OnClick="EndJornada_Click" ID="EndJornada" />
+<!--
 <div id="C1Form" style="text-align: right;
 	max-width: 300px;
 	background-color: #EEEEFF;
@@ -178,12 +182,12 @@
     <br />
     <asp:Button ID="ImprimirC1" runat="server" Text="Imprimir C1" OnClick="ImprimirC1_Click" /> 
     <input type="button" value="cerrar" onclick="cerrarC1Form()"  />
-</div>
-<table class="TablaTurnos">
+</div>!-->
+<table class="TablaTurnos" id="tablaturnos">
     <tbody>
         <%
             string SessionTurnos = "SessionTurnos";
-            if (Session[SessionTurnos] != null)
+            if (Session[SessionTurnos] != null && Session["EstadoJornada"]!=null)
             {
 
                 List<Turno> CT = (List<Turno>)Session[SessionTurnos];
@@ -288,7 +292,13 @@
             }
             else
             {
+                if (Session["EstadoJornada"] == null) {
+                    Response.Write("Debe Comenzar una jornada para ver el turnero...");
+                } else {
 
+                    if (Session[SessionTurnos] == null) Response.Write("Usted no posee turnos.");
+
+                }
             }
         %>
     </tbody>
@@ -309,6 +319,33 @@
 </div>
 <asp:HiddenField ID="HF_IDT" runat="server" ClientIDMode="Static"/>
 <script>
+
+
+    $("#txtDiagnostico").bind("keydown", function (e)
+    {
+        if (e.keyCode == 13) { //if this is enter key
+            e.preventDefault();
+            return false;
+        } else
+        {
+            return true;
+        }
+    })
+
+    $("#chkControlEmbarazo").bind("keydown", function (e)
+    {
+        if (e.keyCode == 13) { //if this is enter key
+            e.preventDefault();
+            return false;
+        } else
+        {
+            return true;
+        }
+    })
+
+
+    
+
     //http://192.168.1.100/DesktopModules/Turnero/C1.aspx?IDU=5&IDP=0&Y=2017&M=3&DS=1&DE=26&HS=1&HE=23&P=0
     var dlg = $('#frmDiagnostico').dialog(
         {

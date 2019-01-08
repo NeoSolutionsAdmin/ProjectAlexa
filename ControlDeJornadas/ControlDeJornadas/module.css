@@ -1,0 +1,32 @@
+.roundProfilePicture {
+    border-radius:128px;
+    width:128px;
+    height:128px;
+    overflow:hidden;
+    float:left;
+}
+.DataProfile {
+    width:150px;
+    float:left;
+}
+
+.NewTableStyle tr {
+    background-color: #ececec;
+    border-bottom: 1px solid #a3bca7;
+    font-family: 'Roboto', sans-serif;
+}
+
+.UserContainer {
+    display: block;
+    overflow: hidden;
+    height: 200px;
+    margin-top: 30px;
+    
+}
+
+.NonDataCell {
+    background-color: red;
+    height: 10px;
+    display: inline-block;
+    width: 100%;
+}

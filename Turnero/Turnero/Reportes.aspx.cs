@@ -59,16 +59,20 @@ namespace Christoc.Modules.Turnero
             string DE = Request["DE"].ToString();
             string HS = Request["HS"].ToString();
             string HE = Request["HE"].ToString();
+            string MinStart = Request["MinStart"].ToString();
+            string MinEnd = Request["MinEnd"].ToString();
             string Est = Request["EST"].ToString();
 
-            string datestart = Y + "-" + MS + "-" + DS + " " + HS + ":00:00";
-            string dateend = Y + "-" + ME + "-" + DE + " " + HE + ":00:00";
+            string datestart = Y + "-" + MS + "-" + DS + " " + HS + ":" + MinStart +  ":00";
+            string dateend = Y + "-" + ME + "-" + DE + " " + HE + ":" + MinEnd + ":00";
 
             ConnectionDispensario.Conexiones.Con_Turno Conturn = new ConnectionDispensario.Conexiones.Con_Turno();
             TimeSpan TS = DateTime.Parse(datestart) - DateTime.Parse(dateend);
             int hour = Convert.ToInt32(decimal.Parse(TS.TotalHours.ToString()));
             if (hour < 0) hour = hour * -1;
             Conturn.InsertC1(UID, DateTime.Now, hour);
+
+
 
             List<ConnectionDispensario.Modelos.Reporting.C1Item> LIST = C1.GetC1(DateTime.Parse(datestart), DateTime.Parse(dateend), int.Parse(Request["UID"].ToString()), "Finalizado");
             ConnectionDispensario.Conexiones.Con_Turno CT = new ConnectionDispensario.Conexiones.Con_Turno();

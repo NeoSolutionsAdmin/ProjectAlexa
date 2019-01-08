@@ -1,0 +1,119 @@
+﻿/*
+' Copyright (c) 2018  Christoc.com
+'  All rights reserved.
+' 
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+' TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+' THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+' CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+' DEALINGS IN THE SOFTWARE.
+' 
+*/
+
+using System;
+using DotNetNuke.Security;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Modules.Actions;
+using DotNetNuke.Services.Localization;
+using System.Collections.Generic;
+using DotNetNuke.Entities.Users;
+using ConnectionDispensario.Modelos;
+
+namespace Christoc.Modules.ControlDeJornadas
+{
+    /// -----------------------------------------------------------------------------
+    /// <summary>
+    /// The View class displays the content
+    /// 
+    /// Typically your view control would be used to display content or functionality in your module.
+    /// 
+    /// View may be the only control you have in your project depending on the complexity of your module
+    /// 
+    /// Because the control inherits from ControlDeJornadasModuleBase you have access to any custom properties
+    /// defined there, as well as properties from DNN such as PortalId, ModuleId, TabId, UserId and many more.
+    /// 
+    /// </summary>
+    /// -----------------------------------------------------------------------------
+    public partial class View : ControlDeJornadasModuleBase, IActionable
+    {
+        
+        
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+            //Sistema de Switch de jornada...
+            //Automaticamente detecta por id de usuario si la jornada esta abierta, cerrada o si por primera vez el usuario inicia una jornada
+            //En caso de existir una jornada abierta: la cierra
+            //En caso de existir una jornada cerrada: Crea nueva jornada y la abre
+            //En caso de no existir aun jornadas: Crea nueva jornada y la abre
+            url.Value = DotNetNuke.Common.Globals.NavigateURL();
+            if (Request["idu"] != null)
+            {
+                Jornada J = Jornada.GetLast(int.Parse(Request["idu"].ToString()));
+                if (J != null)
+                {
+                    if (J.End != null) //El ultimo registro de jornada esta cerrado 
+                    {
+                        Jornada.Insert(int.Parse(Request["idu"].ToString()));
+                        Response.Redirect(DotNetNuke.Common.Globals.NavigateURL());
+                    }
+                    else
+                    {
+                        J.ExitJornada();
+                        Response.Redirect(DotNetNuke.Common.Globals.NavigateURL());
+                        
+                    }
+                }
+                else
+                {
+                    Jornada.Insert(int.Parse(Request["idu"].ToString()));
+                    Response.Redirect(DotNetNuke.Common.Globals.NavigateURL());
+                }
+            }
+            Session.Remove("ListadoUsuarios");
+            List<ConnectionDispensario.Modelos.Usuario> ListadoUsuarios;
+            if (DotNetNuke.Entities.Users.UserController.GetUsers(0).ToArray().Length > 0)
+            {
+                ListadoUsuarios = new List<ConnectionDispensario.Modelos.Usuario>();
+                foreach (object a in DotNetNuke.Entities.Users.UserController.GetUsers(0).ToArray())
+                {
+                    UserInfo U = a as UserInfo;
+                    if (U.IsInRole("Medico") || U.IsInRole("Enfermero"))
+                    {
+                        ListadoUsuarios.Add(ConnectionDispensario.Modelos.Usuario.GetUserByUserInfo(U));
+                    }
+                }
+                if (ListadoUsuarios.Count > 0)
+                {
+                    Session.Add("ListadoUsuarios",ListadoUsuarios);
+                }
+            }
+
+            try
+            {
+
+            }
+            catch (Exception exc) //Module failed to load
+            {
+                Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
+
+        public ModuleActionCollection ModuleActions
+        {
+            get
+            {
+                var actions = new ModuleActionCollection
+                    {
+                        {
+                            GetNextActionID(), Localization.GetString("EditModule", LocalResourceFile), "", "", "",
+                            EditUrl(), false, SecurityAccessLevel.Edit, true, false
+                        }
+                    };
+                return actions;
+            }
+        }
+    }
+}

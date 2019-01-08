@@ -35,7 +35,7 @@ GO
 CREATE PROCEDURE SeleccionarPeriodo_Cronograma_Ultimo (@UserId bigint)
 as
 begin
-select top 1 * from CronogramaLaboral where UserId=@UserId
+select top 1 * from CronogramaLaboral where UserId=@UserId order By Id Desc
 end
 GO
 CREATE PROCEDURE SeleccionarPeriodo_Cronograma_Periodo 
