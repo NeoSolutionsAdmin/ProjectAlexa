@@ -113,6 +113,7 @@
     <Compile Include="Modelos\Reporting\C2.cs" />
     <Compile Include="Modelos\Reporting\C3.cs" />
     <Compile Include="Modelos\Riesgo.cs" />
+    <Compile Include="Modelos\Tag.cs" />
     <Compile Include="Modelos\Toxicologia.cs" />
     <Compile Include="Modelos\Medicacion.cs" />
     <Compile Include="Modelos\Historial.cs" />
