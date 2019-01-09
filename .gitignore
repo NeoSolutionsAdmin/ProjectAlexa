@@ -7,3 +7,4 @@ ArchivosPacientes\*.*
 *.csproj.user
 **\Debug
 **\.vs
+ConnectionDispensario/ConnectionDispensario/hola.js
