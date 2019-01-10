@@ -7,7 +7,6 @@ using System.Data;
 
 namespace ConnectionDispensario.Conexiones
 {
-   
 
     public class Con_Pacientes
     {
@@ -149,6 +148,33 @@ namespace ConnectionDispensario.Conexiones
             catch (Exception E) 
             {
                 p_paciente.DispararError(E);
+                return false;
+            }
+        }
+
+
+        public bool TaggearPaciente(Modelos.Paciente p_paciente, Modelos.Tag p_tag)
+        {
+            int c = QTA.Insert_TagToPaciente(p_paciente.ID, p_tag.ID);
+            if (c > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool BorrarTagPaciente(Modelos.Paciente p_paciente, Modelos.Tag p_tag)
+        {
+            int c = QTA.Delete_TagDePaciente(p_paciente.ID, p_tag.ID);
+            if (c > 0)
+            {
+                return true;
+            }
+            else
+            {
                 return false;
             }
         }

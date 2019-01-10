@@ -85,6 +85,7 @@
     <Compile Include="Conexiones\Con_Historial.cs" />
     <Compile Include="Conexiones\Con_Jornada.cs" />
     <Compile Include="Conexiones\Con_Riesgo.cs" />
+    <Compile Include="Conexiones\Con_Tags.cs" />
     <Compile Include="Conexiones\Con_Toxicologia.cs" />
     <Compile Include="Conexiones\Con_ObraSocial.cs" />
     <Compile Include="Conexiones\Con_Odontograma.cs" />

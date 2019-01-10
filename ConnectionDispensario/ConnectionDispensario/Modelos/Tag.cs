@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ConnectionDispensario.Modelos
 {
     [Serializable]
-    class Tag
+    public class Tag
     {
         private int id;
         private string nombre;
@@ -16,6 +16,7 @@ namespace ConnectionDispensario.Modelos
 
         public string NOMBRE { get { return nombre; } set { nombre = value; } }
         public string ICONO { get { return icono; } set { icono = value; } }
+        public int ID { get { return id; } set { id = value; } }
 
         public Tag()
         {
