@@ -36,5 +36,19 @@ namespace ConnectionDispensario.Modelos
             icono = DR["Icono"].ToString();
         }
 
+        public static bool AgregarTag(Tag tag)
+        {
+            Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
+            bool flag = CT.AgregarTag(tag);
+            return flag;
+        }
+
+        public static bool EliminarTag(Tag tag)
+        {
+            Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
+            bool flag = CT.BorrarTag(tag);
+            return flag;
+        }
+
     }
 }

@@ -162,6 +162,21 @@ namespace ConnectionDispensario.Modelos
         }
 
 
+        public bool AgregarTagAPaciente(Tag tag)
+        {
+            Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
+            bool flag = CP.TaggearPaciente(this, tag);
+            return flag;
+        }
+
+        public bool BorrarTag(Tag tag)
+        {
+            Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
+            bool flag = CP.BorrarTagPaciente(this, tag);
+            return flag;
+        }
+
+
         public static Paciente Select_Paciente_By_Id(int IdPaciente) 
         {
             Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
@@ -229,7 +244,7 @@ namespace ConnectionDispensario.Modelos
             }
         }
         
-        public static List<Paciente> BuscarPacientesByTag(Modelos.Tag tag)
+        public static List<Paciente> PacientesPorTag(Modelos.Tag tag)
         {
             Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
             DataTable DT = CP.ObtenerPacientesByTag(tag);
@@ -248,6 +263,24 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
+        public static List<Tag> TagsPorPaciente(Modelos.Paciente paciente)
+        {
+            Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
+            DataTable DT = CP.ObtenerTagsDePaciente(paciente);
+            if (DT != null)
+            {
+                List<Tag> aux = new List<Tag>();
+                foreach (DataRow DR in DT.Rows)
+                {
+                    aux.Add(new Tag(DR));
+                }
+                return aux;
+            }
+            else
+            {
+                return null;
+            }
+        } 
 
     }
 }
