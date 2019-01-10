@@ -10,8 +10,6 @@ namespace ConnectionDispensario.Modelos
  [Serializable]   
     public class Paciente:Ubber.SuperModelo, Ubber.SuperInterface
     {
-
-        
         
         private string apellido;
         private string nombre;
@@ -231,7 +229,24 @@ namespace ConnectionDispensario.Modelos
             }
         }
         
-     
+        public static List<Paciente> BuscarPacientesByTag(Modelos.Tag tag)
+        {
+            Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
+            DataTable DT = CP.ObtenerPacientesByTag(tag);
+            if (DT != null)
+            {
+                List<Paciente> aux = new List<Paciente>();
+                foreach(DataRow DR in DT.Rows)
+                {
+                    aux.Add(new Paciente(DR));
+                }
+                return aux;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
 
     }

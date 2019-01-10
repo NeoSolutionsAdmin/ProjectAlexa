@@ -178,5 +178,42 @@ namespace ConnectionDispensario.Conexiones
                 return false;
             }
         }
+
+        public DataTable ObtenerPacientesByTag(Modelos.Tag p_tag)
+        {
+            DispensarioACDataSetTableAdapters.Select_PacientesByTagTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_PacientesByTagTableAdapter();
+            DispensarioACDataSet.Select_PacientesByTagDataTable DT = new DispensarioACDataSet.Select_PacientesByTagDataTable();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            TA.Connection = SQLCONN;
+            TA.Fill(DT, p_tag.ID);
+            if (DT != null && DT.Rows.Count > 0)
+            {
+                return DT;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public DataTable ObtenerTagsDePaciente(Modelos.Paciente p_paciente)
+        {
+            DispensarioACDataSetTableAdapters.Select_TagsByPacientesTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_TagsByPacientesTableAdapter();
+            DispensarioACDataSet.Select_TagsByPacientesDataTable DT = new DispensarioACDataSet.Select_TagsByPacientesDataTable();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            TA.Connection = SQLCONN;
+            TA.Fill(DT, p_paciente.ID);
+            if (DT != null && DT.Rows.Count > 0)
+            {
+                return DT;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }
