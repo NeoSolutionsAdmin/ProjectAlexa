@@ -50,5 +50,40 @@ namespace ConnectionDispensario.Modelos
             return flag;
         }
 
+        public static List<Tag> GetTags()
+        {
+            Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
+            DataTable DT = CT.GetTagByTagName("%");
+
+            if (DT != null && DT.Rows.Count > 0)
+            {
+                List<Tag> LT = new List<Tag>();
+                foreach (DataRow DR in DT.Rows)
+                {
+                    LT.Add(new Tag(DR));
+                }
+                return LT;
+            }
+            return null;
+        }
+
+
+
+        public static List<Tag> GetTagByTagName(string name)
+        {
+            Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
+            DataTable DT = CT.GetTagByTagName(name);
+
+            if(DT != null && DT.Rows.Count > 0)
+            {
+                List<Tag> LT = new List<Tag>();
+                foreach (DataRow DR in DT.Rows)
+                {
+                    LT.Add(new Tag(DR));
+                }
+                return LT;
+            }
+            return null;            
+        }
     }
 }

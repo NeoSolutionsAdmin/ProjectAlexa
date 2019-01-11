@@ -1,13 +1,33 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.TagManager.View" %>
 
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-<script src="/DesktopModules/TagManager/jQuery.js"></script>
 
+<script src="/DesktopModules/TagManager/jQuery.js"></script>
+<link href="/DesktopModules/TagManager/css/all.css" rel="stylesheet" />
 <div>
 
     <h1>TAG MANAGER</h1>
     <i class="fas fa-address-book "></i>
+
+    <%
+
+        int counter = 0;
+        for(int a = 61440; a < 63459; a++)
+        {
+            
+            string tohex = a.ToString("X");
+            //Response.Write("<span class='fas'>" + "&#" + a + "</span>" );
+            Response.Write("<input class='fas' onclick='LogChar(" + a + ")' type='button' value='" + "&#" + a + "'>");
+            counter++;
+            if (counter == 673)
+            {
+                counter = 0;
+                Response.Write("</br>");
+            }
+        }
+
+
+                %>
 
     <div>
 
@@ -27,12 +47,27 @@
             NOMBRE: <input type="text" placeholder="Nombre del tag" /> <br />
             ÍCONO: <!-- LISTA CON LOS ICONOS -->
 
+            
+
 
         </div>
 
 
         <!-- ELIMINAR TAG -->
         <div id="eliminarTagDiv">
+
+            <!-- Buscador -->
+            BUSCAR <input type="text" placeholder="Nombre del tag." id="buscadorTagsCreados" />
+
+            <!-- Tabla con los tags creados -->
+            <table id="tablaTagsCreados">
+
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>ÍCONO</th>
+                </tr>
+
+            </table>
 
         </div>
 
