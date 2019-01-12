@@ -14,16 +14,26 @@
         int counter = 0;
         for(int a = 61440; a < 63459; a++)
         {
-            
-            string tohex = a.ToString("X");
-            //Response.Write("<span class='fas'>" + "&#" + a + "</span>" );
-            Response.Write("<input class='fas' onclick='LogChar(" + a + ")' type='button' value='" + "&#" + a + "'>");
-            counter++;
-            if (counter == 673)
+            List<String> LC = new List<string>();
+            LC = ConnectionDispensario.Modelos.Tag.GetCharsDiscriminados();
+            for(int z = 0; z < LC.Count; z++)
             {
-                counter = 0;
-                Response.Write("</br>");
-            }
+                if(a == int.Parse(LC[z]))
+                {
+                    break;
+                }
+                else
+                {
+                    string tohex = a.ToString("X");
+                    Response.Write("<input class='fas' onclick='LogChar(" + a + ")' type='button' value='" + "&#" + a + "'>");
+                    counter++;
+                    if (counter == 673)
+                    {
+                        counter = 0;
+                        Response.Write("</br>");
+                    }
+                }
+            }   
         }
 
 

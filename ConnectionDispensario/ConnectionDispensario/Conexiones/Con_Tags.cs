@@ -53,5 +53,20 @@ namespace ConnectionDispensario.Conexiones
             else return null;
         }
 
+        public DataTable GetCharsDiscriminados()
+        {
+            DispensarioACDataSet.GetCharsDiscriminadosDataTable DT =
+                new DispensarioACDataSet.GetCharsDiscriminadosDataTable();
+            DispensarioACDataSetTableAdapters.GetCharsDiscriminadosTableAdapter TA =
+                new DispensarioACDataSetTableAdapters.GetCharsDiscriminadosTableAdapter();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+
+            TA.Fill(DT);
+
+            if (DT != null && DT.Rows.Count > 0) return DT;
+            else return null;
+        }
+
     }
 }
