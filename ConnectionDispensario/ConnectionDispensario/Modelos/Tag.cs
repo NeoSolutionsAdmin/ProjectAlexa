@@ -86,17 +86,17 @@ namespace ConnectionDispensario.Modelos
             return null;            
         }
 
-        public static List<string> GetCharsDiscriminados()
+        public static List<int> GetCharsDiscriminados()
         {
             Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
             DataTable DT = CT.GetCharsDiscriminados();
 
             if(DT!= null && DT.Rows.Count > 0)
             {
-                List<string> LI = new List<string>();
+                List<int> LI = new List<int>();
                 for(int a = 0; a < DT.Rows.Count; a++)
-                {
-                    LI.Add(DT.Rows[a][0] as string);                    
+                {                    
+                    LI.Add(Convert.ToInt32(DT.Rows[a][0]));
                 }
                 return LI;
             }

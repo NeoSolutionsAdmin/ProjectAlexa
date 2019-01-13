@@ -4,40 +4,11 @@
 
 <script src="/DesktopModules/TagManager/jQuery.js"></script>
 <link href="/DesktopModules/TagManager/css/all.css" rel="stylesheet" />
+<link href="/DesktopModules/TagManager/module.css" rel="stylesheet" />
 <div>
 
     <h1>TAG MANAGER</h1>
-    <i class="fas fa-address-book "></i>
-
-    <%
-
-        int counter = 0;
-        for(int a = 61440; a < 63459; a++)
-        {
-            List<String> LC = new List<string>();
-            LC = ConnectionDispensario.Modelos.Tag.GetCharsDiscriminados();
-            for(int z = 0; z < LC.Count; z++)
-            {
-                if(a == int.Parse(LC[z]))
-                {
-                    break;
-                }
-                else
-                {
-                    string tohex = a.ToString("X");
-                    Response.Write("<input class='fas' onclick='LogChar(" + a + ")' type='button' value='" + "&#" + a + "'>");
-                    counter++;
-                    if (counter == 673)
-                    {
-                        counter = 0;
-                        Response.Write("</br>");
-                    }
-                }
-            }   
-        }
-
-
-                %>
+    
 
     <div>
 
@@ -45,8 +16,8 @@
         <!-- BOTONES -->
         <div>
 
-            CREAR TAG <input type="button" id="abrirCrearTag" onclick="AbrirCerrar('crear')"/> <br />
-            ELIMINAR TAG <input type="button" id="abrirEliminarTag" onclick="AbrirCerrar('eliminar')"/>
+            <input class="FormButton" value="CREAR TAG" type="button" id="abrirCrearTag" onclick="AbrirCerrar('crear')"/>
+            <input class="FormButton" value="ELIMINAR TAG" type="button" id="abrirEliminarTag" onclick="AbrirCerrar('eliminar')"/>
 
         </div>
 
@@ -54,8 +25,57 @@
         <div id="crearTagDiv" style="display:none">
             <h2>CREAR TAG</h2>
 
-            NOMBRE: <input type="text" placeholder="Nombre del tag" /> <br />
-            ÍCONO: <!-- LISTA CON LOS ICONOS -->
+            <input type="button" value="NOMBRE" class="fakeButton"/> 
+            <input type="text" style="margin-bottom:50px; height: 39.5px;" placeholder="Nombre del tag" /> <br />
+            <input type="button" class="FormButton" value="MOSTRAR LISTA" onclick="AbrirCerrar('listaTags')" />
+
+            <!-- LISTA CON LOS ICONOS -->
+            <div id="TagContainerDiv" style="display:none">
+                <div style="text-align:center">
+                    <h3>
+                        - ÍCONO -
+                    </h3>                
+                </div>
+
+                <br />
+
+                <!-- Lista -->
+                <div class="TagContainer">
+
+                    <%
+                        List<int> LC = new List<int>();
+                        LC = ConnectionDispensario.Modelos.Tag.GetCharsDiscriminados();
+                        int counter = 0;
+                        for(int a = 61440; a < 63459; a++)
+                        {
+                            bool skip = false;
+                            for(int z = 0; z < LC.Count; z++)
+                            {
+                                if(a == LC[z])
+                                {
+                                    skip = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    skip = false;
+                                }
+                            }
+                            if (!skip)
+                            {
+                                Response.Write("<input class='TagButton' onclick='LogChar(" + a + ")' type='button' value='" + "&#" + a + "'>");
+                                counter++;
+                                //if (counter == 20)
+                                //{
+                                //    counter = 0;
+                                //    Response.Write("</br>");
+                                //}
+                            }
+                        }
+                    %>
+
+                </div>
+            </div>
 
             
 
@@ -64,7 +84,7 @@
 
 
         <!-- ELIMINAR TAG -->
-        <div id="eliminarTagDiv">
+        <div id="eliminarTagDiv" style="display:none">
 
             <!-- Buscador -->
             BUSCAR <input type="text" placeholder="Nombre del tag." id="buscadorTagsCreados" />

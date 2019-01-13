@@ -33,6 +33,17 @@ function AbrirCerrar(orden) {
 
         }
     }
+    if (orden == "listaTags") {
+
+        if ($('#TagContainerDiv').is(':hidden')) {
+
+            $('#TagContainerDiv').show('slow');
+
+        }
+        else {
+            $('#TagContainerDiv').hide('slow');
+        }
+    }
 }
 
 
@@ -40,8 +51,8 @@ function LogChar(char) {
 
     console.log(char)
 
-
 }
+
 
 
 //AJAX para recuperar la lista de tags ya creados
