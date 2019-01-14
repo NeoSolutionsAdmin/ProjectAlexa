@@ -20,16 +20,16 @@ function AbrirCerrar(orden) {
         }
 
     }
-    if (orden == "eliminar") {
+    if (orden == "admin") {
 
-        if ($('#eliminarTagDiv').is(':hidden')) {
+        if ($('#adminTagDiv').is(':hidden')) {
 
-            $('#eliminarTagDiv').show('slow');
+            $('#adminTagDiv').show('slow');
 
         }
         else {
 
-            $('#eliminarTagDiv').hide('slow');
+            $('#adminTagDiv').hide('slow');
 
         }
     }
@@ -41,7 +41,9 @@ function AbrirCerrar(orden) {
 
         }
         else {
+
             $('#TagContainerDiv').hide('slow');
+
         }
     }
 }
@@ -55,7 +57,8 @@ function LogChar(char) {
 
 
 
-//AJAX para recuperar la lista de tags ya creados
+
+////AJAX para recuperar la lista de tags ya creados
 //function GetTagsCreados() {
 //    $.ajax({
 //        url: "/DesktopModules/TransferenciaStock/WebService.aspx",
@@ -64,14 +67,29 @@ function LogChar(char) {
 //            $('#tablaTagsCreados').empty();
 //            $('#tablaTagsCreados').append('')
 //            for (a = 0; a < data.length; a++) {
-//                $('#tablaTagsCreados').append('<tr></tr>');
+//                $('#tablaTagsCreados').append('<tr><td>' + data.NOMBRE + '</td><td>' + data.ICONO + '</td></tr>');
 //            }
 //        },
 //        dataType: 'json',
 //        data: {
-//            tag: $('#buscadorTagsCreados').val()
+//            tag: SearchTag(),
 //        }
 //    })
+//}
+//function SearchTag() {
+
+//    var searchString = '%';
+
+//    if ($('#buscadorTagsCreados').val() == "") {
+
+//        searchString = '%';
+//    }
+//    else {
+
+//        searchString = $('#buscadorTagsCreados').val();
+
+//    }
+//    return searchString;
 //}
 
 

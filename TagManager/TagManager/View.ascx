@@ -17,7 +17,7 @@
         <div>
 
             <input class="FormButton" value="CREAR TAG" type="button" id="abrirCrearTag" onclick="AbrirCerrar('crear')"/>
-            <input class="FormButton" value="ELIMINAR TAG" type="button" id="abrirEliminarTag" onclick="AbrirCerrar('eliminar')"/>
+            <input class="FormButton" value="ADMINISTRAR TAG" type="button" id="abrirEliminarTag" onclick="AbrirCerrar('admin')"/>
 
         </div>
 
@@ -83,11 +83,12 @@
         </div>
 
 
-        <!-- ELIMINAR TAG -->
-        <div id="eliminarTagDiv" style="display:none">
+        <!-- ADMINISTRAR TAG -->
+        <div id="adminTagDiv" style="display:none">
 
             <!-- Buscador -->
-            BUSCAR <input type="text" placeholder="Nombre del tag." id="buscadorTagsCreados" />
+            <%--<input type="button" class="fakeButton" value="BUSCAR" /> <br />
+            <input type="text" placeholder="Nombre del tag." id="buscadorTagsCreados" />--%>
 
             <!-- Tabla con los tags creados -->
             <table id="tablaTagsCreados">
@@ -96,9 +97,17 @@
                     <th>NOMBRE</th>
                     <th>ÍCONO</th>
                 </tr>
+                <%
+                    List<ConnectionDispensario.Modelos.Tag> LT =
+                        ConnectionDispensario.Modelos.Tag.GetTags();
 
+                    for(int a = 0; a < LT.Count; a++)
+                    {
+                        Response.Write("<tr><td>" + LT[a].NOMBRE + "</td><td><span style='font-family: \"Font Awesome 5 Pro\"; font-weight: 900;'>&#" + LT[a].ICONO + "</span></td></tr>");                        
+                    }
+                    %>                
             </table>
-
+            
         </div>
 
     </div>
