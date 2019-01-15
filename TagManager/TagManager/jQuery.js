@@ -1,5 +1,5 @@
 ﻿
-
+GetAllTags()
 
 //Abre/cierra los div de creación/eliminación de tags
 function AbrirCerrar(orden) {
@@ -38,11 +38,13 @@ function AbrirCerrar(orden) {
         if ($('#TagContainerDiv').is(':hidden')) {
 
             $('#TagContainerDiv').show('slow');
+            $('#TagContainerDiv').val('MOSTRAR LISTA');
 
         }
         else {
 
             $('#TagContainerDiv').hide('slow');
+            $('#TagContainerDiv').val('OCULTAR LISTA');
 
         }
     }
@@ -51,12 +53,113 @@ function AbrirCerrar(orden) {
 
 function LogChar(char) {
 
-    console.log(char)
+    console.log(char);
 
 }
 
+function SaveTag() {
 
+    $.ajax({
 
+        url: "/DesktopModules/TagManager/WebService.aspx",
+        dataType: "text",
+        data:
+        {
+
+            saveTagIcono: icono,
+            saveTagName: name
+
+        },
+        success: function (data) {
+
+            if (data == 'true') {
+
+                alert("Tag guardado con éxito");
+            }
+            else {
+
+                alert("Tag NO guardado");
+
+            }
+
+        },
+        error: function () {
+
+        }
+
+    });
+
+}
+
+function DeleteTag(tagId) {
+
+    $.ajax({
+
+        url: "/DesktopModules/TagManager/WebService.aspx",
+        dataType: "text",
+        data:
+        {
+
+            deleteTagId: tagId
+
+        },
+        success: function (data) {
+
+            if (data == 'true') {
+
+                GetAllTags()
+            }
+            else {
+
+                alert("Fatal error: please contact with the on charge support service");
+
+            }
+
+        },
+        error: function () {
+
+        }
+
+    });
+
+}
+
+function GetAllTags() {
+
+    $.ajax({
+
+        url: "/DesktopModules/TagManager/WebService.aspx",
+        dataType: "json",
+        data:
+        {
+            getAllTags : '%'
+        },
+        success: function (data) {
+
+            $('#tablaTagsCreados').empty();
+            $('#tablaTagsCreados').append(  "<tr>" +
+                                                "<th>NOMBRE</th>" +
+                                                "<th>ÍCONO</th>" +
+                                            "</tr>")
+
+            for (a = 0; a < data.length; a++) {
+
+                $('#tablaTagsCreados').append(  "<tr>" +
+                                                    "<td> " + data[a].NOMBRE + "</td>" +
+
+                                                    "<td>" +
+                                                        "<span style = 'font-family:\"Font Awesome 5 Pro\"; font-weight: 900;' >&#" + data[a].ICONO + "</span>" +
+                                                    "</td>" +
+
+                                                    "<td>" +
+                                                        "<input type='button' value='ELIMINAR' onclick='DeleteTag(" + data[a].ID + ")'>" +
+                                                    "</td>" +
+
+                                                "</tr>")
+            }                
+        }
+    });
+}
 
 ////AJAX para recuperar la lista de tags ya creados
 //function GetTagsCreados() {
@@ -76,20 +179,21 @@ function LogChar(char) {
 //        }
 //    })
 //}
-//function SearchTag() {
 
-//    var searchString = '%';
+//function searchtag() {
 
-//    if ($('#buscadorTagsCreados').val() == "") {
+//    var searchstring = '%';
 
-//        searchString = '%';
+//    if ($('#buscadortagscreados').val() == "") {
+
+//        searchstring = '%';
 //    }
 //    else {
 
-//        searchString = $('#buscadorTagsCreados').val();
+//        searchstring = $('#buscadortagscreados').val();
 
 //    }
-//    return searchString;
+//    return searchstring;
 //}
 
 
