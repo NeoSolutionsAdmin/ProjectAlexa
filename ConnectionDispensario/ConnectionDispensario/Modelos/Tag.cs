@@ -43,10 +43,10 @@ namespace ConnectionDispensario.Modelos
             return flag;
         }
 
-        public static bool EliminarTag(Tag tag)
+        public static bool EliminarTag(int idTag)
         {
             Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
-            bool flag = CT.BorrarTag(tag);
+            bool flag = CT.BorrarTag(idTag);
             return flag;
         }
 

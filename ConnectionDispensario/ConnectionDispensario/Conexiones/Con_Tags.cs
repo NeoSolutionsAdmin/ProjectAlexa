@@ -25,9 +25,9 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
-        public bool BorrarTag(Tag p_tag)
+        public bool BorrarTag(int IdTag)
         {
-            int c = QTA.Delete_Tag(p_tag.ID);
+            int c = QTA.Delete_Tag(IdTag);
             if (c > 0)
             {
                 return true;
