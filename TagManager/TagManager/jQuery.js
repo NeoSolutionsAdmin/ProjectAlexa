@@ -20,19 +20,6 @@ function AbrirCerrar(orden) {
         }
 
     }
-    if (orden == "admin") {
-
-        if ($('#adminTagDiv').is(':hidden')) {
-
-            $('#adminTagDiv').show('slow');
-
-        }
-        else {
-
-            $('#adminTagDiv').hide('slow');
-
-        }
-    }
     if (orden == "listaTags") {
 
         if ($('#TagContainerDiv').is(':hidden')) {
@@ -50,6 +37,22 @@ function AbrirCerrar(orden) {
     }
 }
 
+function SelectIcon(select,icon) {
+
+    if (select == true) {
+
+        $('#TagContainerDiv').hide('slow');
+        $('#iconoSeleccionadoDiv').show('slow');
+        $('#iconoSeleccionadoDiv').empty()
+        $('#iconoSeleccionadoDiv').append("ICONO SELECCIONADO" +
+            "<input type='button' class='TagButton' id='iconoSeleccionado' value='&#" + icon + "' />")
+        $('#newTagNameText').attr("iconSelected",icon)
+
+    }
+}
+
+
+
 
 function LogChar(char) {
 
@@ -57,7 +60,22 @@ function LogChar(char) {
 
 }
 
-function SaveTag() {
+
+function GetAndSave() {
+
+    var icono = $('#newTagNameText').attr("iconSelected");
+    var nombre = $('#newTagNameText').val();
+
+    if (icono == "" || nombre == "") {
+        alert("Faltó completar un campo o seleccionar ícono");
+    }
+    else {
+        SaveTag(icono, nombre)
+    }
+}
+
+
+function SaveTag(icono,nombre) {
 
     $.ajax({
 
@@ -67,14 +85,14 @@ function SaveTag() {
         {
 
             saveTagIcono: icono,
-            saveTagName: name
+            saveTagName: nombre
 
         },
         success: function (data) {
 
             if (data == 'true') {
 
-                alert("Tag guardado con éxito");
+                GetAllTags();
             }
             else {
 

@@ -48,19 +48,29 @@
         <!-- BOTONES -->
         <div>
 
-            <input class="FormButton" value="CREAR TAG" type="button" id="abrirCrearTag" onclick="AbrirCerrar('crear')"/>
-            <input class="FormButton" value="ADMINISTRAR TAG" type="button" id="abrirEliminarTag" onclick="AbrirCerrar('admin')"/>
+            <input style="margin-top:40px" class="FormButton" value="CREAR TAG" type="button" id="abrirCrearTag" onclick="AbrirCerrar('crear')"/>            
 
         </div>
 
         <!-- CREAR TAG -->
-        <div id="crearTagDiv" style="display:none">
+        <div id="crearTagDiv" style="margin-top:50px;display:none">
             <h2>CREAR TAG</h2>
 
             <input type="button" value="NOMBRE" class="fakeButton"/> 
-            <input type="text" style="margin-bottom:50px; height: 39.5px;" placeholder="Nombre del tag" />
-            <input type="button" value="CREAR" onclick="SaveTag()" /><br />
-            <input type="button" class="FormButton" value="MOSTRAR LISTA" onclick="AbrirCerrar('listaTags')" />
+            <input type="text" style="margin-bottom:50px; height: 39.5px;" id="newTagNameText" placeholder="Nombre del tag" />
+            <input type="button" value="CREAR" onclick="GetAndSave()" /><br />
+
+            <div style="display:none" id="iconoSeleccionadoDiv">
+
+                ICONO SELECCIONADO 
+                <input type="button" class="TagButton" id="iconoSeleccionado" />
+
+            </div>
+
+            <input type="button" class="FormButton" value="MOSTRAR LISTA" onclick="AbrirCerrar('listaTags')" /> <br />
+
+            
+            
 
             <!-- LISTA CON LOS ICONOS -->
             <div id="TagContainerDiv" style="display:none">
@@ -95,7 +105,7 @@
                             }
                             if (!skip)
                             {
-                                Response.Write("<input class='TagButton' onclick='LogChar(" + a + ")' type='button' value='" + "&#" + a + "'>");
+                                Response.Write("<input class='TagButton' onclick='SelectIcon(true," + a + ")' type='button' value='" + "&#" + a + "'>");
                                 counter++;
                                 //if (counter == 20)
                                 //{
