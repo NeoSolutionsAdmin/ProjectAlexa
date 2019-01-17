@@ -169,10 +169,10 @@ namespace ConnectionDispensario.Modelos
             return flag;
         }
 
-        public bool BorrarTag(Tag tag)
+        public bool BorrarTag(int tagId)
         {
             Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
-            bool flag = CP.BorrarTagPaciente(this, tag);
+            bool flag = CP.BorrarTagPaciente(this.ID, tagId);
             return flag;
         }
 
@@ -244,10 +244,10 @@ namespace ConnectionDispensario.Modelos
             }
         }
         
-        public static List<Paciente> PacientesPorTag(Modelos.Tag tag)
+        public static List<Paciente> PacientesPorTag(int tagId)
         {
             Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
-            DataTable DT = CP.ObtenerPacientesByTag(tag);
+            DataTable DT = CP.ObtenerPacientesByTag(tagId);
             if (DT != null)
             {
                 List<Paciente> aux = new List<Paciente>();
@@ -263,10 +263,10 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
-        public static List<Tag> TagsPorPaciente(Modelos.Paciente paciente)
+        public static List<Tag> TagsPorPaciente(int pacienteId)
         {
             Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
-            DataTable DT = CP.ObtenerTagsDePaciente(paciente);
+            DataTable DT = CP.ObtenerTagsDePaciente(pacienteId);
             if (DT != null)
             {
                 List<Tag> aux = new List<Tag>();

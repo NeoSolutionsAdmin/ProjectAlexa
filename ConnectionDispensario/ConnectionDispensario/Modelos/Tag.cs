@@ -45,8 +45,20 @@ namespace ConnectionDispensario.Modelos
 
         public static bool EliminarTag(int idTag)
         {
+            //Elimina el tag de la lista de tags
             Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
             bool flag = CT.BorrarTag(idTag);
+
+            //Elimina las asociaciones existentes del tag a los pacientes
+            List<Paciente> aux = Paciente.PacientesPorTag(idTag);
+            if (aux != null)
+            {
+                foreach (Paciente paciente in aux)
+                {
+                    flag = paciente.BorrarTag(idTag);
+                }
+            }
+
             return flag;
         }
 

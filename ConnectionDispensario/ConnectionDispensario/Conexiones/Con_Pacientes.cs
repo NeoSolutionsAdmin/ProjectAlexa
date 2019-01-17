@@ -166,9 +166,9 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
-        public bool BorrarTagPaciente(Modelos.Paciente p_paciente, Modelos.Tag p_tag)
+        public bool BorrarTagPaciente(int p_pacienteId, int p_tagId)
         {
-            int c = QTA.Delete_TagDePaciente(p_paciente.ID, p_tag.ID);
+            int c = QTA.Delete_TagDePaciente(p_pacienteId, p_tagId);
             if (c > 0)
             {
                 return true;
@@ -179,14 +179,14 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
-        public DataTable ObtenerPacientesByTag(Modelos.Tag p_tag)
+        public DataTable ObtenerPacientesByTag(int p_tagId)
         {
             DispensarioACDataSetTableAdapters.Select_PacientesByTagTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_PacientesByTagTableAdapter();
             DispensarioACDataSet.Select_PacientesByTagDataTable DT = new DispensarioACDataSet.Select_PacientesByTagDataTable();
             System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
             Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
             TA.Connection = SQLCONN;
-            TA.Fill(DT, p_tag.ID);
+            TA.Fill(DT, p_tagId);
             if (DT != null && DT.Rows.Count > 0)
             {
                 return DT;
@@ -197,14 +197,14 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
-        public DataTable ObtenerTagsDePaciente(Modelos.Paciente p_paciente)
+        public DataTable ObtenerTagsDePaciente(int p_pacienteId)
         {
             DispensarioACDataSetTableAdapters.Select_TagsByPacientesTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_TagsByPacientesTableAdapter();
             DispensarioACDataSet.Select_TagsByPacientesDataTable DT = new DispensarioACDataSet.Select_TagsByPacientesDataTable();
             System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
             Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
             TA.Connection = SQLCONN;
-            TA.Fill(DT, p_paciente.ID);
+            TA.Fill(DT, p_pacienteId);
             if (DT != null && DT.Rows.Count > 0)
             {
                 return DT;
