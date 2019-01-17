@@ -128,7 +128,11 @@ namespace Christoc.Modules.Pacientes
                 }
             }
 
-            
+            for (int a=0; a<DropDownListTags.Items.Count; a++)
+            {
+                //if ()
+            }
+
         }
 
         
@@ -243,15 +247,14 @@ namespace Christoc.Modules.Pacientes
                 CmbObraSocial.Items.Add(LiNone);
                 if (OSL != null) 
                 {
-                    
-                    
                     for (int a=0;a<OSL.Count;a++){
                         ListItem LI = new ListItem(OSL[a].NOMBRE, OSL[a].ID.ToString());
                         CmbObraSocial.Items.Add(LI);
-                        }
+                    }
                 }
                
             }
+
             if (cmbSexo.Items.Count == 0) 
             {
                 ListItem Masc = new ListItem("Masculino", "Masculino");
@@ -260,6 +263,22 @@ namespace Christoc.Modules.Pacientes
                 cmbSexo.Items.Add(Feme);
 
             }
+
+            if (DropDownListTags.Items.Count == 0)
+            {
+                List<Tag> TL = Tag.GetTags();
+                ListItem LiNone = new ListItem("(Ninguno)", "0");
+                DropDownListTags.Items.Add(LiNone);
+                if (TL != null)
+                {
+                    foreach (Tag tag in TL)
+                    {
+                        ListItem LI = new ListItem(tag.NOMBRE, tag.ID.ToString() );
+                        DropDownListTags.Items.Add(LI);
+                    }
+                }
+            }
+
         }
 
         public ModuleActionCollection ModuleActions

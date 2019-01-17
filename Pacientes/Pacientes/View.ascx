@@ -68,7 +68,11 @@
         <span class="DispensarioLabel">Nro. Afiliado:</span>
         <asp:TextBox runat="server" ID="txtNroAfiliado" CssClass="DispensarioTextBox"></asp:TextBox>
     </div>
-    
+    <div class="DispensarioFieldContainer">
+        <span class="DispensarioLabel">Etiqueta:</span>
+        <asp:DropDownList runat="server" ID="DropDownListTags" ClientIDMode="Static">
+        </asp:DropDownList>
+    </div>
 </div>
 
 
