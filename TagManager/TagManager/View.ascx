@@ -10,9 +10,9 @@
     <h1>TAG MANAGER</h1>
     
     <!-- TABLA DE LOS TAGS -->
-    <div>
+    <div class="Busqueda">
 
-    </div>
+    
 
     <!-- Tabla con los tags creados -->
             <table id="tablaTagsCreados">
@@ -41,6 +41,7 @@
                     }
                     %>   --%>             
             </table>
+    </div>
 
     <div>
 

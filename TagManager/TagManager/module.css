@@ -66,8 +66,41 @@
     font-size: 13px !important;
     font-family: 'Roboto' !important;
 }
-
 .fakeButton:hover {
     /*background-color: #b5cd98;*/
     background-color: #698943;
 }
+
+
+div.Busqueda {
+    font-family: 'Roboto', sans-serif;
+    height: 150%;
+    margin-left: 5px;
+}
+
+
+    div.Busqueda table {
+        width: 300px;
+        margin-top: 20px;
+        margin-bottom: 100px;
+    }
+
+    div.Busqueda td {
+        text-align: center;
+    }
+    div.Busqueda tr:nth-child(even) {
+        background-color: #a8c487;
+    }
+    div.Busqueda tr:nth-child(odd) {
+        background-color: #c1d5aa;
+    }
+    div.Busqueda tr:hover,
+    div.Busqueda td:hover {
+        background-color: #4f6732
+    }
+    div.Busqueda th {
+        text-align: center;
+        line-height: 50px;
+        font-size: 14px;
+        background-color: #f2f2f2;
+    }
