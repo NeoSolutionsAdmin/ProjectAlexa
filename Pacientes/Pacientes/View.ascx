@@ -267,6 +267,7 @@
 
     function HideForm() {
         $('#DispensarioContainer').hide(1000);
+        $('#ListaTags').hide(1000);
     }
 
     function CancelarPaciente() {
