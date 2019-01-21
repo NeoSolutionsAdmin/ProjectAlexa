@@ -2,7 +2,7 @@
 
 
 <%@ Import Namespace="ConnectionDispensario.Modelos" %>
-<div style="color:red;font-weight:bold"> Recuerde actualizar la página presionando F5 o ingresando nuevamente al mádulo antes de realizar una operación</div>
+<div style="color:red;font-weight:bold"> Recuerde actualizar la página presionando F5 o ingresando nuevamente al módulo antes de realizar una operación</div>
 <%
     if (Session["ListadoUsuarios"] != null)
     {
@@ -22,7 +22,7 @@
                 bool espera = false;
                 bool progreso = false;
                 bool diagnostico = false;
-
+                /*
                 if (T != null && T.Count>0)
                 {
                     for (int a = T.Count-1; a > -1; a--)
@@ -38,8 +38,8 @@
                         }
                     }
                 }
-
-
+                */
+                
 
                 Response.Write("<Div class=\"UserContainer\" id=\"ConteinerUser" + UI.USERID + "\">");
                 Response.Write("<div class=\"roundProfilePicture\">");
