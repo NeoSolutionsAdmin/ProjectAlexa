@@ -68,7 +68,7 @@
         <span class="DispensarioLabel">Nro. Afiliado:</span>
         <asp:TextBox runat="server" ID="txtNroAfiliado" CssClass="DispensarioTextBox"></asp:TextBox>
     </div>
-    <div class="DispensarioFieldContainer">
+    <div class="DispensarioFieldContainer" ID="divEtiquetas">
         <span class="DispensarioLabel">Etiqueta:</span>
         <asp:DropDownList runat="server" ID="DropDownListTags" ClientIDMode="Static">
         </asp:DropDownList>
@@ -137,7 +137,11 @@
     <asp:RadioButtonList runat="server" ID="SearchForOption">
         <asp:ListItem Text="Buscar por DNI" Value="DNI" Selected="true"></asp:ListItem>
         <asp:ListItem Text="Buscar por Apellido" Value="APE"></asp:ListItem>
+        <asp:ListItem Text="Buscar por Etiqueta" Value="TAG"></asp:ListItem>
     </asp:RadioButtonList>
+
+    <asp:DropDownList runat="server" ID="searchTags" ClientIDMode="Static"></asp:DropDownList>
+    
 
     <br />
     <table class="DispensarioTable">
@@ -184,6 +188,8 @@
 <%
     // int Edad = ConnectionDispensario.Utils.Conversiones.getAge(new DateTime(1985, 11, 16));
     // Response.Write(Edad.ToString());
+    
+    
 
 %>
 
@@ -221,6 +227,7 @@
     var pacienteID = $("#IdPaciente").val();
 
     PrintTags();
+
 
     $("#CmbObraSocial").change(function () {
         if ($("#CmbObraSocial").val() != "0") {
@@ -317,12 +324,13 @@
             $(idFileUploader).show();
             $(idGallery).show();
             $("#TurneroYPersonal").show();
-
+            $("#divEtiquetas").show();
         } else {
             $("#TurneroYPersonal").hide();
             HideForm();
             $(idFileUploader).hide();
             $(idGallery).hide();
+            $("#divEtiquetas").hide();
         }
     }
 

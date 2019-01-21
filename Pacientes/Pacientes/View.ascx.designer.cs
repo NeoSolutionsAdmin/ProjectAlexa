@@ -256,6 +256,15 @@ namespace Christoc.Modules.Pacientes {
         protected global::System.Web.UI.WebControls.RadioButtonList SearchForOption;
         
         /// <summary>
+        /// Control searchTags.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList searchTags;
+        
+        /// <summary>
         /// Control form_mode.
         /// </summary>
         /// <remarks>

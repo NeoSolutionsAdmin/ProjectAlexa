@@ -253,7 +253,7 @@ namespace ConnectionDispensario.Modelos
                 List<Paciente> aux = new List<Paciente>();
                 foreach(DataRow DR in DT.Rows)
                 {
-                    aux.Add(new Paciente(DR));
+                    aux.Add(Paciente.Select_Paciente_By_Id(int.Parse(DR["IdPaciente"].ToString() ) ) );
                 }
                 return aux;
             }

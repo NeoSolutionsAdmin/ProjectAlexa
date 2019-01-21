@@ -138,13 +138,12 @@ namespace Christoc.Modules.Pacientes
             Errores = new List<string>();
             ConfigVars();
             ConfigTurnero();
-           
-            
-            
-            
-            
-                
-            
+
+
+
+
+
+
             try
             {
 
@@ -274,6 +273,19 @@ namespace Christoc.Modules.Pacientes
                 }
             }
 
+            if (searchTags.Items.Count == 0)
+            {
+                List<Tag> TL = Tag.GetTags();
+                if (TL != null)
+                {
+                    foreach (Tag tag in TL)
+                    {
+                        ListItem LI = new ListItem(tag.NOMBRE, tag.ID.ToString());
+                        searchTags.Items.Add(LI);
+                    }
+                }
+            }
+
         }
 
         public ModuleActionCollection ModuleActions
@@ -369,21 +381,31 @@ namespace Christoc.Modules.Pacientes
 
         protected void Buscar_Click(object sender, EventArgs e)
         {
-            List<Paciente> LP;
+
+
+            List<Paciente> LP = new List<Paciente>();
             if (SearchForOption.SelectedValue == "APE")
             {
                 LP = Paciente.BuscarPacientesByApellido(StringSearch.Text);
             }
-            else 
+
+            if (SearchForOption.SelectedValue == "TAG")
+            {
+                string opcionTag = searchTags.SelectedValue;
+                LP = Paciente.PacientesPorTag(int.Parse(opcionTag));
+            }
+            
+            if (SearchForOption.SelectedValue == "DNI")
             {
                 LP = Paciente.BuscarPacientesByDNI(StringSearch.Text);
             }
-            
-            
 
+            if (LP.Count > 0)
+            {
                 Session.Remove(SessionListaPacientes);
-          
                 Session.Add(SessionListaPacientes, LP);
+            }
+            
             
             
            

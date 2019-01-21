@@ -73,11 +73,6 @@ namespace Christoc.Modules.Pacientes
             Response.Write("done");
         }
 
-        private void ListPacientesByTag(int idTag)
-        {
-            List<Paciente> aux = Paciente.PacientesPorTag(idTag);
-
-        }
 
     }
 }
