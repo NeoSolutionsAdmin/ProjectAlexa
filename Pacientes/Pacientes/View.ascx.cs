@@ -400,7 +400,7 @@ namespace Christoc.Modules.Pacientes
                 LP = Paciente.BuscarPacientesByDNI(StringSearch.Text);
             }
 
-            if (LP.Count > 0)
+            if (LP != null && LP.Count > 0)
             {
                 Session.Remove(SessionListaPacientes);
                 Session.Add(SessionListaPacientes, LP);
