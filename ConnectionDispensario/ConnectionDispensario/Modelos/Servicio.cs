@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConnectionDispensario.Modelos
 {
-    class Servicio
+    public class Servicio
     {
+
     }
 }

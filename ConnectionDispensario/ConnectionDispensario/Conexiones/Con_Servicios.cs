@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace ConnectionDispensario.Conexiones
 {
-    class Con_Servicios
+    public class Con_Servicios
     {
+        public bool InsertServicio(string nombreservicio)
+        {
+            QTACustomizado QTA = new QTACustomizado();
+            if (QTA.Insert_Servicio(nombreservicio) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

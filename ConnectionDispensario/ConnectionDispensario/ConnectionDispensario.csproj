@@ -85,6 +85,7 @@
     <Compile Include="Conexiones\Con_Historial.cs" />
     <Compile Include="Conexiones\Con_Jornada.cs" />
     <Compile Include="Conexiones\Con_Riesgo.cs" />
+    <Compile Include="Conexiones\Con_Servicios.cs" />
     <Compile Include="Conexiones\Con_Tags.cs" />
     <Compile Include="Conexiones\Con_Toxicologia.cs" />
     <Compile Include="Conexiones\Con_ObraSocial.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Modelos\Reporting\C2.cs" />
     <Compile Include="Modelos\Reporting\C3.cs" />
     <Compile Include="Modelos\Riesgo.cs" />
+    <Compile Include="Modelos\Servicio.cs" />
     <Compile Include="Modelos\Tag.cs" />
     <Compile Include="Modelos\Toxicologia.cs" />
     <Compile Include="Modelos\Medicacion.cs" />
