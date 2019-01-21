@@ -53,6 +53,19 @@ namespace ConnectionDispensario.Conexiones
             else return null;
         }
 
+        public DataTable GetTagById(int idTag)
+        {
+            DispensarioACDataSet.Select_TagByIdDataTable DT = new DispensarioACDataSet.Select_TagByIdDataTable();
+            DispensarioACDataSetTableAdapters.Select_TagByIdTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_TagByIdTableAdapter();
+
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            TA.Fill(DT, idTag);
+
+            if (DT != null && DT.Rows.Count > 0) return DT;
+            else return null;
+        }
+
         public DataTable GetCharsDiscriminados()
         {
             DispensarioACDataSet.GetCharsDiscriminadosDataTable DT =

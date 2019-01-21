@@ -272,7 +272,9 @@ namespace ConnectionDispensario.Modelos
                 List<Tag> aux = new List<Tag>();
                 foreach (DataRow DR in DT.Rows)
                 {
-                    aux.Add(new Tag(DR));
+                    int tagId = int.Parse(DR["IdTag"].ToString());
+                    Tag tagPaciente = Tag.GetTagById(tagId);
+                    aux.Add(tagPaciente);
                 }
                 return aux;
             }

@@ -79,8 +79,6 @@ namespace ConnectionDispensario.Modelos
             return null;
         }
 
-
-
         public static List<Tag> GetTagByTagName(string name)
         {
             Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
@@ -96,6 +94,18 @@ namespace ConnectionDispensario.Modelos
                 return LT;
             }
             return null;            
+        }
+
+        public static Tag GetTagById(int idTag)
+        {
+            Conexiones.Con_Tags CT = new Conexiones.Con_Tags();
+            DataTable DT = CT.GetTagById(idTag);
+            if (DT!=null && DT.Rows.Count > 0)
+            {
+                Tag tagFinal = new Tag(DT.Rows[0]);
+                return tagFinal;
+            }
+            return null;
         }
 
         public static List<int> GetCharsDiscriminados()

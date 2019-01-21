@@ -218,6 +218,9 @@
     var idbtnBuscarPaciente = "#btnBuscarPaciente";
     var idbtnCancelarPaciente = "#btnCancelarPaciente";
     var idForm_Mode = "#form_mode";
+    var pacienteID = $("#IdPaciente").val();
+
+    PrintTags();
 
     $("#CmbObraSocial").change(function () {
         if ($("#CmbObraSocial").val() != "0") {
@@ -233,6 +236,7 @@
 
 
     });
+
 
     function OpenWindow(path) {
         window.open(path);
@@ -394,8 +398,37 @@
         error: function () {
             alert("No se pudo completar la operacion. Codigo de error: L33T");
         }
+        });
 
-    });
+    }
+
+    function quitarTag(idTAG) {
+        var pacienteID = $("#IdPaciente").val();
+        $.ajax({
+
+        url: "/DesktopModules/Pacientes/WebService.aspx",
+        dataType: "text",
+        data:
+        {
+            deleteTag: "1",
+            idPaciente: pacienteID,
+            idTag: idTAG,
+        },
+        success: function (data) {
+
+            if (data == 'done') {
+                PrintTags();
+            }
+            else {
+                alert("Error de servidor. Codigo de error: 1379");
+            }
+
+        },
+        error: function () {
+            alert("No se pudo completar la operacion. Codigo de error: L33T");
+        }
+        });
+
     }
     //Codigos de error:
     //      
@@ -404,31 +437,57 @@
     //
 
     function PrintTags() {
-        $.ajax({
-            
-        url: "/DesktopModules/Pacientes/WebService.aspx",
-        dataType: "json",
-        data:
+        if (pacienteID != undefined)
         {
-            listTags: "1",
-            idPaciente: pacienteID
-        },
+            $.ajax({
+            
+            url: "/DesktopModules/Pacientes/WebService.aspx",
+            dataType: "json",
+            data:
+            {
+                listTags: "1",
+                idPaciente: pacienteID
+            },
 
-        success: function (data) {
+            success: function (data) {
 
-            if (data != null) {
-                $("#ListaTags").text("El paciente tiene etiquetas.");
+                if (data != null) {
+                    var elementoTag = "Lista de tags del paciente:";
+                    $('#ListaTags').empty();
+                    $('#ListaTags').append("<p>Lista de etiquetas del paciente:</p>");
+                    $('#ListaTags').append(  "<tr>" +
+                                                "<th>NOMBRE</th>" +
+                                                "<th>ÍCONO</th>" +
+                                                "<th> </th>" +
+                                            "</tr>")
+
+                    for (a = 0; a < data.length; a++) {
+
+                        $('#ListaTags').append(  "<tr>" +
+                                                            "<td> " + data[a].NOMBRE + "</td>" +
+
+                                                    "<td>" +
+                                                        "<span style = 'font-family:\"Font Awesome 5 Pro\"; font-weight: 900;' >&#" + data[a].ICONO + "</span>" +
+                                                    "</td>" +
+
+                                                    "<td>" +
+                                                        "<input type='button' value='Eliminar' onclick='quitarTag(" + data[a].ID + ")'>" +
+                                                    "</td>" +
+
+                                                "</tr>")
+                    }                
+                }
+                else {
+                    $("#ListaTags").text("El paciente no tiene etiquetas.");
+                }
+
+            },
+            error: function () {
+                alert("No se pudo completar la operacion. Codigo de error: L33T");
             }
-            else {
-                $("#ListaTags").text("El paciente no tiene etiquetas.");
-            }
 
-        },
-        error: function () {
-            alert("No se pudo completar la operacion. Codigo de error: L33T");
+            });
         }
-
-        });
     }
 
 
