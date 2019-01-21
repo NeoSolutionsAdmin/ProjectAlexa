@@ -116,6 +116,13 @@
     <Compile Include="View.ascx.designer.cs">
       <DependentUpon>View.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WebService.aspx.cs">
+      <DependentUpon>WebService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebService.aspx.designer.cs">
+      <DependentUpon>WebService.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="cancelpaciente.png">
@@ -151,6 +158,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="View.ascx" />
+    <Content Include="WebService.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pacientes.dnn">

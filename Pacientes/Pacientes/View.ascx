@@ -32,7 +32,7 @@
     </div>
     <div class="DispensarioFieldContainer">
         <span class="DispensarioLabel">Nro. Doc.:</span>
-        <asp:TextBox runat="server" ID="txtNumeroDoc" CssClass="DispensarioTextBox"></asp:TextBox>
+        <asp:TextBox runat="server" ID="txtNumeroDoc" ClientIDMode="Static" CssClass="DispensarioTextBox"></asp:TextBox>
     </div>
     <div class="DispensarioFieldContainer">
         <span class="DispensarioLabel">Domicilio:</span>
@@ -72,9 +72,13 @@
         <span class="DispensarioLabel">Etiqueta:</span>
         <asp:DropDownList runat="server" ID="DropDownListTags" ClientIDMode="Static">
         </asp:DropDownList>
+        <input style="margin-top:40px" class="DispensarioLabel" value="Agregar" type="button" id="agregarTagAPaciente" onclick="agregarTag()"/>
     </div>
 </div>
 
+<div class="DispensarioContainer" id="ListaTags">
+    
+</div>
 
 <div class="DispensarioContainer" id="TurneroYPersonal">
     <asp:Button ID="btnAbrirTurneroMedicos" ClientIDMode="Static" runat="server" Text="Consultorio" CssClass="DispensarioButton DispensarioIconBuscarPaciente" OnClientClick="AbrirTurneroMedicos();return false;" />
@@ -185,6 +189,7 @@
 
 <asp:HiddenField ID="form_mode" ClientIDMode="Static" runat="server" Value="" />
 <asp:HiddenField ID="show_search" ClientIDMode="Static" runat="server" />
+
 <input id="IdPaciente" type="hidden" value="<% 
     
     if (Session["KeyPaciente"] != null)
@@ -361,6 +366,70 @@
     setTimeout(CloseMessage, 6000);
     $('#carouselTurnosEnfermeros').hide();
     $('#carouselTurnosMedicos').hide();
+
+    
+    function agregarTag() {
+        var tagID = $("#DropDownListTags").val();
+        var pacienteID = $("#IdPaciente").val();
+        $.ajax({
+
+        url: "/DesktopModules/Pacientes/WebService.aspx",
+        dataType: "text",
+        data:
+        {
+            addTag: "1",
+            idPaciente: pacienteID,
+            idTag: tagID,
+        },
+        success: function (data) {
+
+            if (data == 'done') {
+                PrintTags();
+            }
+            else {
+                alert("Error de servidor. Codigo de error: 1379");
+            }
+
+        },
+        error: function () {
+            alert("No se pudo completar la operacion. Codigo de error: L33T");
+        }
+
+    });
+    }
+    //Codigos de error:
+    //      
+    //      L33T: Error de conexión al webservice
+    //      1379: Error de lógica en el backend
+    //
+
+    function PrintTags() {
+        $.ajax({
+            
+        url: "/DesktopModules/Pacientes/WebService.aspx",
+        dataType: "json",
+        data:
+        {
+            listTags: "1",
+            idPaciente: pacienteID
+        },
+
+        success: function (data) {
+
+            if (data != null) {
+                $("#ListaTags").text("El paciente tiene etiquetas.");
+            }
+            else {
+                $("#ListaTags").text("El paciente no tiene etiquetas.");
+            }
+
+        },
+        error: function () {
+            alert("No se pudo completar la operacion. Codigo de error: L33T");
+        }
+
+        });
+    }
 
 
 </script>

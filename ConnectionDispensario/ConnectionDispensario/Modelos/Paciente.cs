@@ -162,10 +162,10 @@ namespace ConnectionDispensario.Modelos
         }
 
 
-        public bool AgregarTagAPaciente(Tag tag)
+        public static bool AgregarTagAPaciente(int idPaciente, int idTag)
         {
             Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();
-            bool flag = CP.TaggearPaciente(this, tag);
+            bool flag = CP.TaggearPaciente(idPaciente, idTag);
             return flag;
         }
 

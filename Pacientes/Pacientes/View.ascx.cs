@@ -128,11 +128,6 @@ namespace Christoc.Modules.Pacientes
                 }
             }
 
-            for (int a=0; a<DropDownListTags.Items.Count; a++)
-            {
-                //if ()
-            }
-
         }
 
         

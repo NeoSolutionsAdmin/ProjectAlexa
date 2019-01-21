@@ -153,9 +153,9 @@ namespace ConnectionDispensario.Conexiones
         }
 
 
-        public bool TaggearPaciente(Modelos.Paciente p_paciente, Modelos.Tag p_tag)
+        public bool TaggearPaciente(int p_pacienteId, int p_tagId)
         {
-            int c = QTA.Insert_TagToPaciente(p_paciente.ID, p_tag.ID);
+            int c = QTA.Insert_TagToPaciente(p_pacienteId, p_tagId);
             if (c > 0)
             {
                 return true;
