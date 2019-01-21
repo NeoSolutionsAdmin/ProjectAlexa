@@ -39,24 +39,31 @@ namespace Christoc.Modules.Pacientes
             {
                 Response.Write("empty");
             }
-            if (ListaTags != null)
-            {
-                foreach (Tag tag in ListaTags)
-                {
-                    if (tag.ID == idTag) yaExistente = true;
-                }
-            }
-
-            if (yaExistente)
-            {
-                Response.Write("duplicated");
-            }
             else
             {
-                Paciente.AgregarTagAPaciente(idPaciente, idTag);
-                Response.Write("done");
-            }
+                if (ListaTags != null)
+                {
+                    foreach (Tag tag in ListaTags)
+                    {
+                        //Response.Write(ListaTags.Count);
+                        if (tag.ID == idTag)
+                        {
+                            yaExistente = true;
+                            break;
+                        }
+                    }
+                }
 
+                if (yaExistente)
+                {
+                    Response.Write("duplicated");
+                }
+                else
+                {
+                    Paciente.AgregarTagAPaciente(idPaciente, idTag);
+                    Response.Write("done");
+                }
+            }
         }
 
         private void DetachTag(int idPaciente, int idTag)
@@ -65,5 +72,12 @@ namespace Christoc.Modules.Pacientes
             aux.BorrarTag(idTag);
             Response.Write("done");
         }
+
+        private void ListPacientesByTag(int idTag)
+        {
+            List<Paciente> aux = Paciente.PacientesPorTag(idTag);
+
+        }
+
     }
 }

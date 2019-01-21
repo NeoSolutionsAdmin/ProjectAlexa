@@ -76,7 +76,7 @@
     </div>
 </div>
 
-<div class="DispensarioContainer" id="ListaTags">
+<div class="DispensarioContainer Busqueda" id="ListaTags">
     
 </div>
 
@@ -391,13 +391,16 @@
             if (data == 'done') {
                 PrintTags();
             }
-            else {
-                alert("Error de servidor. Codigo de error: 1379");
+            if (data == 'empty') {
+                alert("Seleccione una etiqueta valida");
+            }
+            if (data == 'duplicated'){
+                alert("El paciente ya tiene asociada la etiqueta seleccionada");
             }
 
         },
         error: function () {
-            alert("No se pudo completar la operacion. Codigo de error: L33T");
+            alert("No se pudo completar la operacion.");
         }
         });
 
