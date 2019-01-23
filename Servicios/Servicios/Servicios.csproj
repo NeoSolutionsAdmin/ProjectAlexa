@@ -139,6 +139,12 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ConnectionDispensario\ConnectionDispensario\ConnectionDispensario.csproj">
+      <Project>{159b0317-18af-41b6-b872-3e9d1a790d60}</Project>
+      <Name>ConnectionDispensario</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

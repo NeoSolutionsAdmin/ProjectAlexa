@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ConnectionDispensario.Modelos;
 
 namespace Christoc.Modules.Servicios
 {
@@ -14,7 +15,19 @@ namespace Christoc.Modules.Servicios
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Request["addservice"] != null)
+            {
+                string nombre = Request["name"];
+                Servicio S = new Servicio(nombre);
+                if (S.Guardar() == true)
+                {
+                    SendText("ok");
+                }
+                else
+                {
+                    SendText("error");
+                }
+            }
         }
 
         public void SendText(string text)
