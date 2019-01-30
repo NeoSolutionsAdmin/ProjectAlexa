@@ -1,0 +1,31 @@
+#ServiceList>li {
+    list-style-type:none;
+    border-bottom-width:1px;
+    border-bottom-color:dimgray;
+    border-bottom-style:solid;
+    text-transform:uppercase;
+}
+#ServiceList>li:last-child {
+    border-bottom-style:none;
+}
+.UserInService {
+    list-style-type: none;
+    border-bottom-style: none;
+    text-transform: uppercase;
+    background-color:#808080;
+}
+#usersList > li {
+    list-style-type: none;
+    border-bottom-style: none;
+    text-transform: uppercase;
+    padding-right: 10px;
+}
+#ContainerService {
+    display: inline-block;
+}
+.DraggableUser {
+    display:inline-block;
+}
+.DroppableService {
+
+}

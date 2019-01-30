@@ -4,15 +4,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using DotNetNuke.Entities.Users;
 
 namespace ConnectionDispensario.Modelos
 {
+    public class ProfesionalServicio
+    {
+
+        public int idServicio;
+        public int idProfesional;
+        public int id;
+        public Usuario user;
+
+        public ProfesionalServicio(DataRow dr)
+        {
+            idServicio = int.Parse(dr["IdServicio"].ToString());
+            idProfesional = int.Parse(dr["IdProfesional"].ToString());
+            id = int.Parse(dr["Id"].ToString());
+            DotNetNuke.Entities.Users.UserController UC = new DotNetNuke.Entities.Users.UserController();
+            UserInfo UI = UC.GetUser(0, idProfesional);
+            user = Usuario.GetUserByUserInfo(UI);
+        }
+
+        public static ProfesionalServicio GetLast()
+        {
+            Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
+            DataRow dr = C.GetLastProfesionalServicio();
+            if (dr != null)
+            {
+                ProfesionalServicio PS = new ProfesionalServicio(dr);
+                return PS;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        
+    }
+
     public class Servicio
     {
         private string name="";
-        private int id;
+        private int id=0;
 
         public string NOMBRE { get { return name; } }
+        public int ID { get { return id; } }
+        
 
         public Servicio(string p_name)
         {
@@ -25,6 +64,42 @@ namespace ConnectionDispensario.Modelos
             name = dr["NombreServicio"].ToString();
         }
 
+        public List<ProfesionalServicio> GetProfesionales(int PortalId)
+        {
+            Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
+            DataTable DT = C.GetProfesionalesID(id);
+            if (DT != null)
+            {
+                List<ProfesionalServicio> LU = new List<ProfesionalServicio>();
+                foreach (DataRow dr in DT.Rows)
+                {
+                    LU.Add(new ProfesionalServicio(dr));
+                }
+                return LU;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        public bool Insert_Profesional(int idprofesional)
+        {
+            if (id != 0)
+            {
+                Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
+                return C.InsertProfesionalServicio(idprofesional, id);
+
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        
+
         public bool Guardar()
         {
             if (name != "")
@@ -35,6 +110,22 @@ namespace ConnectionDispensario.Modelos
             else
             {
                 return false;
+            }
+        }
+
+
+
+        public static Servicio ObtenerUltimoServicio()
+        {
+            Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
+            DataRow dr = C.GetLast();
+            if (dr != null)
+            {
+                return new Servicio(dr);
+            }
+            else
+            {
+                return null;
             }
         }
 
