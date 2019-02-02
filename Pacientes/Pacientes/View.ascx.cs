@@ -56,6 +56,7 @@ namespace Christoc.Modules.Pacientes
             if (Session[SessionPaciente] == null)
             {
                 form_mode.Value = ModeNone;
+                btnHistoriaClinica.Visible = false;
             }
             else 
             {
@@ -64,6 +65,7 @@ namespace Christoc.Modules.Pacientes
                 if (!IsPostBack)
                 {
                     LoadPaciente();
+                    btnHistoriaClinica.Visible = true;
                 }
                 
 
@@ -73,10 +75,15 @@ namespace Christoc.Modules.Pacientes
                 if (Request["m"] == "e") 
                 {
                     Paciente t_p = ConnectionDispensario.Modelos.Paciente.Select_Paciente_by_GUI(Request["gui"]);
-                    if (t_p != null) 
+
+                    if (t_p != null)
                     {
                         Session.Add(SessionPaciente, t_p);
                         Response.Redirect("/Gestion-de-pacientes");
+                    }
+                    else
+                    {
+
                     }
                 }
                 
@@ -108,7 +115,11 @@ namespace Christoc.Modules.Pacientes
             txtDomicilio.Text = t_p.DOMICILIO;
             txtLocalidad.Text = t_p.LOCALIDAD;
             txtNroAfiliado.Text = t_p.NROOBRASOCIAL;
+            GUIP.Value = t_p.GUID;
+
             
+            
+
 
             for (int a = 0; a < CmbObraSocial.Items.Count; a++) 
             {

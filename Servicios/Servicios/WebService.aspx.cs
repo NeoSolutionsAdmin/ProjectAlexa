@@ -55,6 +55,20 @@ namespace Christoc.Modules.Servicios
                 }
 
             }
+
+            if (Request["deleteregister"] !=null)
+            {
+                if (Servicio.DeleteProfesionalServicioById(int.Parse(Request["registerid"].ToString())) == true)
+                {
+                    SendText("ok");
+                }
+                else
+                {
+                    SendText("error");
+                }
+               
+            }
+
             if (Request["getallusers"] != null)
             {
                 int PortalId = int.Parse(Request["PortalId"]);

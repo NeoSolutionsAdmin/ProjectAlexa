@@ -9,6 +9,8 @@ namespace ConnectionDispensario.Conexiones
 {
     public class Con_Riesgo
     {
+
+        
         public DataTable Get_Riesgo(bool Diabetes, string Sexo, int Edad, bool tabaquismo)
         {
             DispensarioACDataSet.Select_RiesgoDataTable DT = new DispensarioACDataSet.Select_RiesgoDataTable();

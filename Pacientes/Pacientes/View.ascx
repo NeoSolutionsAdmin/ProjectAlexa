@@ -10,6 +10,7 @@
 <asp:Button ID="btnGuardarPaciente" runat="server" CssClass="DispensarioButton DispensarioIconGuardarPaciente" Text="Guardar Paciente" OnClientClick="" OnClick="btnGuardarPaciente_Click" ClientIDMode="Static" />
 <asp:Button ID="btnBuscarPaciente" runat="server" CssClass="DispensarioButton DispensarioIconBuscarPaciente" Text="Buscar Paciente" OnClientClick="ShowDialogSearchPaciente();return false;" ClientIDMode="Static" />
 <asp:Button ID="btnCancelarPaciente" runat="server" CssClass="DispensarioButton DispensarioIconCancelarPaciente" Text="Cancelar y Cerrar" OnClientClick="HideForm();CancelarPaciente();" OnClick="btnCancelarPaciente_Click" ClientIDMode="Static" />
+<asp:Button ID="btnHistoriaClinica" runat="server" CssClass="DispensarioButton DispensarioIconBuscarPaciente" Text="Historia Clinica" OnClientClick="ShowHistorial();return false" ClientIDMode="Static" />
 
 <br />
 <div>
@@ -173,12 +174,14 @@
                         }
                         Session.Remove("KeyListaPacientes");
                         show_search.Value = "1";
+                        
                     }
                     else
                     {
                         Response.Write("No hay resultados");
                         show_search.Value = "0";
                     }
+                    
                 %>
             </tbody>
         </table>
@@ -195,6 +198,7 @@
 
 <asp:HiddenField ID="form_mode" ClientIDMode="Static" runat="server" Value="" />
 <asp:HiddenField ID="show_search" ClientIDMode="Static" runat="server" />
+<asp:HiddenField ID="GUIP" ClientIDMode="Static" runat="server" />
 
 <input id="IdPaciente" type="hidden" value="<% 
     
@@ -210,8 +214,11 @@
     
      %>" />
 <script type="text/javascript" src="/DesktopModules/Pacientes/jquery.jcarousel.min.js"></script>
-<script>
 
+<script>
+function ShowHistorial() {
+        window.location.href = "/Historia-Clinica?m=s&gui=" + $("#GUIP").val();
+    }
     var ModeEdit = "ModeEdit";
     var ModeNew = "ModeNew";
     var ModeNone = "ModeNone";

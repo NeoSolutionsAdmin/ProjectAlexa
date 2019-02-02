@@ -158,10 +158,10 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>9736</DevelopmentServerPort>
           <DevelopmentServerVPath>
           </DevelopmentServerVPath>
-          <IISUrl>http://dnndev.me/desktopmodules/Servicios</IISUrl>
+          <IISUrl>http://dnndev.me/basura/Servicios</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
           <IISAppRootUrl>http://dnndev.me</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

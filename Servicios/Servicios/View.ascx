@@ -23,7 +23,7 @@
                         {
                            
                             string img = "<img src=\"/DnnImageHandler.ashx?mode=profilepic&userId=" + u.user.USERID.ToString() + "&h=32&w=32\"/>";
-                            Response.Write("<li class=\"UserInService\" data-userid=\"" + u.user.USERID + "\">" + img + u.user.NAME + " " + u.user.LASTNAME +"<input type=\"button\" onclick=\"deleteuser(this)\" value=\"X\"/></li>");
+                            Response.Write("<li class=\"UserInService\" data-registerid=\"" + u.id + "\">" + img + u.user.NAME + " " + u.user.LASTNAME +"<input data-registerid=\"" + u.id + "\" type=\"button\" onclick=\"deleteuser(this)\" value=\"X\"/></li>");
                            
                         }
                     }
@@ -53,7 +53,27 @@
 <script>
 
 
-
+    function deleteuser(object)
+    {
+        var identrada = $(object).attr("data-registerid");
+        $.ajax(
+            {
+                url: "/desktopmodules/servicios/WebService.aspx",
+                data: { deleteregister: 1, registerid:identrada },
+                method: "GET",
+                dataType: "text",
+                async: false,
+                success: function (data) {
+                    if (data == "ok") {
+                        $(object).parent().remove();
+                        console.log("Usuario ya existe en el servicio");
+                    } else
+                    {
+                        console.log("error al eliminar usuario del servicio");
+                    }
+                }
+            });
+    }
 
     $(".DroppableService").droppable(
         {
@@ -79,7 +99,7 @@
                     objeto.attr("class", "UserInService");
                     objeto.attr("style", "");
                     objeto.appendTo($(this).children("ul"));
-                    objeto.append("<input type=\"button\" value=\"X\" onclick=\"deleteuser(" + identrada + ")\"/>");
+                    objeto.append("<input type=\"button\" data-registerid=\"" + identrada + "\" value=\"X\" onclick=\"deleteuser(this)\"/>");
                 } else
                 {
                     console.log("no insertado");

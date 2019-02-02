@@ -113,7 +113,11 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
-
+        public static bool DeleteProfesionalServicioById(int ID)
+        {
+            Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
+            return C.DeleteProfesionalServicioById(ID);
+        }
 
         public static Servicio ObtenerUltimoServicio()
         {

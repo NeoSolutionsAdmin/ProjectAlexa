@@ -110,6 +110,21 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
+        public bool DeleteProfesionalServicioById(int ID)
+        {
+            QTACustomizado QTA = new QTACustomizado();
+            if (QTA.Delete_ProfesionalServicioById(ID) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
         public DataTable GetAll()
         {
             DispensarioACDataSet.Select_AllServiciosDataTable DT = new DispensarioACDataSet.Select_AllServiciosDataTable();
