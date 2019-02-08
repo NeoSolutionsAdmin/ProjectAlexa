@@ -47,9 +47,9 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
-        public static void Insert(int UserId)
+        public static void Insert(int UserId, int ServicioId)
         {
-            Conexiones.Con_Jornada.InsertarJornada(UserId);
+            Conexiones.Con_Jornada.InsertarJornada(UserId, ServicioId);
         }
 
         public static List<Jornada> GetPeriod(int UserId, DateTime Start, DateTime End)

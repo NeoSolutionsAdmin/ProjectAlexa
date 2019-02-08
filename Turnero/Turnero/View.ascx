@@ -3,7 +3,10 @@
 
 <!--<input type="button" id="C1Button" value="C1" onclick="abrirC1Form()" />!-->
 
+<!--
 <asp:Button runat="server" Text="COMENZAR JORNADA" ID="StartJornada" OnClick="StartJornada_Click" /><asp:Button runat="server" Text="FINALIZAR JORNADA" OnClick="EndJornada_Click" ID="EndJornada" />
+-->
+
 <!--
 <div id="C1Form" style="text-align: right;
 	max-width: 300px;
@@ -183,6 +186,10 @@
     <asp:Button ID="ImprimirC1" runat="server" Text="Imprimir C1" OnClick="ImprimirC1_Click" /> 
     <input type="button" value="cerrar" onclick="cerrarC1Form()"  />
 </div>!-->
+
+
+
+
 <table class="TablaTurnos" id="tablaturnos">
     <tbody>
         <%
@@ -293,7 +300,9 @@
             else
             {
                 if (Session["EstadoJornada"] == null) {
-                    Response.Write("Debe Comenzar una jornada para ver el turnero...");
+                    Response.Write("Elige Tu Servicio y el Turnero se mostrará, Viajero...");
+                    //Response.Write("Debe comenzar una jornada seleccionando el servicio para poder ver el turnero...");
+                    //Response.Write("Debe Comenzar una jornada para ver el turnero...");
                 } else {
 
                     if (Session[SessionTurnos] == null) Response.Write("Usted no posee turnos.");
@@ -303,6 +312,10 @@
         %>
     </tbody>
 </table>
+
+<br />
+<asp:PlaceHolder runat="server" ID="BotonesServicios" ClientIDMode="Static"></asp:PlaceHolder>
+
 <div Title="" id="frmDiagnostico">
     <div>
     <b>Diagnostico paciente:</b><asp:TextBox ClientIDMode="Static" id="txtDiagnostico" runat="server" style="width:400px" />

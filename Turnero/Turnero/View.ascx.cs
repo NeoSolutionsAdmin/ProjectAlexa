@@ -18,6 +18,7 @@ using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Services.Localization;
 using ConnectionDispensario.Modelos;
+using System.Web.UI.WebControls;
 
 namespace Christoc.Modules.Turnero
 {
@@ -74,8 +75,39 @@ namespace Christoc.Modules.Turnero
             }
         }
 
+        
+        void ClickJornada(object sender, EventArgs e)
+        {
+            
+            Button MiBoton = sender as Button;
+            Jornada.Insert(UserId, int.Parse(MiBoton.ID));
+            Response.Redirect("/Turnos");
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            //Se consiguen los servicios del user y se muestran como botones de ASP:
+            List<Servicio> ListaServicios = Servicio.ObtenerServiciosPorProfesional(UserId);
+            if (ListaServicios != null)
+            {
+                foreach (Servicio servicio in ListaServicios)
+                {
+                    Button btnService = new Button();
+                    btnService.Text = servicio.NOMBRE;
+                    btnService.ID = servicio.ID.ToString();
+                    btnService.ClientIDMode = System.Web.UI.ClientIDMode.Static;
+                    btnService.Click += ClickJornada;
+                    BotonesServicios.Controls.Add(btnService);
+                }
+            }
+            else
+            {
+                Label NoService = new Label();
+                NoService.Text = "Usted no tiene servicios asignados. Contacte a un administrativo.";
+                BotonesServicios.Controls.Add(NoService);
+            }
+
 
             PreparacionDeJornada();
 
@@ -196,7 +228,8 @@ namespace Christoc.Modules.Turnero
 
         protected void StartJornada_Click(object sender, EventArgs e)
         {
-            Jornada.Insert(UserId);
+            
+            Jornada.Insert(UserId, 0);
             Response.Redirect("/Turnos");
         }
 

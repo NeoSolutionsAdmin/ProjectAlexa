@@ -133,6 +133,20 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
+        public static Servicio ObtenerServicioById(int Id)
+        {
+            Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
+            DataRow dr = C.GetServicioById(Id);
+            if (dr != null)
+            {
+                return new Servicio(dr);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static List<Servicio> ObtenerServicios()
         {
             Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
@@ -152,6 +166,25 @@ namespace ConnectionDispensario.Modelos
             }
         }
         
+        public static List<Servicio> ObtenerServiciosPorProfesional(int IdProfesional)
+        {
+            Conexiones.Con_Servicios C = new Conexiones.Con_Servicios();
+            DataTable DT = C.GetServiciosByUser(IdProfesional);
+            if (DT!= null)
+            {
+                List<Servicio> LS = new List<Servicio>();
+                foreach (DataRow dr in DT.Rows)
+                {
 
+                    LS.Add(Servicio.ObtenerServicioById(int.Parse( dr["IdServicio"].ToString() )));
+                }
+                return LS;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 }

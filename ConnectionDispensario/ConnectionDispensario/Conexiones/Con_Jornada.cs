@@ -9,10 +9,10 @@ namespace ConnectionDispensario.Conexiones
 {
     public static class Con_Jornada
     {
-        public static void InsertarJornada(int UserId)
+        public static void InsertarJornada(int UserId, int ServicioId)
         {
             QTACustomizado QTA = new QTACustomizado();
-            QTA.InsertarPeriodo_Cronograma_Entrada(UserId, Utils.Conversiones.SQL_To_FullString_DateTime(DateTime.Now)); 
+            QTA.InsertarPeriodo_Cronograma_Entrada(UserId, Utils.Conversiones.SQL_To_FullString_DateTime(DateTime.Now), ServicioId); 
         }
 
         public static void UpdateJornada(int JornadaId, decimal Horas)

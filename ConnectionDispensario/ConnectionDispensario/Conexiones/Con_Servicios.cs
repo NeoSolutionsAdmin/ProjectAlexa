@@ -110,6 +110,23 @@ namespace ConnectionDispensario.Conexiones
             }
         }
 
+        public DataRow GetServicioById(int IdServicio)
+        {
+            DispensarioACDataSet.Select_ServicioByIdDataTable DT = new DispensarioACDataSet.Select_ServicioByIdDataTable();
+            DispensarioACDataSetTableAdapters.Select_ServicioByIdTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_ServicioByIdTableAdapter();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            TA.Fill(DT, IdServicio);
+            if (DT.Rows.Count > 0)
+            {
+                return DT.Rows[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public bool DeleteProfesionalServicioById(int ID)
         {
             QTACustomizado QTA = new QTACustomizado();
@@ -144,5 +161,24 @@ namespace ConnectionDispensario.Conexiones
             
 
         }
+
+        public DataTable GetServiciosByUser(int IdProfesional)
+        {
+            DispensarioACDataSet.Select_IdServiciosByIdProfesionalDataTable DT = new DispensarioACDataSet.Select_IdServiciosByIdProfesionalDataTable();
+            DispensarioACDataSetTableAdapters.Select_IdServiciosByIdProfesionalTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_IdServiciosByIdProfesionalTableAdapter();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            TA.Fill(DT, IdProfesional);
+
+            if (DT.Rows.Count > 0)
+            {
+                return DT;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }
