@@ -27,5 +27,9 @@ CREATE TABLE [dbo].[CronogramaLaboral](
 ) ON [PRIMARY]
 
 GO
-
+CREATE PROCEDURE GET_LastCronogramaByIdServiceAndIdUser(@userId bigint, @serviceId bigint)
+as
+begin
+select Top 1 *  from CronogramaLaboral where userId=@userId and IdServicio=@serviceId Order By Id Desc
+end
 
