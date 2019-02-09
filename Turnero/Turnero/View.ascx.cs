@@ -54,6 +54,7 @@ namespace Christoc.Modules.Turnero
                 if (J.End != null)
                 {
                     StartJornada.Visible = true;
+                    MostrarBotonesServicios(true);
                     Session.Remove("EstadoJornada");
                     //tablaturnos.Visible = false;
                     EndJornada.Visible = false;
@@ -63,6 +64,7 @@ namespace Christoc.Modules.Turnero
                     EndJornada.Visible = true;
                     //tablaturnos.Visible = true;
                     StartJornada.Visible = false;
+                    MostrarBotonesServicios(false);
                     Session.Add("EstadoJornada", "Activa");
                 }
             }
@@ -71,6 +73,7 @@ namespace Christoc.Modules.Turnero
                 //tablaturnos.Visible = false;
                 EndJornada.Visible = false;
                 StartJornada.Visible = true;
+                MostrarBotonesServicios(true);
                 Session.Remove("EstadoJornada");
             }
         }
@@ -84,30 +87,35 @@ namespace Christoc.Modules.Turnero
             Response.Redirect("/Turnos");
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        void MostrarBotonesServicios(bool estado)
         {
-
-            //Se consiguen los servicios del user y se muestran como botones de ASP:
-            List<Servicio> ListaServicios = Servicio.ObtenerServiciosPorProfesional(UserId);
-            if (ListaServicios != null)
+            if (estado)
             {
-                foreach (Servicio servicio in ListaServicios)
+                //Se consiguen los servicios del user y se muestran como botones de ASP:
+                List<Servicio> ListaServicios = Servicio.ObtenerServiciosPorProfesional(UserId);
+                if (ListaServicios != null)
                 {
-                    Button btnService = new Button();
-                    btnService.Text = servicio.NOMBRE;
-                    btnService.ID = servicio.ID.ToString();
-                    btnService.ClientIDMode = System.Web.UI.ClientIDMode.Static;
-                    btnService.Click += ClickJornada;
-                    BotonesServicios.Controls.Add(btnService);
+                    foreach (Servicio servicio in ListaServicios)
+                    {
+                        Button btnService = new Button();
+                        btnService.Text = servicio.NOMBRE;
+                        btnService.ID = servicio.ID.ToString();
+                        btnService.ClientIDMode = System.Web.UI.ClientIDMode.Static;
+                        btnService.Click += ClickJornada;
+                        BotonesServicios.Controls.Add(btnService);
+                    }
+                }
+                else
+                {
+                    Label NoService = new Label();
+                    NoService.Text = "Usted no tiene servicios asignados. Contacte a un administrativo.";
+                    BotonesServicios.Controls.Add(NoService);
                 }
             }
-            else
-            {
-                Label NoService = new Label();
-                NoService.Text = "Usted no tiene servicios asignados. Contacte a un administrativo.";
-                BotonesServicios.Controls.Add(NoService);
-            }
+        }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
 
             PreparacionDeJornada();
 
@@ -260,7 +268,8 @@ namespace Christoc.Modules.Turnero
                 + "&MinStart=" + MinStart.ToString()
                 + "&MinEnd=" + MinEnd.ToString()
                 + "&EST=" + Establecimiento;
-            Response.Redirect("/DesktopModules/Turnero/Reportes.aspx?" + parameters);
+            //Response.Redirect("/DesktopModules/Turnero/Reportes.aspx?" + parameters);
+            Response.Redirect("/Turnos");
         }
     }
 }

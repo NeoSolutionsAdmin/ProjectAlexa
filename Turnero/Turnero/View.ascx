@@ -4,9 +4,9 @@
 <!--<input type="button" id="C1Button" value="C1" onclick="abrirC1Form()" />!-->
 
 <!--
-<asp:Button runat="server" Text="COMENZAR JORNADA" ID="StartJornada" OnClick="StartJornada_Click" /><asp:Button runat="server" Text="FINALIZAR JORNADA" OnClick="EndJornada_Click" ID="EndJornada" />
+<asp:Button runat="server" Text="COMENZAR JORNADA" ID="StartJornada" OnClick="StartJornada_Click" />
 -->
-
+<asp:Button runat="server" Text="FINALIZAR JORNADA" OnClick="EndJornada_Click" ID="EndJornada" />
 <!--
 <div id="C1Form" style="text-align: right;
 	max-width: 300px;
