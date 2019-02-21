@@ -84,6 +84,7 @@
     <Compile Include="Conexiones\Con_CIE.cs" />
     <Compile Include="Conexiones\Con_Historial.cs" />
     <Compile Include="Conexiones\Con_Jornada.cs" />
+    <Compile Include="Conexiones\Con_Pizarra.cs" />
     <Compile Include="Conexiones\Con_Riesgo.cs" />
     <Compile Include="Conexiones\Con_Servicios.cs" />
     <Compile Include="Conexiones\Con_Tags.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Modelos\APP.cs" />
     <Compile Include="Modelos\Diente.cs" />
     <Compile Include="Modelos\Jornada.cs" />
+    <Compile Include="Modelos\PizarraPost.cs" />
     <Compile Include="Modelos\Reporting\C2.cs" />
     <Compile Include="Modelos\Reporting\C3.cs" />
     <Compile Include="Modelos\Riesgo.cs" />
