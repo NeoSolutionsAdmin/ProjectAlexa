@@ -113,6 +113,7 @@
     <Compile Include="Modelos\APP.cs" />
     <Compile Include="Modelos\Diente.cs" />
     <Compile Include="Modelos\Jornada.cs" />
+    <Compile Include="Modelos\PizarraComentario.cs" />
     <Compile Include="Modelos\PizarraPost.cs" />
     <Compile Include="Modelos\Reporting\C2.cs" />
     <Compile Include="Modelos\Reporting\C3.cs" />
