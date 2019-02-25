@@ -10,7 +10,7 @@ using ConnectionDispensario.Utils;
 namespace ConnectionDispensario.Modelos
 {
     [Serializable]
-    class PizarraPost
+    public class PizarraPost
     {
         private int id;
         private string titulo;
