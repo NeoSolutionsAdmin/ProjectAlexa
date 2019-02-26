@@ -12,7 +12,7 @@
         <input type="text" /> <br />
         <input type="button" class="FormButton" onclick="AbrirBuscarPacientePopUp()" value="BUSCAR PACIENTE" />
 
-        <span></span>
+        <span onclick="UndoSelectPaciente()" id="PacienteSeleccionado"></span>
     </div>
 
     <!-- PACIENTE 1 -->
@@ -67,7 +67,7 @@
 <div>
     
     <input type="hidden" id="IdPacienteHidden" />
-
+    <!-- onclick='SelectPaciente(" + data[a].ID + "," + data[a].NOMBRE + ") -->
 </div>
 
 <script>
@@ -89,9 +89,11 @@
         })
     //
     function AbrirBuscarPacientePopUp() {
-        if ($('#BuscarPacientePopUp').is(':hidden')){
-            BuscarPacientePopUp.dialog('open');
-        }
+        ReconstruirTabla();
+        BuscarPacientePopUp.dialog('open');
+    }
+    function CerrarBuscarPacientePopUp() {
+        BuscarPacientePopUp.dialog('close');
     }
     //
     function BuscarPaciente(tipoDeDatos) {
@@ -121,10 +123,11 @@
                 ReconstruirTabla();
                 for (a = 0; a < data.length; a++) {
                     $('#TablaResultadosPacientes').append(
-                        "<tr onclick='SelectPaciente(" + data[a].ID + ")'>" +
+                        "<tr>" +
                             "<td>" + data[a].APELLIDO + "</td>" +
                             "<td>" + data[a].NOMBRE + "</td>" +
                             "<td>" + data[a].NRODOCUMENTO + "</td>" +
+                            "<td> <input type='button' value='SELECCIONAR' onclick='SelectPaciente(\"" + data[a].ID + "\",\"" + data[a].NOMBRE + "\")' /> </td>" + 
                         "</tr>"
                         );
                     }
@@ -144,7 +147,15 @@
     }
 
     function SelectPaciente(Id, Nombre) {
-
+        CerrarBuscarPacientePopUp();
+        $('#PacienteSeleccionado').text("Paciente seleccionado: " + Nombre);
+        $('#PacienteSeleccionado').show('slow');
+        $('#IdPacienteHidden').val(Id);
+    }
+    function UndoSelectPaciente() {
+        $('#PacienteSeleccionado').hide('slow');
+        $('#PacienteSeleccionado').text('');
+        $('#IdPacienteHidden').val('');
     }
 
 </script>
