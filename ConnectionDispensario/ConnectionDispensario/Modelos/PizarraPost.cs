@@ -57,13 +57,25 @@ namespace ConnectionDispensario.Modelos
             Comentarios = PizarraComentario.ComentariosPorPost(Id);
         }
 
-        public int InsertarPost()
+        //Ahora pasó a ser estático y devuelve un DataRow - 26/02/2019 - 1:00 - Losha
+        public static int InsertarPost(
+            string titulo,
+            int idProfesional,
+            DateTime fechaCreacion,
+            int idPaciente,
+            string estado)
         {
-            DataTable DT = CON.Insert_Post(Titulo, Idprofesional, Conversiones.SQL_To_FullString_DateTime(Fechacreacion), Idpaciente, Estado);
 
-            if (DT != null)
+            DataRow DR = Conexiones.Con_Pizarra.Insert_Post(
+                    titulo,
+                    idProfesional,
+                    Conversiones.SQL_To_FullString_DateTime(fechaCreacion),
+                    idPaciente,
+                    estado);
+
+            if (DR != null)
             {
-                int lastPostId = int.Parse(DT.Rows[0][0].ToString());
+                int lastPostId = int.Parse(DR[0].ToString());
                 return lastPostId;
             }
             else

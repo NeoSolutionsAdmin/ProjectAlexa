@@ -14,16 +14,18 @@ namespace ConnectionDispensario.Conexiones
         //                                              //
         //      Pertenecientes a la tabla de POSTS      //
         //                                              //
-        public DataTable Insert_Post(string TituloPost, int IdProfesional, string FechaCreacion, int IdPaciente, string Estado)
+        // Pasó a ser estático y devolver un Data Row - 26/02/2019 - 1:01
+        public static DataRow Insert_Post(string TituloPost, int IdProfesional, string FechaCreacion, int IdPaciente, string Estado)
         {
             DispensarioACDataSetTableAdapters.Insert_PostTableAdapter TA = new DispensarioACDataSetTableAdapters.Insert_PostTableAdapter();
             DispensarioACDataSet.Insert_PostDataTable DT = new DispensarioACDataSet.Insert_PostDataTable();
             System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
-            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, "losha");
             TA.Fill(DT, TituloPost, IdProfesional, FechaCreacion, IdPaciente, Estado);
+
             if (DT != null && DT.Rows.Count > 0)
             {
-                return DT;
+                return DT.Rows[0];
             }
             else
             {

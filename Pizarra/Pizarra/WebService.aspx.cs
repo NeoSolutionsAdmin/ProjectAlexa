@@ -16,16 +16,39 @@ namespace Christoc.Modules.Pizarra
             Response.Clear();
             Response.ClearHeaders();
 
-            string busqueda = "";
             string json = "null";
 
             if (Request["busquedaPaciente"] != null)
                 json = GetPacientes(Request["busquedaPaciente"], Request["tipoDeDatos"]);
+            if (Request["newPost"] != null)
+                json = InsertPost(Request["titulo"], int.Parse(Request["idProfesional"]), int.Parse(Request["idPaciente"]));
 
             Response.Write(json);
             Response.Flush();
             Response.End();
         }
+
+        private string InsertPost(
+            string titulo,
+            int idProfesional,
+            int idPaciente)
+        {
+            int idNewPost = PizarraPost.InsertarPost(
+                titulo,
+                idProfesional,
+                DateTime.Now,
+                idPaciente,
+                "Pendiente");
+            
+
+            if (idNewPost == 0)
+                return "False";
+            else return "True";
+
+        }
+
+
+
 
         private string GetPacientes(
             string busqueda,

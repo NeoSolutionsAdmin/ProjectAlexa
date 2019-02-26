@@ -5,14 +5,17 @@
 
     <h1 style="margin-bottom: 50px;">PIZARRA</h1>
 
-    <input type="button" class="FormButton" value="Crear post" style="display: inline-block;" />
+    <input type="button" id="ButtonCrearPost" onclick="AbrirCerrarCreatePost()" class="FormButton" value="Crear post" style="display: inline-block;" />
 
-    <div>
+    <div style="display: none;" id="CrearNuevoPost">
         <input type="button" class="fakeButton" value="TITULO" />
-        <input type="text" /> <br />
+        <input type="text" id="NewTituloPostText" /> <br />
         <input type="button" class="FormButton" onclick="AbrirBuscarPacientePopUp()" value="BUSCAR PACIENTE" />
 
-        <span onclick="UndoSelectPaciente()" id="PacienteSeleccionado"></span>
+        <span onclick="UndoSelectPaciente()" id="PacienteSeleccionado"></span> <br />
+
+        <input type="button" onclick="GuardarPost()" value="GUARDAR" />
+
     </div>
 
     <!-- PACIENTE 1 -->
@@ -66,8 +69,9 @@
 <!-- HIDDENS -->
 <div>
     
-    <input type="hidden" id="IdPacienteHidden" />
-    <!-- onclick='SelectPaciente(" + data[a].ID + "," + data[a].NOMBRE + ") -->
+    <input type="hidden" id="IdPacienteHidden" />    
+    <asp:HiddenField runat="server" ClientIDMode="Static" ID="IdProfesional" />
+    
 </div>
 
 <script>
@@ -157,5 +161,53 @@
         $('#PacienteSeleccionado').text('');
         $('#IdPacienteHidden').val('');
     }
+
+    function AbrirCerrarCreatePost() {
+        var div = $('#CrearNuevoPost');
+        var button = $('#ButtonCrearPost')
+
+        if (div.is(":hidden")) {
+            div.show('slow');
+            button.val("CERRAR")
+        }
+        else {
+            div.hide('slow');
+            button.val("CREAR POST")
+        }
+    }
+
+    function GuardarPost() {
+        var titulo = $('#NewTituloPostText').val();
+        var idPaciente = $('#IdPacienteHidden').val();
+        var idProfesional = $('#IdProfesional').val();
+
+        console.log(titulo + " " + idPaciente + " " + idProfesional);
+
+        if (titulo != "" && idPaciente != "") {
+            $.ajax({
+                url: "DesktopModules/Pizarra/WebService.aspx",
+                dataType: 'text',
+                data:
+                {
+                    newPost: 'true',
+                    idPaciente: idPaciente,
+                    titulo: titulo,
+                    idProfesional: idProfesional,
+                },
+                success: function (data) {
+                    if (data == "True") {
+                        alert("Post agregado con éxito.");
+                    }
+                    else {
+                        alert("Hubo un error inesperado y no se agregó el post.")
+                    }
+                }
+            })
+        }
+        else {
+            alert("Falta completar un campo.");
+        }
+    }
+
 
 </script>

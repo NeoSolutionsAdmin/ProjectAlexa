@@ -36,6 +36,10 @@ namespace Christoc.Modules.Pizarra
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            IdProfesional.Value = UserId.ToString();
+
+
             try
             {
 
