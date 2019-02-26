@@ -15,6 +15,7 @@ namespace ConnectionDispensario.Modelos
         public DateTime Start;
         public DateTime? End;
         public decimal? Horas;
+        public int? IdServicio;
 
         private Jornada(DataRow dr)
         {
@@ -23,6 +24,7 @@ namespace ConnectionDispensario.Modelos
             Start = DateTime.Parse(dr["EntradaJornada"].ToString());
             if (dr.IsNull("SalidaJornada") == false) { End = DateTime.Parse(dr["SalidaJornada"].ToString()); }
             if (dr.IsNull("Horas") == false) { decimal.Parse( (dr["Horas"].ToString())); }
+            if (dr.IsNull("IdServicio") == false) { IdServicio = int.Parse(dr["IdServicio"].ToString()); }
         }
 
         public decimal ExitJornada()

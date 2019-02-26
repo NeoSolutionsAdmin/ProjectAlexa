@@ -221,7 +221,7 @@
                     }
 
                     int limit = 0;
-                    if (NewList.Count < 20) limit = NewList.Count; else limit = 30;
+                    if (NewList.Count < 30) limit = NewList.Count; else limit = 29;
 
                     for (int a = 0;a<limit;a++)
                     {
@@ -300,7 +300,7 @@
             else
             {
                 if (Session["EstadoJornada"] == null) {
-                    Response.Write("Elige Tu Servicio y el Turnero se mostrará, Viajero...");
+                    Response.Write("[SELECCIONA EL SERVICIO PERTENECIENTE A LA JORNADA]");
                     //Response.Write("Debe comenzar una jornada seleccionando el servicio para poder ver el turnero...");
                     //Response.Write("Debe Comenzar una jornada para ver el turnero...");
                 } else {

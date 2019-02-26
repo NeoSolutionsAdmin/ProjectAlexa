@@ -62,6 +62,7 @@ namespace Christoc.Modules.Turnero
             string MinStart = Request["MinStart"].ToString();
             string MinEnd = Request["MinEnd"].ToString();
             string Est = Request["EST"].ToString();
+            string Servicio = Request["SERV"].ToString();
 
             string datestart = Y + "-" + MS + "-" + DS + " " + HS + ":" + MinStart +  ":00";
             string dateend = Y + "-" + ME + "-" + DE + " " + HE + ":" + MinEnd + ":00";
@@ -92,7 +93,7 @@ namespace Christoc.Modules.Turnero
             RV.LocalReport.SetParameters(new ReportParameter[] {
                     new ReportParameter("NombreMedico",UI.FirstName + " " + UI.LastName),
                     new ReportParameter("Establecimiento","Dispensario Municipal \"Dr. H Weihmuller\""),
-                    new ReportParameter("Servicio",UI.Profile.GetPropertyValue("Puesto")),
+                    new ReportParameter("Servicio",Servicio),
                     new ReportParameter("CodigoEstablecimiento","4200026"),
                     new ReportParameter("CodigoServicio","..."),
                     new ReportParameter("TotalObraSocial",C1.totalplandesalud.ToString()),

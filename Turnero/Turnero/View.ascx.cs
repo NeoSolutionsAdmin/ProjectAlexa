@@ -254,6 +254,12 @@ namespace Christoc.Modules.Turnero
             int HE = J.End.Value.Hour;
             int MinStart = J.Start.Minute;
             int MinEnd = J.End.Value.Minute;
+            Servicio S = null;
+            if (J.IdServicio != null)
+            {
+                S = Servicio.ObtenerServicioById(J.IdServicio.Value);
+            }
+            if (S != null) { 
             string Establecimiento = lstEstablecimiento.SelectedValue;
             string parameters = "C1=1&IDP=" + PortalId.ToString()
                 + "&UID=" + UserId.ToString()
@@ -267,9 +273,11 @@ namespace Christoc.Modules.Turnero
                 + "&HE=" + HE.ToString()
                 + "&MinStart=" + MinStart.ToString()
                 + "&MinEnd=" + MinEnd.ToString()
-                + "&EST=" + Establecimiento;
-            //Response.Redirect("/DesktopModules/Turnero/Reportes.aspx?" + parameters);
-            Response.Redirect("/Turnos");
+                + "&EST=" + Establecimiento
+                + "&SERV=" + S.NOMBRE;
+            Response.Redirect("/DesktopModules/Turnero/Reportes.aspx?" + parameters);
+            }
+
         }
     }
 }
