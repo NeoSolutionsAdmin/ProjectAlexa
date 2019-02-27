@@ -6,16 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConnectionDispensario.Utils;
+using ConnectionDispensario.Modelos;
 
 namespace ConnectionDispensario.Modelos
 {
     [Serializable]
     public class PizarraPost
     {
+        // Agregado un FechaCreacionString para parsear la fecha y visualizarla - 27/02/2019 - 16:10 - Losha
         private int id;
         private string titulo;
         private int idprofesional;
+        //private string nombreprofesional;
+        //private string apellidoprofesional;
         private DateTime fechacreacion;
+        private string fechacreacionstring;
         private int idpaciente;
         private string estado;
         List<PizarraComentario> comentarios;
@@ -23,7 +28,10 @@ namespace ConnectionDispensario.Modelos
         public int Id { get => id; set => id = value; }
         public string Titulo { get => titulo; set => titulo = value; }
         public int Idprofesional { get => idprofesional; set => idprofesional = value; }
+        //public string NombreProfesional { get => nombreprofesional; set => nombreprofesional = value; }
+        //public string ApellidoProfesional { get => apellidoprofesional; set => apellidoprofesional = value; }
         public DateTime Fechacreacion { get => fechacreacion; set => fechacreacion = value; }
+        public string FechaCreacionString { get => fechacreacionstring; set => fechacreacionstring = value; }
         public int Idpaciente { get => idpaciente; set => idpaciente = value; }
         public string Estado { get => estado; set => estado = value; }
         internal List<PizarraComentario> Comentarios { get => comentarios; set => comentarios = value; }
@@ -44,20 +52,22 @@ namespace ConnectionDispensario.Modelos
             Idpaciente = idpaciente;
             Estado = estado;
             Comentarios = PizarraComentario.ComentariosPorPost(Id);
+            
         }
 
         public PizarraPost(DataRow DR)
         {
             Id = int.Parse(DR["Id"].ToString());
             Titulo = DR["TituloPost"].ToString();
-            Idprofesional = int.Parse(DR["IdProfesional"].ToString());
+            Idprofesional = int.Parse(DR["IdProfesional"].ToString());            
             Fechacreacion = DateTime.Parse(DR["FechaCreacion"].ToString());
+            FechaCreacionString = Fechacreacion.ToString();
             Idpaciente = int.Parse(DR["IdPaciente"].ToString());
             Estado = DR["Estado"].ToString();
             Comentarios = PizarraComentario.ComentariosPorPost(Id);
         }
 
-        //Ahora pasó a ser estático y devuelve un DataRow - 26/02/2019 - 1:00 - Losha
+        //Ahora pasó a ser estático y devuelve un DataRow - 26/02/2019 - 01:00 - Losha
         public static int InsertarPost(
             string titulo,
             int idProfesional,
