@@ -22,6 +22,9 @@ namespace Christoc.Modules.Pizarra
                 json = GetPacientes(Request["busquedaPaciente"], Request["tipoDeDatos"]);
             if (Request["newPost"] != null)
                 json = InsertPost(Request["titulo"], int.Parse(Request["idProfesional"]), int.Parse(Request["idPaciente"]));
+            if (Request["getPosts"] != null)
+                json = GetPostsByIdPaciente(int.Parse(Request["idPaciente"]));
+
 
             Response.Write(json);
             Response.Flush();
@@ -40,15 +43,11 @@ namespace Christoc.Modules.Pizarra
                 idPaciente,
                 "Pendiente");
             
-
             if (idNewPost == 0)
                 return "False";
             else return "True";
 
         }
-
-
-
 
         private string GetPacientes(
             string busqueda,
@@ -58,16 +57,22 @@ namespace Christoc.Modules.Pizarra
             {
                 List<Paciente> resultados = 
                     Paciente.BuscarPacientesByApellido(busqueda);
-                string json = new JavaScriptSerializer().Serialize(resultados);
-                return json;
+                return new JavaScriptSerializer().Serialize(resultados);
             }
             else
             {
                 List<Paciente> resultados =
                     Paciente.BuscarPacientesByDNI(busqueda);
-                string json = new JavaScriptSerializer().Serialize(resultados);
-                return json;
+                return new JavaScriptSerializer().Serialize(resultados);
             }            
+        }
+
+        private string GetPostsByIdPaciente(int idPaciente)
+        {
+            List<PizarraPost> resultados =
+                PizarraPost.PostsPorPaciente(idPaciente);           
+
+            return new JavaScriptSerializer().Serialize(resultados);
         }
 
     }
