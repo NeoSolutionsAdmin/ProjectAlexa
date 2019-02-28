@@ -21,6 +21,26 @@ namespace ConnectionDispensario.Conexiones
             QTA.InsertarPeriodo_Cronograma_Salida(JornadaId, Utils.Conversiones.SQL_To_FullString_DateTime(DateTime.Now), Horas);
         }
 
+        public static DataTable GetClosedByIdServiceAndDate(int year, int month, int day, int service)
+        {
+
+            DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndDateComienzoDataTable DT = new DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndDateComienzoDataTable();
+            DispensarioACDataSetTableAdapters.Select_JornadaLaboralByIdServicioAndDateComienzoTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_JornadaLaboralByIdServicioAndDateComienzoTableAdapter();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, "mi clase");
+            TA.Connection = SQLCONN;
+            TA.Fill(DT,day,year,month,service);
+            if (DT.Rows.Count > 0)
+            {
+                return DT;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         public static DataRow GetLastJornada(int UserId)
         {
             DispensarioACDataSet.SeleccionarPeriodo_Cronograma_UltimoDataTable DT = new DispensarioACDataSet.SeleccionarPeriodo_Cronograma_UltimoDataTable();

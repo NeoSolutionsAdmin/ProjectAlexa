@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using ConnectionDispensario.Modelos.Reporting;
+using ConnectionDispensario.Modelos;
 
 namespace Christoc.Modules.Planillas
 {
@@ -154,7 +155,7 @@ namespace Christoc.Modules.Planillas
             if (Request["service"] != null)
             {
                 //DotNetNuke.Entities.Portals.PortalController PC = new DotNetNuke.Entities.Portals.PortalController();
-                System.Collections.ArrayList AL = DotNetNuke.Entities.Users.UserController.GetUsers(0);
+                
 
                 int Month = int.Parse(Request["month"].ToString());
                 int year = int.Parse(Request["year"].ToString());
@@ -165,55 +166,59 @@ namespace Christoc.Modules.Planillas
                 {
                     itemsC2.Add(new ConnectionDispensario.Modelos.Reporting.C2Item());
                     itemsC2[dia].Dia = dia + 1;
-                    if (AL != null && itemsC2!=null)
+                    List<Jornada> ListaJornadas = Jornada.SelectClosedJornadasByDateAndIdService(year, Month, dia+1, Service.ID);
+                    if (ListaJornadas != null)
                     {
-                        for (int A = 0; A < AL.Count; A++)
+                        foreach (Jornada j in ListaJornadas)
                         {
-                            DotNetNuke.Entities.Users.UserInfo UI = AL[A] as UserInfo;
-
-                            if (UI.IsInRole("Servicio:" + Request["servicio"]) == true)
+                            List<Turno> T = Turno.GetTurnosByPeriod(j.Start, j.End.Value, j.USERID.Value, "Finalizado");
+                            decimal horasdeconsulta = (decimal)((j.Start - j.End.Value).TotalSeconds * 60 * 60);
+                            itemsC2[dia].HorasAtencion += horasdeconsulta;
+                            if (T != null)
                             {
-                                ConnectionDispensario.Modelos.Reporting.C2 datosTemp = new ConnectionDispensario.Modelos.Reporting.C2(UI.UserID);
-
-                                itemsC2[dia].HorasAtencion += datosTemp.HorasAtencionPorDia[dia];
-
-                                //Consiguiendo datos de la C1 del usuario A
-                                if (datosTemp.ItemsDeC1 != null)
+                                foreach (Turno t in T)
                                 {
-                                    for (int i = 0; i < datosTemp.ItemsDeC1.Count; i++)
+                                    if (t.Pac != null)
                                     {
-                                        if (dia + 1 == datosTemp.ItemsDeC1[i].FechaDeAtencion.Day)
+
+                                        Paciente p = t.Pac;
+                                        int age = ConnectionDispensario.Utils.Conversiones.getAge(p.FECHA_NACIMIENTO);
+                                        string sex="";
+                                        if (p.SEXO == "Masculino") { sex = "m"; } else { sex = "f"; }
+
+
+                                        itemsC2[dia].TotalTotal++;
+
+                                        if (sex == "m")
                                         {
-                                            if (datosTemp.ItemsDeC1[i].Menor1f == "X") itemsC2[dia].Menor1f++;
-                                            if (datosTemp.ItemsDeC1[i].Menor1m == "X") itemsC2[dia].Menor1m++;
-
-                                            if (datosTemp.ItemsDeC1[i].Ano1f == "X") itemsC2[dia].Ano1f++;
-                                            if (datosTemp.ItemsDeC1[i].Ano1m == "X") itemsC2[dia].Ano1m++;
-
-                                            if (datosTemp.ItemsDeC1[i].Ano2a4f == "X") itemsC2[dia].Ano2a4f++;
-                                            if (datosTemp.ItemsDeC1[i].Ano2a4m == "X") itemsC2[dia].Ano2a4m++;
-
-                                            if (datosTemp.ItemsDeC1[i].Ano5a9f == "X") itemsC2[dia].Ano5a9f++;
-                                            if (datosTemp.ItemsDeC1[i].Ano5a9m == "X") itemsC2[dia].Ano5a9m++;
-
-                                            if (datosTemp.ItemsDeC1[i].Ano10a14f == "X") itemsC2[dia].Ano10a14f++;
-                                            if (datosTemp.ItemsDeC1[i].Ano10a14m == "X") itemsC2[dia].Ano10a14m++;
-
-                                            if (datosTemp.ItemsDeC1[i].Ano15a49f == "X") itemsC2[dia].Ano15a49f++;
-                                            if (datosTemp.ItemsDeC1[i].Ano15a49m == "X") itemsC2[dia].Ano15a49m++;
-
-                                            if (datosTemp.ItemsDeC1[i].Ano50ymasf == "X") itemsC2[dia].Ano50ymasf++;
-                                            if (datosTemp.ItemsDeC1[i].Ano50ymasm == "X") itemsC2[dia].Ano50ymasf++;
+                                            itemsC2[dia].Totalm++;
+                                            if (age < 1) itemsC2[dia].Menor1m++;
+                                            if (age == 1) itemsC2[dia].Ano1m++;
+                                            if (age > 1 && age < 5) itemsC2[dia].Ano2a4m++;
+                                            if (age > 4 && age < 10) itemsC2[dia].Ano5a9m++;
+                                            if (age > 9 && age < 15) itemsC2[dia].Ano10a14m++;
+                                            if (age > 14 && age < 50) itemsC2[dia].Ano15a49m++;
+                                            if (age > 49 ) itemsC2[dia].Ano50ymasm++;
 
 
-
-                                            if (datosTemp.ItemsDeC1[i].Controlembarazo == "X") itemsC2[dia].TotalPregnant++;
+                                        }
+                                        else
+                                        {
+                                            itemsC2[dia].Totalf++;
+                                            if (age < 1) itemsC2[dia].Menor1f++;
+                                            if (age == 1) itemsC2[dia].Ano1f++;
+                                            if (age > 1 && age < 5) itemsC2[dia].Ano2a4f++;
+                                            if (age > 4 && age < 10) itemsC2[dia].Ano5a9f++;
+                                            if (age > 9 && age < 15) itemsC2[dia].Ano10a14f++;
+                                            if (age > 14 && age < 50) itemsC2[dia].Ano15a49f++;
+                                            if (age > 49) itemsC2[dia].Ano50ymasf++;
                                         }
 
+                                        if (t.ControlEmbarazo == true) { itemsC2[dia].TotalPregnant++; }
                                     }
                                 }
-
                             }
+
                         }
                     }
 

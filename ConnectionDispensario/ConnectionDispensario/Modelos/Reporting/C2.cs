@@ -10,7 +10,7 @@ namespace ConnectionDispensario.Modelos.Reporting
     public class C2Item
     {
         int dia;
-        int horasAtencion;
+        decimal horasAtencion;
 
         int menor1m;
         int menor1f;
@@ -39,7 +39,7 @@ namespace ConnectionDispensario.Modelos.Reporting
         int totalPregnant;
 
         public int Dia { get => dia; set => dia = value; }
-        public int HorasAtencion { get => horasAtencion; set => horasAtencion = value; }
+        public decimal HorasAtencion { get => horasAtencion; set => horasAtencion = value; }
         public int Menor1m { get => menor1m; set => menor1m = value; }
         public int Menor1f { get => menor1f; set => menor1f = value; }
         public int Ano1m { get => ano1m; set => ano1m = value; }
