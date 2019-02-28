@@ -204,14 +204,16 @@
             success: function (data) {
                 for (a = 0; a < data.length; a++) {
                     $('#ListaPostsDiv').append(
-                        "<div>" +
-                            "<!-- Sprint " + data[a].Titulo + " - " + data[a].Estado + " -->"+
-                            "<div>" +
-                                "<h3><input type='button' value='+' />" + data[a].Titulo + " - " + "<span class='" + data[a].Estado + "'>" + data[a].Estado + "</span>" + "</h3>" +
-                                "<p style='font-weight: bold; margin-top: -15px;'>" + data[a].Idprofesional + " - " + data[a].FechaCreacionString + "</p>" +
+                        "<!-- Sprint " + data[a].Titulo + " - " + data[a].Estado + " -->"+
+                        "<div style='background-color: gray;'>" +
+                            "<input onclick='ShowComments(this)' style='font-weight: bold;' type='button' value='+' />" +
+                            "<h3 style='display: inline-block; margin-bottom: 20px;'>" + data[a].Titulo + " - " + "<span class='" + data[a].Estado + "'>" + data[a].Estado + "</span>" + "</h3>" +
+                            "<div style='display: none;'>" +
+                                "<p style='font-weight: bold; margin-top: -15px;'>" + data[a].NombreProfesional + " " + data[a].ApellidoProfesional + " - " + data[a].FechaCreacionString + "</p>" +
                                 "<!-- Comentarios -->" +
                                 "<div>" +
-                                    
+                                    "<p>Dr Xxx Yyy - dd/mm/aa </p>" +
+                                    "<p> Lorem ipsum </p>" +
                                 "</div>" +
                             "</div>" +
                         "</div>")
@@ -220,6 +222,21 @@
             }
 
         })
+    }
+    //
+    function ShowComments(object) {
+        var commentsDiv = $(object).siblings('div');
+        var button = $(object);
+
+        if (commentsDiv.is(":hidden")) {
+            commentsDiv.show('slow');
+            button.val("-");
+        }
+        else {
+            commentsDiv.hide('slow');
+            button.val("+");
+        }
+
     }
     
 
