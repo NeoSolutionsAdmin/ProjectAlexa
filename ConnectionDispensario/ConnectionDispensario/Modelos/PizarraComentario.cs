@@ -1,5 +1,6 @@
 ﻿using ConnectionDispensario.Conexiones;
 using ConnectionDispensario.Utils;
+using DotNetNuke.Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,17 +13,29 @@ namespace ConnectionDispensario.Modelos
     [Serializable]
     public class PizarraComentario
     {
+        //Agregado apellido, nombre y fechastring para más comodidad - 28/02/2019 12:14 - Losha
         int id;
         int idpost;
         string comentario;
+
         int idprofesional;
+        string nombreprofesional;
+        string apellidoprofesional;
+
         DateTime fechacreacion;
+        string fechacreacionstring;
+
 
         public int Id { get => id; set => id = value; }
         public int Idpost { get => idpost; set => idpost = value; }
         public string Comentario { get => comentario; set => comentario = value; }
+
         public int Idprofesional { get => idprofesional; set => idprofesional = value; }
+        public string NombreProfesional { get => nombreprofesional; set => nombreprofesional = value; }
+        public string ApellidoProfesional { get => apellidoprofesional; set => apellidoprofesional = value; }
+
         public DateTime Fechacreacion { get => fechacreacion; set => fechacreacion = value; }
+        public string FechaCreacionString { get => fechacreacionstring; set => fechacreacionstring = value; }
 
         Con_Pizarra CON = new Con_Pizarra();
 
@@ -46,7 +59,13 @@ namespace ConnectionDispensario.Modelos
             Idpost = int.Parse(DR["IdPost"].ToString());
             Comentario = DR["Comentario"].ToString();
             Idprofesional = int.Parse(DR["IdProfesional"].ToString());
+
+            UserInfo ui = UserController.GetUserById(0, Idprofesional);
+            NombreProfesional = ui.FirstName;
+            ApellidoProfesional = ui.LastName;
+
             Fechacreacion = DateTime.Parse(DR["FechaCreacion"].ToString());
+            FechaCreacionString = Fechacreacion.ToString();
         }
 
         public int InsertarComentario()

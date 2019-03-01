@@ -25,7 +25,7 @@ namespace ConnectionDispensario.Modelos
         private string fechacreacionstring;
         private int idpaciente;
         private string estado;
-        List<PizarraComentario> comentarios;
+        private List<PizarraComentario> comentarios;
 
         public int Id { get => id; set => id = value; }
         public string Titulo { get => titulo; set => titulo = value; }
@@ -36,7 +36,7 @@ namespace ConnectionDispensario.Modelos
         public string FechaCreacionString { get => fechacreacionstring; set => fechacreacionstring = value; }
         public int Idpaciente { get => idpaciente; set => idpaciente = value; }
         public string Estado { get => estado; set => estado = value; }
-        internal List<PizarraComentario> Comentarios { get => comentarios; set => comentarios = value; }
+        public List<PizarraComentario> Comentarios { get => comentarios; set => comentarios = value; }
 
         private Conexiones.Con_Pizarra CON = new Conexiones.Con_Pizarra();
 

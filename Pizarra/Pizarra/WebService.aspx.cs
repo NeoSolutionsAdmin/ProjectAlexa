@@ -24,8 +24,10 @@ namespace Christoc.Modules.Pizarra
                 json = InsertPost(Request["titulo"], int.Parse(Request["idProfesional"]), int.Parse(Request["idPaciente"]));
             if (Request["getPosts"] != null)
                 json = GetPostsByIdPaciente(int.Parse(Request["idPaciente"]));
+            if (Request["getComments"] != null)
+                json = GetCommentsByIdPost(int.Parse(Request["idPost"]));
 
-
+            //json = new JavaScriptSerializer().Serialize(PizarraComentario.ComentariosPorPost(1));
             Response.Write(json);
             Response.Flush();
             Response.End();
@@ -71,6 +73,14 @@ namespace Christoc.Modules.Pizarra
         {
             List<PizarraPost> resultados =
                 PizarraPost.PostsPorPaciente(idPaciente);           
+
+            return new JavaScriptSerializer().Serialize(resultados);
+        }
+
+        private string GetCommentsByIdPost(int idPost)
+        {
+            List<PizarraComentario> resultados =
+                PizarraComentario.ComentariosPorPost(idPost);
 
             return new JavaScriptSerializer().Serialize(resultados);
         }

@@ -6,7 +6,7 @@
     <h1 style="margin-bottom: 50px;">PIZARRA</h1>
 
     <input type="button" value="BUSCAR PACIENTE" class="FormButton" onclick="AbrirBuscarPacientePopUp()"/>
-    <span onclick="UndoSelectPaciente()" id="PacienteSeleccionado"></span> <br />
+    <span id="PacienteSeleccionado"></span> <br />
 
 
     <!-- CREAR POST -->
@@ -201,40 +201,79 @@
                 getPosts: 'true',
                 idPaciente: idPaciente,
             },
+            async: false,
             success: function (data) {
+                //console.log(data.length)
                 for (a = 0; a < data.length; a++) {
+                    console.log(data[a].Comentarios == null);
                     $('#ListaPostsDiv').append(
-                        "<!-- Sprint " + data[a].Titulo + " - " + data[a].Estado + " -->"+
+                        "<!-- Sprint " + data[a].Titulo + " - " + data[a].Estado + " -->" +
                         "<div style='background-color: gray;'>" +
-                            "<input onclick='ShowComments(this)' style='font-weight: bold;' type='button' value='+' />" +
+                            "<input onclick='ShowComments(this, \"" + data[a].Id + "\")' style='font-weight: bold;' type='button' value='+' />" +
                             "<h3 style='display: inline-block; margin-bottom: 20px;'>" + data[a].Titulo + " - " + "<span class='" + data[a].Estado + "'>" + data[a].Estado + "</span>" + "</h3>" +
                             "<div style='display: none;'>" +
                                 "<p style='font-weight: bold; margin-top: -15px;'>" + data[a].NombreProfesional + " " + data[a].ApellidoProfesional + " - " + data[a].FechaCreacionString + "</p>" +
                                 "<!-- Comentarios -->" +
-                                "<div>" +
-                                    "<p>Dr Xxx Yyy - dd/mm/aa </p>" +
-                                    "<p> Lorem ipsum </p>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>")
-                }
-                
+                        "<div class='' style='padding: 20px;'>");
+                    var comments = "";
+                                    if (data[a].Comentarios != null) {
+            comments = "<div>";
+            for (i = 0; i < data[a].Comentarios.length; i++) {
+                comments = comments +
+                    "<div>" +
+                        "<p>" + data[a].Comentarios[i].NombreProfesional + " " + data[a].Comentarios[i].ApellidoProfesional + " - " + data[a].Comentarios[i].FechaCreacionString + "</p>" +
+                        "<p>" + data[a].Comentarios[i].Comentario + "</p>" +
+                    "</div> ";
             }
 
+            comments = comments + "</div>";
+        }
+        else {
+            comments = '<p>Todavía no hay ningún comentario</p>';
+                    }
+                    $('#ListaPostsDiv').append(comments);
+                    $('#ListaPostsDiv').append("</div>" +
+                            "</div>" +
+                        "</div>");
+                }                
+            }
         })
     }
     //
-    function ShowComments(object) {
-        var commentsDiv = $(object).siblings('div');
-        var button = $(object);
+    function GetComments(data, currentIteration) {
+       
+        var comments = "";
+        //console.log(data[currentIteration].Comentarios.length);
 
-        if (commentsDiv.is(":hidden")) {
-            commentsDiv.show('slow');
-            button.val("-");
+        if (data[currentIteration].Comentarios != null) {
+            comments = "<div>";
+            for (a = 0; a < data[currentIteration].Comentarios.length; a++) {
+                comments = comments +
+                    "<div>" +
+                        "<p>" + data[currentIteration].Comentarios[a].NombreProfesional + " " + data[currentIteration].Comentarios[a].ApellidoProfesional + " - " + data[currentIteration].Comentarios[a].FechaCreacionString + "</p>" +
+                        "<p>" + data[currentIteration].Comentarios[a].Comentario + "</p>" +
+                    "</div> ";
+            }
+
+            comments = comments + "</div>";
         }
         else {
-            commentsDiv.hide('slow');
-            button.val("+");
+            comments = '<p>Todavía no hay ningún comentario</p>'
+        }
+        
+        return comments;
+    }
+    //
+    function ShowComments(object, idPost) {
+        var commentsDivWrapper = $(object).siblings('div');
+        var button = $(object);
+
+        if (commentsDivWrapper.is(":hidden")) {
+            commentsDivWrapper.show('slow');
+        }
+        else {
+            commentsDivWrapper.hide('slow');
+            button.val("+");            
         }
 
     }
