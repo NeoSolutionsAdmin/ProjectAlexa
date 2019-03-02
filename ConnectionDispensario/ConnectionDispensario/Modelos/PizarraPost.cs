@@ -16,6 +16,7 @@ namespace ConnectionDispensario.Modelos
     {
         // Agregado un FechaCreacionString para parsear la fecha y visualizarla - 27/02/2019 - 16:10 - Losha
         // Agregado apellid y nombre del profesional para el View.ascx - 27/02/2019 - 23:10 - Losha
+        // Cambiado List<PizarraComentario> de "internal" a "public" - 28/02/2019 - 
         private int id;
         private string titulo;
         private int idprofesional;

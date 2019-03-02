@@ -25,6 +25,7 @@ namespace ConnectionDispensario.Modelos
         DateTime fechacreacion;
         string fechacreacionstring;
 
+        public int ID { get { return id; } set { id = value; } }
 
         public int Id { get => id; set => id = value; }
         public int Idpost { get => idpost; set => idpost = value; }

@@ -179,7 +179,7 @@
         $('#PacienteSeleccionado').show('slow');
         $('#IdPacienteHidden').val(idPaciente);
         $('#CrearNuevoPostDiv').show('slow');
-        GetPostsByPaciente(idPaciente);        
+        GetPostsByPacienteProto(idPaciente);        
     }
     //
     function UndoSelectPaciente() {
@@ -238,6 +238,60 @@
                 }                
             }
         })
+    }
+    function GetPostsByPacienteProto(idPaciente) {
+        $.ajax({
+            url: "DesktopModules/Pizarra/WebService.aspx",
+            dataType: 'json',
+            data:
+            {
+                getPosts: 'true',
+                idPaciente: idPaciente,
+            },
+            async: false,
+            success: function (data) {
+                //console.log(data.length)
+                for (a = 0; a < data.length; a++) {
+                    $('#ListaPostsDiv').append(
+                        "<!-- Sprint " + data[a].Titulo + " - " + data[a].Estado + " -->" +
+                        "<div style='background-color: gray;'>" +
+                            "<input onclick='ShowComments(this, \"" + data[a].Id + "\")' style='font-weight: bold;' type='button' value='+' />" +
+                            "<h3 style='display: inline-block; margin-bottom: 20px;'>" + data[a].Titulo + " - " + "<span class='" + data[a].Estado + "'>" + data[a].Estado + "</span>" + "</h3>" +
+                            "<div style='display: none;'>" +
+                                "<p style='font-weight: bold; margin-top: -15px;'>" + data[a].NombreProfesional + " " + data[a].ApellidoProfesional + " - " + data[a].FechaCreacionString + "</p>" +
+                                "<!-- Comentarios -->" +
+                                "<div class='' style='padding: 20px;'>" +
+                                    GetCommentsProto(data, a) +
+                            "</div>" +
+                            "</div>" +
+                        "</div>");
+                }                
+            }
+        })
+    }
+    //
+    function GetCommentsProto (data, currentIteration) {
+        var comments = "";
+
+        if (data[currentIteration].Comentarios == null) {
+            comments += "<p>No hay comentarios</p>";
+        }
+        else {
+            for (i = 0; i < data[currentIteration].Comentarios.length; i++) {
+                comments += "<p>" + data[currentIteration].Comentarios[i].Comentario + "</p>";  
+            }
+            //comments += "<p>" + data[currentIteration].Comentarios[0].Comentario + "</p>";  
+                                       
+        }
+        console.log(comments)
+        /*if (data[currentIteration].Comentarios == null) {
+            comments += "<div><p>Todavía no hay comentarios</div></p>" 
+        }
+        else {
+            comments += "<div><p>" + data[currentIteration].Comentarios + "</p></div>"
+        }*/
+        
+        return comments;
     }
     //
     function GetComments(data, currentIteration) {
