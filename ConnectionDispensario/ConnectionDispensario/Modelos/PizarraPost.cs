@@ -76,7 +76,7 @@ namespace ConnectionDispensario.Modelos
             Comentarios = PizarraComentario.ComentariosPorPost(Id);
         }
 
-        //Ahora pasó a ser estático y devuelve un DataRow - 26/02/2019 - 01:00 - Losha
+        //Ahora pasó a ser estático y devuelve un DataRow en vez de un DataTable - 26/02/2019 - 01:00 - Losha
         public static int InsertarPost(
             string titulo,
             int idProfesional,

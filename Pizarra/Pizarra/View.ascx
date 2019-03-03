@@ -254,15 +254,21 @@
                 for (a = 0; a < data.length; a++) {
                     $('#ListaPostsDiv').append(
                         "<!-- Sprint " + data[a].Titulo + " - " + data[a].Estado + " -->" +
-                        "<div style='background-color: gray;'>" +
-                            "<input onclick='ShowComments(this, \"" + data[a].Id + "\")' style='font-weight: bold;' type='button' value='+' />" +
+                        "<div>" +
+                            "<input onclick='ShowComments(this, \"" + data[a].Id + "\")' style='font-weight: bold;' type='button' value='+' />" +                                                        
                             "<h3 style='display: inline-block; margin-bottom: 20px;'>" + data[a].Titulo + " - " + "<span class='" + data[a].Estado + "'>" + data[a].Estado + "</span>" + "</h3>" +
-                            "<div style='display: none;'>" +
-                                "<p style='font-weight: bold; margin-top: -15px;'>" + data[a].NombreProfesional + " " + data[a].ApellidoProfesional + " - " + data[a].FechaCreacionString + "</p>" +
+                            "<p style='font-weight: bold; margin-left: 30px; margin-top: -20px;'>" + data[a].NombreProfesional + " " + data[a].ApellidoProfesional + " - " + data[a].FechaCreacionString + "</p>" +
+                            
+                            "<!-- Comentarios -->" +
+                            "<div style='display: none;'>" +                                
                                 "<!-- Comentarios -->" +
                                 "<div class='' style='padding: 20px;'>" +
-                                    GetCommentsProto(data, a) +
-                            "</div>" +
+                                    GetComments(data, a) +
+                                    "<div>" +
+                                        "<input type='text' placeholder='Escriba su comentario' />" +
+                                        "<input type='button' onclick='GuardarComentario('" + data[a].Id + "',this)' value='COMENTAR' class='FormButton'/>" +
+                                    "</div>" +
+                                "</div>" +
                             "</div>" +
                         "</div>");
                 }                
@@ -270,7 +276,7 @@
         })
     }
     //
-    function GetCommentsProto (data, currentIteration) {
+    function GetComments (data, currentIteration) {
         var comments = "";
 
         if (data[currentIteration].Comentarios == null) {
@@ -278,43 +284,14 @@
         }
         else {
             for (i = 0; i < data[currentIteration].Comentarios.length; i++) {
-                comments += "<p>" + data[currentIteration].Comentarios[i].Comentario + "</p>";  
-            }
-            //comments += "<p>" + data[currentIteration].Comentarios[0].Comentario + "</p>";  
-                                       
-        }
-        console.log(comments)
-        /*if (data[currentIteration].Comentarios == null) {
-            comments += "<div><p>Todavía no hay comentarios</div></p>" 
-        }
-        else {
-            comments += "<div><p>" + data[currentIteration].Comentarios + "</p></div>"
-        }*/
-        
-        return comments;
-    }
-    //
-    function GetComments(data, currentIteration) {
-       
-        var comments = "";
-        //console.log(data[currentIteration].Comentarios.length);
-
-        if (data[currentIteration].Comentarios != null) {
-            comments = "<div>";
-            for (a = 0; a < data[currentIteration].Comentarios.length; a++) {
-                comments = comments +
+                comments +=
                     "<div>" +
-                        "<p>" + data[currentIteration].Comentarios[a].NombreProfesional + " " + data[currentIteration].Comentarios[a].ApellidoProfesional + " - " + data[currentIteration].Comentarios[a].FechaCreacionString + "</p>" +
-                        "<p>" + data[currentIteration].Comentarios[a].Comentario + "</p>" +
-                    "</div> ";
-            }
+                        "<p>" + data[currentIteration].Comentarios[i].NombreProfesional + " " + data[currentIteration].Comentarios[i].ApellidoProfesional + " - " + data[currentIteration].Comentarios[i].FechaCreacionString + "</p>" +
+                        "<p>" + data[currentIteration].Comentarios[i].Comentario + "</p>"
+                    "</div>";
+            }                                        
+        }
 
-            comments = comments + "</div>";
-        }
-        else {
-            comments = '<p>Todavía no hay ningún comentario</p>'
-        }
-        
         return comments;
     }
     //
@@ -324,6 +301,7 @@
 
         if (commentsDivWrapper.is(":hidden")) {
             commentsDivWrapper.show('slow');
+            button.val("-");   
         }
         else {
             commentsDivWrapper.hide('slow');
@@ -373,7 +351,7 @@
                         alert("Post agregado con éxito.");
                     }
                     else {
-                        alert("Hubo un error inesperado y no se agregó el post.")
+                        alert("Hubo un error inesperado y no se agregó el post. Contacte con el soporte.")
                     }
                 }
             })
@@ -381,6 +359,39 @@
         else {
             alert("Falta completar un campo.");
         }
+    }
+    //
+    function GuardarComentario(idPost, object) {
+        var comentario = $(object).siblings('input').val()
+        var idProfesional = $('#IdProfesional').val();
+
+        if (comentario == "") {
+            alert("Escriba un comentario.")
+        }
+        else {
+            $.ajax({
+                url: 'DesktopModules/Pizarra/WebService.aspx',
+                dataType: 'text',
+                data:
+                {
+                    newComment: 'true',
+                    idPost: idPost,
+                    comentario: comentario,
+                    idProfesional: idProfesional,
+                },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert('Comentario enviado con éxito.');
+                        $('#ListaPostsDiv').empty();
+                        GetPostsByPaciente($('#IdPacienteHidden').val())
+                    }
+                    else {
+                        alert('Hubo un error inesperado y no se agregó el comentario. Contacte con el soporte.')
+                    }
+                }
+            })
+        }
+
     }
 
 </script>

@@ -69,13 +69,23 @@ namespace ConnectionDispensario.Modelos
             FechaCreacionString = Fechacreacion.ToString();
         }
 
-        public int InsertarComentario()
+        //Ahora pasó a ser estático y devuelve un DataRow en vez de un DataTable - 03/03/2019 - 15:03 - Losha
+        public static int InsertarComentario(
+            int idPost,
+            string comentario,
+            int idProfesional,
+            DateTime fechaCreacion)
         {
-            DataTable DT = CON.Insertar_ComentarioPizarra(Idpost, Comentario, Idprofesional, Conversiones.SQL_To_FullString_DateTime(Fechacreacion));
+            //DataTable DT = CON.Insertar_ComentarioPizarra(Idpost, Comentario, Idprofesional, Conversiones.SQL_To_FullString_DateTime(Fechacreacion));
+            DataRow DR = Conexiones.Con_Pizarra.Insertar_ComentarioPizarra(
+                idPost,
+                comentario,
+                idProfesional,
+                Conversiones.SQL_To_FullString_DateTime(fechaCreacion));
             
-            if (DT != null)
+            if (DR != null)
             {
-                int lastcommentId = int.Parse(DT.Rows[0][0].ToString());
+                int lastcommentId = int.Parse(DR[0].ToString());
                 return lastcommentId;
             }
             else

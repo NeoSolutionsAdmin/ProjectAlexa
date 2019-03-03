@@ -14,7 +14,7 @@ namespace ConnectionDispensario.Conexiones
         //                                              //
         //      Pertenecientes a la tabla de POSTS      //
         //                                              //
-        // Pasó a ser estático y devolver un Data Row - 26/02/2019 - 1:01
+        // Pasó a ser estático y devolver un Data Row - 26/02/2019 - 1:01 - Losha
         public static DataRow Insert_Post(string TituloPost, int IdProfesional, string FechaCreacion, int IdPaciente, string Estado)
         {
             DispensarioACDataSetTableAdapters.Insert_PostTableAdapter TA = new DispensarioACDataSetTableAdapters.Insert_PostTableAdapter();
@@ -69,17 +69,18 @@ namespace ConnectionDispensario.Conexiones
         //                                                      //
         //      Pertenecientes a la tabla de COMENTARIOS        //
         //                                                      //
-        public DataTable Insertar_ComentarioPizarra(int IdPost, string Comentario, int IdProfesional, string FechaCreacion)
+        // Pasó a ser estático y devolver un Data Row - 03/03/2019 - 15:04 - Losha
+        public static DataRow Insertar_ComentarioPizarra(int IdPost, string Comentario, int IdProfesional, string FechaCreacion)
         {
             DispensarioACDataSetTableAdapters.Insertar_ComentarioPizarraTableAdapter TA = new DispensarioACDataSetTableAdapters.Insertar_ComentarioPizarraTableAdapter();
             DispensarioACDataSet.Insertar_ComentarioPizarraDataTable DT = new DispensarioACDataSet.Insertar_ComentarioPizarraDataTable();
             System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
-            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, "losha");
             TA.Fill(DT, IdPost, Comentario, IdProfesional, FechaCreacion);
 
             if (DT != null && DT.Rows.Count > 0)
             {
-                return DT;
+                return DT.Rows[0];
             }
             else
             {

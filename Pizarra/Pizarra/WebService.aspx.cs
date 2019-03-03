@@ -20,14 +20,16 @@ namespace Christoc.Modules.Pizarra
 
             if (Request["busquedaPaciente"] != null)
                 json = GetPacientes(Request["busquedaPaciente"], Request["tipoDeDatos"]);
+
             if (Request["newPost"] != null)
                 json = InsertPost(Request["titulo"], int.Parse(Request["idProfesional"]), int.Parse(Request["idPaciente"]));
+
             if (Request["getPosts"] != null)
                 json = GetPostsByIdPaciente(int.Parse(Request["idPaciente"]));
-            if (Request["getComments"] != null)
-                json = GetCommentsByIdPost(int.Parse(Request["idPost"]));
 
-            //json = new JavaScriptSerializer().Serialize(PizarraComentario.ComentariosPorPost(1));
+            if (Request["newComment"] != null)
+                json = InsertComment(int.Parse(Request["idPost"]), Request["comentario"], int.Parse(Request["idProfesional"]));
+
             Response.Write(json);
             Response.Flush();
             Response.End();
@@ -77,13 +79,17 @@ namespace Christoc.Modules.Pizarra
             return new JavaScriptSerializer().Serialize(resultados);
         }
 
-        private string GetCommentsByIdPost(int idPost)
+        private string InsertComment(
+            int idPost,
+            string comentario,
+            int idProfesional)
         {
-            List<PizarraComentario> resultados =
-                PizarraComentario.ComentariosPorPost(idPost);
+            int idComment = 
+                PizarraComentario.InsertarComentario(idPost, comentario, idProfesional, DateTime.Now);
 
-            return new JavaScriptSerializer().Serialize(resultados);
+            if (idComment == 0)
+                return "False";
+            else return "True";
         }
-
     }
 }
