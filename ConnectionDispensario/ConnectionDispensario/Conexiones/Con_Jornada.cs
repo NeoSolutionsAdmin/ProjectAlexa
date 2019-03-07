@@ -29,7 +29,35 @@ namespace ConnectionDispensario.Conexiones
             System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
             Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, "mi clase");
             TA.Connection = SQLCONN;
-            TA.Fill(DT,day,year,month,service);
+            try{
+                TA.Fill(DT, day, month, year, service);
+                if (DT.Rows.Count > 0)
+                {
+                    return DT;
+                }
+                else
+                {
+                    return null;
+
+                }
+            } catch (Exception E)
+            {
+                
+                throw new Exception(day.ToString() + month.ToString() + year.ToString());
+            }
+
+        }
+
+
+        public static DataTable GetClosedByIdServiceEntireMonth(int year, int month, int countday, int service)
+        {
+
+            DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndEntireMonthDataTable DT = new DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndEntireMonthDataTable();
+            DispensarioACDataSetTableAdapters.Select_JornadaLaboralByIdServicioAndEntireMonthTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_JornadaLaboralByIdServicioAndEntireMonthTableAdapter();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, "mi clase");
+            TA.Connection = SQLCONN;
+            TA.Fill(DT, countday, month, year, service);
             if (DT.Rows.Count > 0)
             {
                 return DT;

@@ -38,8 +38,8 @@
         }
         %>
 </select>
-<input type="button" value="C2" onclick="GetC2()" /><br />
-<input type="button" value="C3" />
+<input type="button" value="Imprimir C2" onclick="GetC2()" /><br />
+<input type="button" value="Imprimir C3" onclick="GetC3()" />
 <script>
     var year;
     var month;
@@ -65,6 +65,14 @@
             return false;
         }
         return true;
+    }
+
+    function GetC3()
+    {
+        if (SetVars() == true)
+        {
+            window.location.href = "/DesktopModules/Planillas/Reportes.aspx?C3=true&month="+month+"&year="+year;
+        }
     }
 
     function GetC2()

@@ -131,13 +131,32 @@ namespace Christoc.Modules.Planillas
         protected void GenerateC3()
         {
 
+            int Month = int.Parse(Request["month"].ToString());
+            int year = int.Parse(Request["year"].ToString());
+            RV.LocalReport.ReportPath = MapPath("/DesktopModules/Planillas/Reports/ReportC3.rdlc");
+            List<ConnectionDispensario.Modelos.Reporting.C3Item> itemsC3 = null;
+            if (Month == 2)
+            {
+                if (DateTime.IsLeapYear(year) == true)
+                {
+                    itemsC3 = new C3().GetC3(year, Month, 29);
+                }
+                else
+                {
+                    itemsC3 = new C3().GetC3(year, Month, 28);
+                }
+            }
+            else
+            {
+                itemsC3 = new C3().GetC3(year, Month, DateTime.DaysInMonth(year,Month));
+            }
+            
 
-            RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC3.rdlc");
-            List<ConnectionDispensario.Modelos.Reporting.C3Item> itemsC3 = new C3().GetC3();
+            
             ReportDataSource RDS = new ReportDataSource("DataSetC3", itemsC3);
             RV.LocalReport.SetParameters(new ReportParameter[] {
-                    new ReportParameter("ano",DateTime.Now.Year.ToString()),
-                    new ReportParameter("mes",DateTime.Now.Month.ToString()),
+                    new ReportParameter("ano",year.ToString()),
+                    new ReportParameter("mes",Month.ToString()),
             new ReportParameter("ResponsableLlenado","____________________"),
             new ReportParameter("Fecha",DateTime.Now.Day.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Year.ToString())});
             RV.LocalReport.DataSources.Add(RDS);
@@ -149,7 +168,8 @@ namespace Christoc.Modules.Planillas
         {
             RV.LocalReport.ReportPath = MapPath("/DesktopModules/Planillas/Reports/ReportC2.rdlc");
             List<ConnectionDispensario.Modelos.Reporting.C2Item> itemsC2 = new List<ConnectionDispensario.Modelos.Reporting.C2Item>();
-
+            int Month = int.Parse(Request["month"].ToString());
+            int year = int.Parse(Request["year"].ToString());
             //Buscar dentro de los usuarios que cumplan con el servicio
             string nombreservicio="";
             if (Request["service"] != null)
@@ -157,22 +177,22 @@ namespace Christoc.Modules.Planillas
                 //DotNetNuke.Entities.Portals.PortalController PC = new DotNetNuke.Entities.Portals.PortalController();
                 
 
-                int Month = int.Parse(Request["month"].ToString());
-                int year = int.Parse(Request["year"].ToString());
+                
                 ConnectionDispensario.Modelos.Servicio Service = ConnectionDispensario.Modelos.Servicio.ObtenerServicioById(int.Parse(Request["service"].ToString()));
                 nombreservicio = Service.NOMBRE;
 
-                for (int dia = 0; dia < DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); dia++)
+                for (int dia = 0; dia < DateTime.DaysInMonth(year, Month); dia++)
                 {
                     itemsC2.Add(new ConnectionDispensario.Modelos.Reporting.C2Item());
                     itemsC2[dia].Dia = dia + 1;
                     List<Jornada> ListaJornadas = Jornada.SelectClosedJornadasByDateAndIdService(year, Month, dia+1, Service.ID);
+                    decimal horasdeconsulta=0;
                     if (ListaJornadas != null)
                     {
                         foreach (Jornada j in ListaJornadas)
                         {
                             List<Turno> T = Turno.GetTurnosByPeriod(j.Start, j.End.Value, j.USERID.Value, "Finalizado");
-                            decimal horasdeconsulta = (decimal)((j.Start - j.End.Value).TotalSeconds * 60 * 60);
+                            horasdeconsulta+=(decimal)((j.End.Value-j.Start).TotalMinutes / 60);
                             itemsC2[dia].HorasAtencion += horasdeconsulta;
                             if (T != null)
                             {
@@ -185,6 +205,7 @@ namespace Christoc.Modules.Planillas
                                         int age = ConnectionDispensario.Utils.Conversiones.getAge(p.FECHA_NACIMIENTO);
                                         string sex="";
                                         if (p.SEXO == "Masculino") { sex = "m"; } else { sex = "f"; }
+
 
 
                                         itemsC2[dia].TotalTotal++;
@@ -200,7 +221,7 @@ namespace Christoc.Modules.Planillas
                                             if (age > 14 && age < 50) itemsC2[dia].Ano15a49m++;
                                             if (age > 49 ) itemsC2[dia].Ano50ymasm++;
 
-
+                                            
                                         }
                                         else
                                         {
@@ -234,8 +255,8 @@ namespace Christoc.Modules.Planillas
                     new ReportParameter("NombreServicio",nombreservicio),
                     new ReportParameter("CodigoEstablecimiento","4200026"),
                     new ReportParameter("CodigoServicio","..."),
-                    new ReportParameter("Mes", DateTime.Today.Month.ToString() ),
-                    new ReportParameter("Anio", DateTime.Today.Year.ToString() )
+                    new ReportParameter("Mes", Month.ToString() ),
+                    new ReportParameter("Anio", year.ToString() )
 
             });
 

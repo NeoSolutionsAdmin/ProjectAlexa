@@ -114,6 +114,8 @@ namespace ConnectionDispensario {
         
         private Select_JornadaLaboralByIdServicioAndDateComienzoDataTable tableSelect_JornadaLaboralByIdServicioAndDateComienzo;
         
+        private Select_JornadaLaboralByIdServicioAndEntireMonthDataTable tableSelect_JornadaLaboralByIdServicioAndEntireMonth;
+        
         private DataTable1DataTable tableDataTable1;
         
         private DataTable2DataTable tableDataTable2;
@@ -280,6 +282,9 @@ namespace ConnectionDispensario {
                 }
                 if ((ds.Tables["Select_JornadaLaboralByIdServicioAndDateComienzo"] != null)) {
                     base.Tables.Add(new Select_JornadaLaboralByIdServicioAndDateComienzoDataTable(ds.Tables["Select_JornadaLaboralByIdServicioAndDateComienzo"]));
+                }
+                if ((ds.Tables["Select_JornadaLaboralByIdServicioAndEntireMonth"] != null)) {
+                    base.Tables.Add(new Select_JornadaLaboralByIdServicioAndEntireMonthDataTable(ds.Tables["Select_JornadaLaboralByIdServicioAndEntireMonth"]));
                 }
                 if ((ds.Tables["DataTable1"] != null)) {
                     base.Tables.Add(new DataTable1DataTable(ds.Tables["DataTable1"]));
@@ -759,6 +764,16 @@ namespace ConnectionDispensario {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public Select_JornadaLaboralByIdServicioAndEntireMonthDataTable Select_JornadaLaboralByIdServicioAndEntireMonth {
+            get {
+                return this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public DataTable1DataTable DataTable1 {
             get {
                 return this.tableDataTable1;
@@ -976,6 +991,9 @@ namespace ConnectionDispensario {
                 }
                 if ((ds.Tables["Select_JornadaLaboralByIdServicioAndDateComienzo"] != null)) {
                     base.Tables.Add(new Select_JornadaLaboralByIdServicioAndDateComienzoDataTable(ds.Tables["Select_JornadaLaboralByIdServicioAndDateComienzo"]));
+                }
+                if ((ds.Tables["Select_JornadaLaboralByIdServicioAndEntireMonth"] != null)) {
+                    base.Tables.Add(new Select_JornadaLaboralByIdServicioAndEntireMonthDataTable(ds.Tables["Select_JornadaLaboralByIdServicioAndEntireMonth"]));
                 }
                 if ((ds.Tables["DataTable1"] != null)) {
                     base.Tables.Add(new DataTable1DataTable(ds.Tables["DataTable1"]));
@@ -1286,6 +1304,12 @@ namespace ConnectionDispensario {
                     this.tableSelect_JornadaLaboralByIdServicioAndDateComienzo.InitVars();
                 }
             }
+            this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth = ((Select_JornadaLaboralByIdServicioAndEntireMonthDataTable)(base.Tables["Select_JornadaLaboralByIdServicioAndEntireMonth"]));
+            if ((initTable == true)) {
+                if ((this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth != null)) {
+                    this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.InitVars();
+                }
+            }
             this.tableDataTable1 = ((DataTable1DataTable)(base.Tables["DataTable1"]));
             if ((initTable == true)) {
                 if ((this.tableDataTable1 != null)) {
@@ -1398,6 +1422,8 @@ namespace ConnectionDispensario {
             base.Tables.Add(this.tableSelectC1FromUserId);
             this.tableSelect_JornadaLaboralByIdServicioAndDateComienzo = new Select_JornadaLaboralByIdServicioAndDateComienzoDataTable();
             base.Tables.Add(this.tableSelect_JornadaLaboralByIdServicioAndDateComienzo);
+            this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth = new Select_JornadaLaboralByIdServicioAndEntireMonthDataTable();
+            base.Tables.Add(this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth);
             this.tableDataTable1 = new DataTable1DataTable();
             base.Tables.Add(this.tableDataTable1);
             this.tableDataTable2 = new DataTable2DataTable();
@@ -1676,6 +1702,12 @@ namespace ConnectionDispensario {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeSelect_JornadaLaboralByIdServicioAndEntireMonth() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private bool ShouldSerializeDataTable1() {
             return false;
         }
@@ -1875,6 +1907,9 @@ namespace ConnectionDispensario {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void Select_JornadaLaboralByIdServicioAndDateComienzoRowChangeEventHandler(object sender, Select_JornadaLaboralByIdServicioAndDateComienzoRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEventHandler(object sender, Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void DataTable1RowChangeEventHandler(object sender, DataTable1RowChangeEvent e);
@@ -9597,6 +9632,8 @@ namespace ConnectionDispensario {
             
             private global::System.Data.DataColumn columnNombreServicio;
             
+            private global::System.Data.DataColumn columnCodigo;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public Select_LastServicioDataTable() {
@@ -9648,6 +9685,14 @@ namespace ConnectionDispensario {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CodigoColumn {
+                get {
+                    return this.columnCodigo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -9683,11 +9728,12 @@ namespace ConnectionDispensario {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public Select_LastServicioRow AddSelect_LastServicioRow(string NombreServicio) {
+            public Select_LastServicioRow AddSelect_LastServicioRow(string NombreServicio, string Codigo) {
                 Select_LastServicioRow rowSelect_LastServicioRow = ((Select_LastServicioRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        NombreServicio};
+                        NombreServicio,
+                        Codigo};
                 rowSelect_LastServicioRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSelect_LastServicioRow);
                 return rowSelect_LastServicioRow;
@@ -9719,6 +9765,7 @@ namespace ConnectionDispensario {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnNombreServicio = base.Columns["NombreServicio"];
+                this.columnCodigo = base.Columns["Codigo"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9728,6 +9775,8 @@ namespace ConnectionDispensario {
                 base.Columns.Add(this.columnId);
                 this.columnNombreServicio = new global::System.Data.DataColumn("NombreServicio", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNombreServicio);
+                this.columnCodigo = new global::System.Data.DataColumn("Codigo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCodigo);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -9736,6 +9785,7 @@ namespace ConnectionDispensario {
                 this.columnId.Unique = true;
                 this.columnNombreServicio.AllowDBNull = false;
                 this.columnNombreServicio.MaxLength = 50;
+                this.columnCodigo.MaxLength = 15;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13347,6 +13397,8 @@ namespace ConnectionDispensario {
             
             private global::System.Data.DataColumn columnNombreServicio;
             
+            private global::System.Data.DataColumn columnCodigo;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public Select_ServicioByIdDataTable() {
@@ -13398,6 +13450,14 @@ namespace ConnectionDispensario {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CodigoColumn {
+                get {
+                    return this.columnCodigo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -13433,11 +13493,12 @@ namespace ConnectionDispensario {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public Select_ServicioByIdRow AddSelect_ServicioByIdRow(string NombreServicio) {
+            public Select_ServicioByIdRow AddSelect_ServicioByIdRow(string NombreServicio, string Codigo) {
                 Select_ServicioByIdRow rowSelect_ServicioByIdRow = ((Select_ServicioByIdRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        NombreServicio};
+                        NombreServicio,
+                        Codigo};
                 rowSelect_ServicioByIdRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSelect_ServicioByIdRow);
                 return rowSelect_ServicioByIdRow;
@@ -13469,6 +13530,7 @@ namespace ConnectionDispensario {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnNombreServicio = base.Columns["NombreServicio"];
+                this.columnCodigo = base.Columns["Codigo"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13478,6 +13540,8 @@ namespace ConnectionDispensario {
                 base.Columns.Add(this.columnId);
                 this.columnNombreServicio = new global::System.Data.DataColumn("NombreServicio", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNombreServicio);
+                this.columnCodigo = new global::System.Data.DataColumn("Codigo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCodigo);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -13486,6 +13550,7 @@ namespace ConnectionDispensario {
                 this.columnId.Unique = true;
                 this.columnNombreServicio.AllowDBNull = false;
                 this.columnNombreServicio.MaxLength = 50;
+                this.columnCodigo.MaxLength = 15;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16364,6 +16429,339 @@ namespace ConnectionDispensario {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class Select_JornadaLaboralByIdServicioAndEntireMonthDataTable : global::System.Data.TypedTableBase<Select_JornadaLaboralByIdServicioAndEntireMonthRow> {
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnUserId;
+            
+            private global::System.Data.DataColumn columnEntradaJornada;
+            
+            private global::System.Data.DataColumn columnSalidaJornada;
+            
+            private global::System.Data.DataColumn columnHoras;
+            
+            private global::System.Data.DataColumn columnIdServicio;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Select_JornadaLaboralByIdServicioAndEntireMonthDataTable() {
+                this.TableName = "Select_JornadaLaboralByIdServicioAndEntireMonth";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal Select_JornadaLaboralByIdServicioAndEntireMonthDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected Select_JornadaLaboralByIdServicioAndEntireMonthDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn UserIdColumn {
+                get {
+                    return this.columnUserId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn EntradaJornadaColumn {
+                get {
+                    return this.columnEntradaJornada;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SalidaJornadaColumn {
+                get {
+                    return this.columnSalidaJornada;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn HorasColumn {
+                get {
+                    return this.columnHoras;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn IdServicioColumn {
+                get {
+                    return this.columnIdServicio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Select_JornadaLaboralByIdServicioAndEntireMonthRow this[int index] {
+                get {
+                    return ((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEventHandler Select_JornadaLaboralByIdServicioAndEntireMonthRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEventHandler Select_JornadaLaboralByIdServicioAndEntireMonthRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEventHandler Select_JornadaLaboralByIdServicioAndEntireMonthRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEventHandler Select_JornadaLaboralByIdServicioAndEntireMonthRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddSelect_JornadaLaboralByIdServicioAndEntireMonthRow(Select_JornadaLaboralByIdServicioAndEntireMonthRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Select_JornadaLaboralByIdServicioAndEntireMonthRow AddSelect_JornadaLaboralByIdServicioAndEntireMonthRow(long UserId, System.DateTime EntradaJornada, System.DateTime SalidaJornada, decimal Horas, long IdServicio) {
+                Select_JornadaLaboralByIdServicioAndEntireMonthRow rowSelect_JornadaLaboralByIdServicioAndEntireMonthRow = ((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        UserId,
+                        EntradaJornada,
+                        SalidaJornada,
+                        Horas,
+                        IdServicio};
+                rowSelect_JornadaLaboralByIdServicioAndEntireMonthRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSelect_JornadaLaboralByIdServicioAndEntireMonthRow);
+                return rowSelect_JornadaLaboralByIdServicioAndEntireMonthRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Select_JornadaLaboralByIdServicioAndEntireMonthRow FindById(long Id) {
+                return ((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                Select_JornadaLaboralByIdServicioAndEntireMonthDataTable cln = ((Select_JornadaLaboralByIdServicioAndEntireMonthDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new Select_JornadaLaboralByIdServicioAndEntireMonthDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnUserId = base.Columns["UserId"];
+                this.columnEntradaJornada = base.Columns["EntradaJornada"];
+                this.columnSalidaJornada = base.Columns["SalidaJornada"];
+                this.columnHoras = base.Columns["Horas"];
+                this.columnIdServicio = base.Columns["IdServicio"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnUserId = new global::System.Data.DataColumn("UserId", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUserId);
+                this.columnEntradaJornada = new global::System.Data.DataColumn("EntradaJornada", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEntradaJornada);
+                this.columnSalidaJornada = new global::System.Data.DataColumn("SalidaJornada", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalidaJornada);
+                this.columnHoras = new global::System.Data.DataColumn("Horas", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHoras);
+                this.columnIdServicio = new global::System.Data.DataColumn("IdServicio", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdServicio);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnUserId.AllowDBNull = false;
+                this.columnEntradaJornada.AllowDBNull = false;
+                this.columnIdServicio.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Select_JornadaLaboralByIdServicioAndEntireMonthRow NewSelect_JornadaLaboralByIdServicioAndEntireMonthRow() {
+                return ((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new Select_JornadaLaboralByIdServicioAndEntireMonthRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(Select_JornadaLaboralByIdServicioAndEntireMonthRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.Select_JornadaLaboralByIdServicioAndEntireMonthRowChanged != null)) {
+                    this.Select_JornadaLaboralByIdServicioAndEntireMonthRowChanged(this, new Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEvent(((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.Select_JornadaLaboralByIdServicioAndEntireMonthRowChanging != null)) {
+                    this.Select_JornadaLaboralByIdServicioAndEntireMonthRowChanging(this, new Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEvent(((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.Select_JornadaLaboralByIdServicioAndEntireMonthRowDeleted != null)) {
+                    this.Select_JornadaLaboralByIdServicioAndEntireMonthRowDeleted(this, new Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEvent(((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.Select_JornadaLaboralByIdServicioAndEntireMonthRowDeleting != null)) {
+                    this.Select_JornadaLaboralByIdServicioAndEntireMonthRowDeleting(this, new Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEvent(((Select_JornadaLaboralByIdServicioAndEntireMonthRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveSelect_JornadaLaboralByIdServicioAndEntireMonthRow(Select_JornadaLaboralByIdServicioAndEntireMonthRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DispensarioACDataSet ds = new DispensarioACDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "Select_JornadaLaboralByIdServicioAndEntireMonthDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTable1DataTable : global::System.Data.TypedTableBase<DataTable1Row> {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18607,6 +19005,34 @@ namespace ConnectionDispensario {
                     this[this.tableSelect_LastServicio.NombreServicioColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Codigo {
+                get {
+                    try {
+                        return ((string)(this[this.tableSelect_LastServicio.CodigoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Codigo\' in table \'Select_LastServicio\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelect_LastServicio.CodigoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCodigoNull() {
+                return this.IsNull(this.tableSelect_LastServicio.CodigoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCodigoNull() {
+                this[this.tableSelect_LastServicio.CodigoColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -19519,6 +19945,34 @@ namespace ConnectionDispensario {
                 set {
                     this[this.tableSelect_ServicioById.NombreServicioColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Codigo {
+                get {
+                    try {
+                        return ((string)(this[this.tableSelect_ServicioById.CodigoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Codigo\' in table \'Select_ServicioById\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelect_ServicioById.CodigoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCodigoNull() {
+                return this.IsNull(this.tableSelect_ServicioById.CodigoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCodigoNull() {
+                this[this.tableSelect_ServicioById.CodigoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -20523,6 +20977,123 @@ namespace ConnectionDispensario {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetHorasNull() {
                 this[this.tableSelect_JornadaLaboralByIdServicioAndDateComienzo.HorasColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class Select_JornadaLaboralByIdServicioAndEntireMonthRow : global::System.Data.DataRow {
+            
+            private Select_JornadaLaboralByIdServicioAndEntireMonthDataTable tableSelect_JornadaLaboralByIdServicioAndEntireMonth;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal Select_JornadaLaboralByIdServicioAndEntireMonthRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth = ((Select_JornadaLaboralByIdServicioAndEntireMonthDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public long Id {
+                get {
+                    return ((long)(this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.IdColumn]));
+                }
+                set {
+                    this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public long UserId {
+                get {
+                    return ((long)(this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.UserIdColumn]));
+                }
+                set {
+                    this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.UserIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime EntradaJornada {
+                get {
+                    return ((global::System.DateTime)(this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.EntradaJornadaColumn]));
+                }
+                set {
+                    this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.EntradaJornadaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public System.DateTime SalidaJornada {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.SalidaJornadaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SalidaJornada\' in table \'Select_JornadaLaboralByIdServicioA" +
+                                "ndEntireMonth\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.SalidaJornadaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal Horas {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.HorasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Horas\' in table \'Select_JornadaLaboralByIdServicioAndEntire" +
+                                "Month\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.HorasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public long IdServicio {
+                get {
+                    return ((long)(this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.IdServicioColumn]));
+                }
+                set {
+                    this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.IdServicioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSalidaJornadaNull() {
+                return this.IsNull(this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.SalidaJornadaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSalidaJornadaNull() {
+                this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.SalidaJornadaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsHorasNull() {
+                return this.IsNull(this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.HorasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetHorasNull() {
+                this[this.tableSelect_JornadaLaboralByIdServicioAndEntireMonth.HorasColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -22072,6 +22643,40 @@ namespace ConnectionDispensario {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public Select_JornadaLaboralByIdServicioAndDateComienzoRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEvent : global::System.EventArgs {
+            
+            private Select_JornadaLaboralByIdServicioAndEntireMonthRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Select_JornadaLaboralByIdServicioAndEntireMonthRowChangeEvent(Select_JornadaLaboralByIdServicioAndEntireMonthRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public Select_JornadaLaboralByIdServicioAndEntireMonthRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -27057,6 +27662,7 @@ namespace ConnectionDispensario.DispensarioACDataSetTableAdapters {
             tableMapping.DataSetTable = "Select_LastServicio";
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("NombreServicio", "NombreServicio");
+            tableMapping.ColumnMappings.Add("Codigo", "Codigo");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -29144,6 +29750,7 @@ namespace ConnectionDispensario.DispensarioACDataSetTableAdapters {
             tableMapping.DataSetTable = "Select_ServicioById";
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("NombreServicio", "NombreServicio");
+            tableMapping.ColumnMappings.Add("Codigo", "Codigo");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -30769,6 +31376,231 @@ namespace ConnectionDispensario.DispensarioACDataSetTableAdapters {
                 this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndDateComienzoDataTable dataTable = new DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndDateComienzoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class Select_JornadaLaboralByIdServicioAndEntireMonthTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public Select_JornadaLaboralByIdServicioAndEntireMonthTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Select_JornadaLaboralByIdServicioAndEntireMonth";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("UserId", "UserId");
+            tableMapping.ColumnMappings.Add("EntradaJornada", "EntradaJornada");
+            tableMapping.ColumnMappings.Add("SalidaJornada", "SalidaJornada");
+            tableMapping.ColumnMappings.Add("Horas", "Horas");
+            tableMapping.ColumnMappings.Add("IdServicio", "IdServicio");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::ConnectionDispensario.Properties.Settings.Default.DispensarioACConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.Select_JornadaLaboralByIdServicioAndEntireMonth";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LASTDAY", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@MONTH", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@YEAR", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdServicio", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndEntireMonthDataTable dataTable, global::System.Nullable<long> LASTDAY, global::System.Nullable<long> MONTH, global::System.Nullable<long> YEAR, global::System.Nullable<long> IdServicio) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((LASTDAY.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((long)(LASTDAY.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((MONTH.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((long)(MONTH.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((YEAR.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((long)(YEAR.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((IdServicio.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[4].Value = ((long)(IdServicio.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndEntireMonthDataTable GetData(global::System.Nullable<long> LASTDAY, global::System.Nullable<long> MONTH, global::System.Nullable<long> YEAR, global::System.Nullable<long> IdServicio) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((LASTDAY.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((long)(LASTDAY.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((MONTH.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((long)(MONTH.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((YEAR.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((long)(YEAR.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((IdServicio.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[4].Value = ((long)(IdServicio.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndEntireMonthDataTable dataTable = new DispensarioACDataSet.Select_JornadaLaboralByIdServicioAndEntireMonthDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

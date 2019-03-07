@@ -48,9 +48,12 @@ namespace ConnectionDispensario.Modelos
     {
         private string name="";
         private int id=0;
+        private string codigo = null;
+
 
         public string NOMBRE { get { return name; } }
         public int ID { get { return id; } }
+        public string CODIGO { get { return codigo; } }
         
 
         public Servicio(string p_name)
@@ -62,6 +65,7 @@ namespace ConnectionDispensario.Modelos
         {
             id = int.Parse(dr["Id"].ToString());
             name = dr["NombreServicio"].ToString();
+            if (dr.IsNull("Codigo") == false) { codigo = dr["Codigo"].ToString(); }
         }
 
         public List<ProfesionalServicio> GetProfesionales(int PortalId)

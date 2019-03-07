@@ -67,6 +67,24 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
+        public static List<Jornada> SelectClosedJornadasByEntireMonth(int year, int month, int countday, int idservice)
+        {
+            DataTable DT = Conexiones.Con_Jornada.GetClosedByIdServiceEntireMonth(year, month, countday, idservice);
+            if (DT != null)
+            {
+                List<Jornada> J = new List<Jornada>();
+                foreach (DataRow R in DT.Rows)
+                {
+                    J.Add(new Jornada(R));
+                }
+                return J;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static void Insert(int UserId, int ServicioId)
         {
             Conexiones.Con_Jornada.InsertarJornada(UserId, ServicioId);

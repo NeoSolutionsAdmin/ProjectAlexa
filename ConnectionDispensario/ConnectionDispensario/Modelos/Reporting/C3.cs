@@ -14,7 +14,7 @@ namespace ConnectionDispensario.Modelos.Reporting
         int ID;
         string Servicio;
         int CodigoServicio;
-        int HsDeAtencion;
+        decimal HsDeAtencion;
         int Menor1M;
         int Menor1F;
         int año1M;
@@ -33,7 +33,7 @@ namespace ConnectionDispensario.Modelos.Reporting
 
         public string Servicio1 { get => Servicio; set => Servicio = value; }
         public int CodigoServicio1 { get => CodigoServicio; set => CodigoServicio = value; }
-        public int HsDeAtencion1 { get => HsDeAtencion; set => HsDeAtencion = value; }
+        public decimal HsDeAtencion1 { get => HsDeAtencion; set => HsDeAtencion = value; }
         public int Menor1M1 { get => Menor1M; set => Menor1M = value; }
         public int Menor1F1 { get => Menor1F; set => Menor1F = value; }
         public int Año1M { get => año1M; set => año1M = value; }
@@ -59,105 +59,79 @@ namespace ConnectionDispensario.Modelos.Reporting
 
         public List<C3Item> MyItems { get => myItems; set => myItems = value; }
 
-        public List<C3Item> GetC3()
+        public List<C3Item> GetC3(int year, int month,int countdays)
         {
-            List<int> C1Registradas = new List<int>();
-            DateTime Start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            DateTime End = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddHours(23);
-            List<C3Item> ItemsC3 = new List<C3Item>();
 
-            System.Collections.ArrayList Users = DotNetNuke.Entities.Users.UserController.GetUsers(0);
-            RoleController RC = new RoleController();
-            IList<RoleInfo> RoleList = RC.GetRoles(0);
-            int rolfounded = 0;
-            for (int a = 0; a < RoleList.Count; a++)
+            List<C3Item> I = new List<C3Item>();
+
+            List<Servicio> LS = Servicio.ObtenerServicios();
+            if (LS != null)
             {
-                if (RoleList[a].RoleName.ToLower().Contains("servicio"))
+                for (int a=0; a<LS.Count;a++)
                 {
-                    char[] m = { ':' };
-                    ItemsC3.Add(new C3Item());
-                    rolfounded++;
-                    ItemsC3[ItemsC3.Count - 1].ID1 = rolfounded;
-                    ItemsC3[ItemsC3.Count - 1].Servicio1 = RoleList[a].RoleName.Split(m)[1].ToUpper();
-                    if (RoleList[a].RoleName.ToLower().Contains("clinica")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 100;
-                    if (RoleList[a].RoleName.ToLower().Contains("pediatria")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 101;
-                    if (RoleList[a].RoleName.ToLower().Contains("ginecologia")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 285;
-                    if (RoleList[a].RoleName.ToLower().Contains("psicologia")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 550;
-                    if (RoleList[a].RoleName.ToLower().Contains("social")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 15;
-                    if (RoleList[a].RoleName.ToLower().Contains("nutricion")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 57;
-                    if (RoleList[a].RoleName.ToLower().Contains("kinesiologia")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 675;
-                    if (RoleList[a].RoleName.ToLower().Contains("cardiologia")) ItemsC3[ItemsC3.Count - 1].CodigoServicio1 = 285;
-
-                }
-            }
-
-            for (int a = 0; a < Users.Count; a++)
-            {
-                for (int b = 0; b < ItemsC3.Count; b++)
-                {
-                    UserInfo UI = (UserInfo)Users[a];
-                    if (UI.IsInRole("servicio:"+ItemsC3[b].Servicio1))
+                    Servicio srv = LS[a];
+                    I.Add(new C3Item());
+                    I[I.Count - 1].ID1 = a + 1;
+                    I[I.Count - 1].Servicio1 = LS[a].NOMBRE;
+                    if (LS[a].CODIGO == null) { I[I.Count - 1].CodigoServicio1 = 0; } else { I[I.Count - 1].CodigoServicio1 = int.Parse(LS[a].CODIGO); } 
+                    List<Jornada> ListadoJornadas = Jornada.SelectClosedJornadasByEntireMonth(year, month, countdays, srv.ID);
+                    if (ListadoJornadas != null)
                     {
-                        C1 c1 = new C1();
-                        List<C1Item> ListaDeC1 = c1.GetC1(Start, End, UI.UserID, "Finalizado");
-                        if (ListaDeC1 != null)
+                        foreach (Jornada j in ListadoJornadas)
                         {
-                            for (int c = 0; c < ListaDeC1.Count; c++)
+                            I[I.Count - 1].HsDeAtencion1 = I[I.Count - 1].HsDeAtencion1 + (decimal)(j.End.Value-j.Start).TotalMinutes / 60;
+                            List<Turno> T = Turno.GetTurnosByPeriod(j.Start, j.End.Value, j.USERID.Value, "Finalizado");
+
+                            if (T != null)
                             {
-                                if (ListaDeC1[c].Menor1m == "X") ItemsC3[b].Menor1M1++;
-                                if (ListaDeC1[c].Menor1f == "X") ItemsC3[b].Menor1F1++;
-                                if (ListaDeC1[c].Ano1m == "X") ItemsC3[b].Año1M++;
-                                if (ListaDeC1[c].Ano1f == "X") ItemsC3[b].Año1F++;
-                                if (ListaDeC1[c].Ano2a4m == "X") ItemsC3[b].Año2a4M++;
-                                if (ListaDeC1[c].Ano2a4f == "X") ItemsC3[b].Año2a4F++;
-                                if (ListaDeC1[c].Ano5a9m == "X") ItemsC3[b].Año5a9M++;
-                                if (ListaDeC1[c].Ano5a9f == "X") ItemsC3[b].Año5a9F++;
-                                if (ListaDeC1[c].Ano10a14m == "X") ItemsC3[b].Año10a14M++;
-                                if (ListaDeC1[c].Ano10a14f == "X") ItemsC3[b].Año10a14F++;
-                                if (ListaDeC1[c].Ano15a49m == "X") ItemsC3[b].Año15a49M++;
-                                if (ListaDeC1[c].Ano15a49f == "X") ItemsC3[b].Año15a49F++;
-                                if (ListaDeC1[c].Ano50ymasm == "X") ItemsC3[b].Año50M++;
-                                if (ListaDeC1[c].Ano50ymasf == "X") ItemsC3[b].Año50F++;
-                                if (ListaDeC1[c].Controlembarazo == "X") ItemsC3[b].ControlEmbarazo1++;
-                                ConnectionDispensario.Conexiones.Con_Turno ConT = new Conexiones.Con_Turno();
-                                DataTable DT = ConT.GetallC1(UI.UserID);
-                                if (DT != null)
+                                foreach (Turno t in T)
                                 {
-                                    for (int d = 0; d < DT.Rows.Count; d++)
+                                    if (t.Pac != null)
                                     {
-                                        int UserIDC1 = int.Parse(DT.Rows[d]["UserId"].ToString());
-                                        int CantidadHorasC1 = int.Parse(DT.Rows[d]["CantidadHoras"].ToString());
-                                        int IdC1 = int.Parse(DT.Rows[d]["Id"].ToString());
-                                        DateTime FechaC1 = DateTime.Parse(DT.Rows[d]["fechaC1"].ToString());
 
-                                        bool foundit = false;
-
-                                        for (int e = 0; e < C1Registradas.Count; e++)
-                                        {
-                                            if (C1Registradas[e] == IdC1)
-                                            {
-                                                foundit = true;
-                                                break;
-                                            }
-                                        }
-                                        if (foundit == false) C1Registradas.Add(IdC1);
-
-                                        if (UserIDC1 == UI.UserID && foundit==false)
+                                        Paciente p = t.Pac;
+                                        int age = ConnectionDispensario.Utils.Conversiones.getAge(p.FECHA_NACIMIENTO);
+                                        string sex = "";
+                                        if (p.SEXO == "Masculino") { sex = "m"; } else { sex = "f"; }
+                                        if (sex == "m")
                                         {
                                             
-                                            if (DateTime.Now.Month == FechaC1.Month)
-                                            {
-                                                ItemsC3[b].HsDeAtencion1 += CantidadHorasC1;
-                                            }
+                                            if (age < 1) I[I.Count - 1].Menor1M1++;
+                                            if (age == 1) I[I.Count - 1].Año1M++;
+                                            if (age > 1 && age < 5) I[I.Count - 1].Año2a4M++;
+                                            if (age > 4 && age < 10) I[I.Count - 1].Año5a9M++;
+                                            if (age > 9 && age < 15) I[I.Count - 1].Año10a14M++;
+                                            if (age > 14 && age < 50) I[I.Count - 1].Año15a49M++;
+                                            if (age > 49) I[I.Count - 1].Año50M++;
+
+
                                         }
+                                        else
+                                        {
+
+                                            if (age < 1) I[I.Count - 1].Menor1F1++;
+                                            if (age == 1) I[I.Count - 1].Año1F++;
+                                            if (age > 1 && age < 5) I[I.Count - 1].Año2a4F++;
+                                            if (age > 4 && age < 10) I[I.Count - 1].Año5a9F++;
+                                            if (age > 9 && age < 15) I[I.Count - 1].Año10a14F++;
+                                            if (age > 14 && age < 50) I[I.Count - 1].Año15a49F++;
+                                            if (age > 49) I[I.Count - 1].Año50F++;
+                                        }
+
+                                        if (t.ControlEmbarazo == true) { I[I.Count - 1].ControlEmbarazo1++; }
                                     }
                                 }
                             }
+
                         }
                     }
+
+
                 }
             }
-            return ItemsC3;
+
+
+            return I;
         }
 
     }

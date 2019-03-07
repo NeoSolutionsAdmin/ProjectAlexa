@@ -2398,7 +2398,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!HsDeAtencion1.Value</Value>
+                                  <Value>=FormatNumber(Fields!HsDeAtencion1.Value,1)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3353,7 +3353,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!HsDeAtencion1.Value)</Value>
+                                  <Value>=FormatNumber(Sum(Fields!HsDeAtencion1.Value),1)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>

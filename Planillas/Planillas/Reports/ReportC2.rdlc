@@ -1597,7 +1597,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!HorasAtencion.Value</Value>
+                                  <Value>=FormatNumber(Fields!HorasAtencion.Value,1)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3292,7 +3292,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!HorasAtencion.Value)</Value>
+                                  <Value>=FormatNumber(Sum(Fields!HorasAtencion.Value),1)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
