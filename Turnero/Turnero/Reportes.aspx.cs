@@ -131,7 +131,7 @@ namespace Christoc.Modules.Turnero
         {
 
 
-            RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC3.rdlc");
+            /*RV.LocalReport.ReportPath = MapPath("/DesktopModules/Turnero/Reports/ReportC3.rdlc");
             List<ConnectionDispensario.Modelos.Reporting.C3Item> itemsC3 = new C3().GetC3();
             ReportDataSource RDS = new ReportDataSource("DataSetC3", itemsC3);
             RV.LocalReport.SetParameters(new ReportParameter[] {
@@ -139,7 +139,7 @@ namespace Christoc.Modules.Turnero
                     new ReportParameter("mes",DateTime.Now.Month.ToString()),
             new ReportParameter("ResponsableLlenado","____________________"),
             new ReportParameter("Fecha",DateTime.Now.Day.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Year.ToString())});
-            RV.LocalReport.DataSources.Add(RDS);
+            RV.LocalReport.DataSources.Add(RDS);*/
 
 
         }
