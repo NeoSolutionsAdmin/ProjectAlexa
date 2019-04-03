@@ -21,6 +21,7 @@ namespace Christoc.Modules.Planillas
             if (!IsPostBack)
             {
                 string filename = Guid.NewGuid().ToString() + ".pdf";
+                string filenameExcel = Guid.NewGuid().ToString() + ".xls";
                 filenamefield.Value = filename;
                 bool Validate = true;
                 if (Request["C1"] == null && Request["C2"] == null && Request["C3"] == null)
@@ -35,12 +36,14 @@ namespace Christoc.Modules.Planillas
                 {
                     RV.LocalReport.Refresh();
                     byte[] b = RV.LocalReport.Render("PDF");
+                    byte[] excelb = RV.LocalReport.Render("Excel");
 
 
                     string path = Server.MapPath(DotNetNuke.Entities.Portals.PortalSettings.Current.HomeDirectory);
                     File.WriteAllBytes(path + "\\" + filename, b);
+                    File.WriteAllBytes(path + "\\" + filenameExcel, excelb);
                 }
-                Response.Redirect("/Portals/0/" + filename);
+                Response.Redirect("/Portals/0/" + filenameExcel);
 
             }
         }

@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="Planillas" type="Module" version="00.00.06">
+    <package name="Planillas" type="Module" version="00.00.10">
       <friendlyName>Planillas</friendlyName>
       <description>Christoc.com Planillas module</description>
       <iconFile>~/Images/icon_extensions_32px.png</iconFile>

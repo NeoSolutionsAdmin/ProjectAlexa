@@ -462,7 +462,7 @@ namespace Christoc.Modules.Pacientes
                 {
                     char[] splitter = {'.'};
                     string extension = UPLFileUpload.FileName.Split(splitter)[1];
-                    if (extension.ToLower() == "jpg" || extension.ToLower() == "jpg" || extension.ToLower() == "png" || extension.ToLower() == "bmp")
+                    if (extension.ToLower() == "jpg" || extension.ToLower() == "jpeg" || extension.ToLower() == "png" || extension.ToLower() == "bmp")
                     {
 
                         string Second;

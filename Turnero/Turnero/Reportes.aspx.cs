@@ -92,9 +92,9 @@ namespace Christoc.Modules.Turnero
 
             RV.LocalReport.SetParameters(new ReportParameter[] {
                     new ReportParameter("NombreMedico",UI.FirstName + " " + UI.LastName),
-                    new ReportParameter("Establecimiento","Dispensario Municipal \"Dr. H Weihmuller\""),
+                    new ReportParameter("Establecimiento","Hospital Municipal \"Dr. Alfredo Garcia\""),
                     new ReportParameter("Servicio",Servicio),
-                    new ReportParameter("CodigoEstablecimiento","4200026"),
+                    new ReportParameter("CodigoEstablecimiento","X05586"),
                     new ReportParameter("CodigoServicio","..."),
                     new ReportParameter("TotalObraSocial",C1.totalplandesalud.ToString()),
                     new ReportParameter("TotalNingunaObraSocial",C1.totalsinplandesalud.ToString()),
