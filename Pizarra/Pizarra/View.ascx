@@ -13,7 +13,7 @@
     <div style="display: none;" id="CrearNuevoPostDiv">
 
         
-        <input type="button" id="ButtonCrearPost" class="FormButton" value="Crear post" style="display: inline-block;" />
+        <input type="button" id="ButtonCrearPost" class="FormButton" value="Crear post" style="display: inline-block;" onclick="AbrirCerrarCreatePost()"/>
 
         
         <div style="display: none;" id="CrearNuevoPost">
