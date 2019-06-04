@@ -58,6 +58,19 @@ namespace ConnectionDispensario.Modelos
             
         }
 
+        public List<PizarraComentario> GetComments()
+        {
+            List<PizarraComentario> comments = PizarraComentario.ComentariosPorPost(id);
+            if (comments != null && comments.Count > 0)
+            {
+                return comments;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public PizarraPost(DataRow DR)
         {
             Id = int.Parse(DR["Id"].ToString());
