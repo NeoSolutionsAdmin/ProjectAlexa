@@ -46,7 +46,7 @@ namespace Christoc.Modules.HistoriaClinica
             return p;
         }
         [WebMethod]
-        public Paciente InsertHistory(string Historial, int IdUser, int IdPortal ,string UIPaciente) 
+        public string InsertHistory(string Historial, int IdUser, int IdPortal ,string UIPaciente) 
         {
             Paciente p = new Paciente("error", "error", DateTime.Now, "error", "error", "error", "error", 0, "error", "error", false);
             Paciente t_P = ConnectionDispensario.Modelos.Paciente.Select_Paciente_by_GUI(UIPaciente);
@@ -58,31 +58,30 @@ namespace Christoc.Modules.HistoriaClinica
                 {
                     
                     Historial H = new Historial(Historial.Replace("\n","[LineJump]"), IdUser, t_P.ID);
-                    if (H.Guardar() == true)
+                    string respuesta = H.Guardar();
+                    if (respuesta == "guardado")
                     {
                         ConnectionDispensario.Statics.LogCatcher.AddLog("Se inserto correctamente", "Se inserto correctamente", null, null);
-                        return t_P;
+                        return respuesta + " from Historial.cs";
                     }
                     else
                     {
                         ConnectionDispensario.Statics.LogCatcher.AddLog("No se pudo Guardar", "No se pudo Guardar", null, null);
-                        return p;
+                        return respuesta + " from Historial.cs";
                         
                     }
                 }
                 else
                 {
                     ConnectionDispensario.Statics.LogCatcher.AddLog("No existe el usuario", "No existe el usuario", null, null);
-                    return p;
+                    return "null User" + " from Pacientes.asmx";
                 }
 
             }
             else 
             {
                 ConnectionDispensario.Statics.LogCatcher.AddLog("No existe el Paciente", "No existe el Paciente", null, null);
-                
-
-                return p;
+                return "null paciente" + " from Pacientes.asmx";
             }
         }
     }

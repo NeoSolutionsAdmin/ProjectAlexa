@@ -81,6 +81,26 @@ namespace ConnectionDispensario.Conexiones
 
         }
 
+        public DataTable SelectTurnosRecepcionByPeriod(int IdUser, DateTime DS, DateTime DE, string Estado)
+        {
+            DispensarioACDataSet.Select_Turnos_Recepcion_By_PeriodDataTable DT = new DispensarioACDataSet.Select_Turnos_Recepcion_By_PeriodDataTable();
+            DispensarioACDataSetTableAdapters.Select_Turnos_Recepcion_By_PeriodTableAdapter TA = new DispensarioACDataSetTableAdapters.Select_Turnos_Recepcion_By_PeriodTableAdapter();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, this.ToString());
+            TA.Connection = SQLCONN;
+            TA.Fill(DT, IdUser, Utils.Conversiones.SQL_To_FullString_DateTime(DS), Utils.Conversiones.SQL_To_FullString_DateTime(DE), Estado);
+            if (DT != null & DT.Rows.Count > 0)
+            {
+                return DT;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
         public bool comenzarConsulta(int IdTurno)
         {
             QTACustomizado QTA = new QTACustomizado();

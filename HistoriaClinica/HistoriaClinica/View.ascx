@@ -601,7 +601,7 @@
                             }
                         }
 
-                        Response.Write("(" + Puesto + ")" + " " + HP[a].FECHA.ToLongDateString());
+                        Response.Write("(" + Puesto + ")" + " " + HP[a].FECHA.Day.ToString() + "/" + HP[a].FECHA.Month.ToString() + "/" + HP[a].FECHA.Year.ToString() + " " + HP[a].FECHA.Hour.ToString() + ":" + HP[a].FECHA.Minute.ToString() +  ":" + HP[a].FECHA.Second.ToString() );
 
                         if (HP[a].ISODONTOGRAMA == true)
                         {
@@ -670,6 +670,10 @@
                             }
                             Response.Write("</br>");
                             Response.Write("<Input ID=\"H" + HP[a].ID + "\" type=\"button\" value=\"Imprimir Informe de guardia\" onclick=\"imprimirHistoria(this)\" />");
+                            Response.Write("</br>");
+                            //Response.Write("<label><input type=\"checkbox\" class=\"Informe\" id=\"HID" + HP[a].ID + "\" value=\"first_checkbox\"> Seleccionar para informe </label><br>");
+
+                            
                         }
 
                         Response.Write("</div>");
@@ -698,7 +702,9 @@
 
             Response.Write("<input id=\"btnTexto\" onclick=\"MostrarTexto()\" type=\"button\" value=\"Redactar Texto\" class=\"DispensarioButton2 DispensarioNormalButton\" />");
 
-            Response.Write("<input id=\"btnOdontograma\" onclick=\"MostrarOdontograma()\" type=\"button\" value=\"Crear Odontograma\" class=\"DispensarioButton2 DispensarioNormalButton\" />");
+            Response.Write("<input id=\"btnOdontograma\" onclick=\"MostrarOdontograma()\" type=\"button\" value=\"Crear Odontograma\" class=\"DispensarioButton2 DispensarioNormalButton\" /></br>");
+            
+            
         }
     %>
 </div>
@@ -727,6 +733,16 @@
     </div>
 </div>
 
+
+<div>
+    <div>
+        <intput type="button" value="Imprimir Informe">
+
+        </intput>
+        
+    </div>
+</div>
+
 <div id="EditorDeHistorial" runat="server">
     <div>1) Redacte su diagnostico clínico en la caja de texto verde</div>
     <div id="ContainerCajaTexto">
@@ -738,7 +754,7 @@
     <input type="button" onclick="AumentarTTexto()" class="DispensarioButton2 DispensarioNormalButton" value="Aumentar Texto" />
     <input type="button" onclick="ReducirTTexto()" class="DispensarioButton2 DispensarioNormalButton" value="Reducir Texto" />
     <input type="button" onclick="ResetTTexto()" class="DispensarioButton2 DispensarioNormalButton" value="Normalizar Texto" />
-
+    
 </div>
 
 <div id="Confirmation">
@@ -772,6 +788,17 @@
 
 </div>
 
+<div id="DialogInforme" title="Impresion de informe">
+    <span> Como desea imprimir el informe?</span> <select id="INF_Cabecera">
+        <option value="Informe de guardia"></option>
+        <option value="Informe Médico"></option>
+        </select>
+    <br />
+    <span>Diagnostico: </span><input type="text" id="INF_Diagnostico"/><br />
+    <span>  </span>
+</div>
+
+
 <input type="hidden" id="IDP" value="<%= ((int)Session["IdPortal"]).ToString() %>" />
 <input type="hidden" id="IDU" value="<%= ((int)Session["IdUser"]).ToString() %>" />
 <input type="hidden" id="UIP" value="<%= (Session["Paciente"]!=null) ? ((ConnectionDispensario.Modelos.Paciente) Session["Paciente"]).GUID : "0" %>" />
@@ -780,6 +807,7 @@
 <input type="hidden" id="Tox" value="" />
 <input type="hidden" id="CurrentOdontograma" value="" />
 <input type="hidden" id="CurrentHistorial" value="" />
+
 <script>
 
     $("#OdontogramaConstructor").hide();
@@ -1152,6 +1180,24 @@
         dlg.parent().css('z-index', '1005');
     }
 
+    function CreateDialogInforme()
+    {
+        var dlg = $('#DialogInforme').dialog(
+            {
+                closeOnEscape: true,
+                autoOpen: false,
+                draggable: false,
+                modal: true,
+                resizable: false,
+                autoResize: true,
+                dialogClass: 'dnnFormPopup',
+                width: 'auto'
+
+            });
+        dlg.parent().appendTo($("form:first"));
+        dlg.parent().css('z-index', '1005');
+    }
+
     function CreateDialogGuardia() {
         var dlg = $('#DialogGuardia').dialog(
             {
@@ -1214,6 +1260,7 @@
     CreateDialogMed();
     CreateDialogTox();
     CreateDialogGuardia();
+    CreateDialogInforme();
 
 
     if ($("#<%=show_search.ClientID%>").val() == "1") {
@@ -1231,9 +1278,8 @@
             data: { "Historial": $("#CajaTexto").val(), "IdUser": $('#IDU').val(), "IdPortal": $('#IDP').val(), "UIPaciente": $('#UIP').val() },
             method: "POST",
             cache: false,
-
             success: function (data) {
-                alert("Datos Guardados con exito");
+                alert("Datos Guardados con exito " + data);
                 $("#CajaTexto").val("");
                 redirecttome();
             }

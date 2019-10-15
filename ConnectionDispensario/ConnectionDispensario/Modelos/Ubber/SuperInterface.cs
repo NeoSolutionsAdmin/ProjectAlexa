@@ -8,6 +8,7 @@ namespace ConnectionDispensario.Modelos.Ubber
 {
     public interface SuperInterface
     {
+        
         bool Guardar();
       
     }

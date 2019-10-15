@@ -60,7 +60,7 @@ namespace ConnectionDispensario.Conexiones
             TA.Connection = SQLCONN;
             try
             {
-                TA.Fill(DT, p_idpaciente, p_iduser, Utils.Conversiones.SQL_To_String_DateTime(p_fecha), p_Historial);
+                TA.Fill(DT, p_idpaciente, p_iduser, Utils.Conversiones.SQL_To_FullString_DateTime(p_fecha), p_Historial);
                 if (DT.Rows.Count > 0)
                 {
                     return DT.Rows[0]["HUID"].ToString();
@@ -73,7 +73,7 @@ namespace ConnectionDispensario.Conexiones
             catch (Exception E) 
             {
                 Statics.LogCatcher.AddLog(E.Message, E.StackTrace, null, null);
-                return "";
+                return "ERROR = " + E.Message;
             }
         }
     }

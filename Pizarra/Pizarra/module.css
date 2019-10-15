@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+.ContainerComment {
+    background-color: #cecce9;
+    margin: 5px;
+    padding: 20px 20px 20px 20px;
+    border-style: double;
+    border-width: 3px;
+    border-color: #fcfcfc;
+}
+
+.ContainerPost {
+    padding-top: 10px;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    margin-bottom: 5px;
+}
+.ContainerPaciente {
+    background: #d8d5be;
+    margin-top: 20px;
+    padding: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
 .FormButton {
     background: linear-gradient(to right,#7DA150 50%, #058ef5 50%);
     background-size: 200% 100%;

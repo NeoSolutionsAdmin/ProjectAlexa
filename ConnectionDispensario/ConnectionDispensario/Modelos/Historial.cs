@@ -83,7 +83,7 @@ namespace ConnectionDispensario.Modelos
 
 
     [Serializable]
-    public class Historial : Ubber.SuperModelo, Ubber.SuperInterface
+    public class Historial : Ubber.SuperModelo
     {
         string diagnostico;
         DateTime fecha;
@@ -181,9 +181,9 @@ namespace ConnectionDispensario.Modelos
             return ProfileUser.getProfileUser(IdPortal, iduser);
         }
 
-        public bool Guardar()
+        public string Guardar()
         {
-            bool ok = false;
+            string respuesta = "vacio";
             if (diagnostico != null && diagnostico != "")
             {
                 if (iduser != 0 && idpaciente != 0)
@@ -192,31 +192,35 @@ namespace ConnectionDispensario.Modelos
                     {
                         Conexiones.Con_Historial H = new Conexiones.Con_Historial();
                         GUID = H.InsertarHistorial(diagnostico, iduser, idpaciente, fecha);
-                        if (GUID != "")
+                        if (!GUID.Contains("ERROR"))
                         {
-                            ok = true;
+                            respuesta = "guardado " + GUID;
                             ConnectionDispensario.Statics.LogCatcher.AddLog("EL HISTORIAL FUE GUARDADO", "EL HISTORIAL FUE GUARDADO", null, null);
                         }
                         else 
                         {
+                            respuesta = "null guid " + GUID;
                             ConnectionDispensario.Statics.LogCatcher.AddLog("GUID ES NULL", "GUID ES NULL", null, null);
                         }
                     }
                     else 
                     {
+                        respuesta = "null fecha " + GUID;
                         ConnectionDispensario.Statics.LogCatcher.AddLog("Fecha es null", "Fecha es null", null, null);
                     }
                 }
                 else 
                 {
+                    respuesta = "null iduser null idpaciente " + GUID;
                     ConnectionDispensario.Statics.LogCatcher.AddLog("Id de paciente e id de user no llegan", "Id de paciente e id de user no llegan", null, null);
                 }
             }
             else 
             {
+                respuesta = "null diagnostic";
                 ConnectionDispensario.Statics.LogCatcher.AddLog("No llega el diagnostico", "No llega el diagnostico", null, null);
             }
-            return ok;
+            return respuesta;
         }
     }
     

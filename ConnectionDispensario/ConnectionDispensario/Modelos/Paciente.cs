@@ -263,6 +263,11 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
+        public List<PizarraPost> GetPostsPizarra()
+        {
+            return PizarraPost.PostsPorPaciente(ID);
+        }
+
         public static List<Tag> TagsPorPaciente(int pacienteId)
         {
             Conexiones.Con_Pacientes CP = new Conexiones.Con_Pacientes();

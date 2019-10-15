@@ -33,6 +33,23 @@ namespace ConnectionDispensario.Conexiones
             }
 
         }
+
+        public DataTable SearchPacientesConPosts()
+        {
+            DispensarioACDataSetTableAdapters.Get_PacientesWithPostsPizarraTableAdapter TA = new DispensarioACDataSetTableAdapters.Get_PacientesWithPostsPizarraTableAdapter();
+            DispensarioACDataSet.Get_PacientesWithPostsPizarraDataTable DT = new DispensarioACDataSet.Get_PacientesWithPostsPizarraDataTable();
+            System.Data.SqlClient.SqlConnection SQLCONN = TA.Connection;
+            Conexiones.TableAdapterManager.ChangeConnection(ref SQLCONN, "losha");
+            TA.Fill(DT);
+            if (DT.Rows.Count > 0)
+            {
+                return DT;
+            }
+            else
+            {
+                return null;
+            }
+        }
         
         public bool Update_PostStatus(int IdPost, string Estado)
         {

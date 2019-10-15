@@ -117,6 +117,27 @@ namespace ConnectionDispensario.Modelos
             
         }
 
+        public static List<Paciente> Get_PacientesConPosts()
+        {
+            List<Paciente> aux = new List<Paciente>();
+            Conexiones.Con_Pizarra P = new Con_Pizarra();
+            DataTable DT = P.SearchPacientesConPosts();
+            if (DT != null)
+            {
+                foreach (DataRow r in DT.Rows)
+                {
+                    int idpac = int.Parse(r["IdPaciente"].ToString());
+                    Paciente p = Paciente.Select_Paciente_By_Id(idpac);
+                    aux.Add(p);
+                }
+                return aux;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static bool ActualizarEstado(int idpost, string estado)
         {
             Con_Pizarra c = new Con_Pizarra();

@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Christoc.Modules.Pizarra.View" %>
-
+<%@ Import Namespace="ConnectionDispensario.Modelos" %>
 
 <div>
 
-    <h1 style="margin-bottom: 50px;">PIZARRA</h1>
+    <h1 style="margin-bottom: 50px;">Buscador Pizarra</h1>
 
     <input type="button" value="BUSCAR PACIENTE" class="FormButton" onclick="AbrirBuscarPacientePopUp()"/>
     <span id="PacienteSeleccionado"></span> <br />
@@ -62,7 +62,42 @@
     </div>
 
 </div>
+<div>
+    <h1 style="margin-bottom: 50px;">Pizarra</h1>
+    <%
+        List<Paciente> lp = PizarraPost.Get_PacientesConPosts();
+        if (lp != null && lp.Count>0)
+        {
+            foreach (Paciente p in lp) {
+                Response.Write("<div class=\"ContainerPaciente\">");
+                Response.Write("<h2>" + p.NOMBRE + " " + p.APELLIDO + "</h2>");
 
+                List<PizarraPost> posts = p.GetPostsPizarra();
+                foreach (PizarraPost post in posts)
+                {
+                    Response.Write("<div class=\"ContainerPost\">");
+                    Response.Write("<h3>" + post.Titulo +"</h3>");
+                    List<PizarraComentario> comments = post.GetComments();
+                    if (comments != null && comments.Count > 0)
+                    {
+                        foreach (PizarraComentario pc in comments)
+                        {
+                        Response.Write("<div class=\"ContainerComment\">");
+                            Response.Write("<b>Fecha:</b>" + pc.FechaCreacionString + "</br>");
+                            Response.Write("<b>Profesional:</b>" + pc.ApellidoProfesional + "</br>");
+                            Response.Write("<b>Comentario:</b>" + pc.Comentario + "</br>");
+                        Response.Write("</div>");
+                        }
+                        
+                    }
+                    Response.Write("</div>");
+                }
+
+                Response.Write("</div>");
+            }
+        }
+        %>
+</div>
 <!-- POP UPS -->
 <div>
     <!-- Buscar Pacientes -->

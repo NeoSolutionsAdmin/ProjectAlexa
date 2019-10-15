@@ -77,6 +77,25 @@ namespace ConnectionDispensario.Modelos
             }
         }
 
+        public static List<Turno> GetTurnosRecepcion(DateTime Start, DateTime End, int IdUser, string Estado)
+        {
+            Conexiones.Con_Turno CT = new Con_Turno();
+            DataTable DT = CT.SelectTurnosRecepcionByPeriod(IdUser, Start, End, Estado);
+            if (DT != null)
+            {
+                List<Turno> LT = new List<Turno>();
+                for (int a = 0; a < DT.Rows.Count; a++)
+                {
+                    LT.Add(new Turno(DT.Rows[a]));
+                }
+                return LT;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static List<Turno> GetTurnosByUser(int IdUser) 
         {
             Con_Turno CT = new Con_Turno();

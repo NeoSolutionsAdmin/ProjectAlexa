@@ -11,7 +11,7 @@ namespace ConnectionDispensario.Statics
     public static class LogCatcher
     {
        public static DotNetNuke.Services.Log.EventLog.EventLogController ELP;
-        public static void AddLog( string Message, string stack, DotNetNuke.Entities.Modules.PortalModuleBase Module, System.Web.SessionState.HttpSessionState SS)
+        public static void AddLog(string Message, string stack, DotNetNuke.Entities.Modules.PortalModuleBase Module, System.Web.SessionState.HttpSessionState SS)
         {
             ELP = new DotNetNuke.Services.Log.EventLog.EventLogController();
             DotNetNuke.Services.Log.EventLog.LogTypeInfo LT = new DotNetNuke.Services.Log.EventLog.LogTypeInfo();

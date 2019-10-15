@@ -18,6 +18,13 @@ namespace ConnectionDispensario.Utils
             string hour = p.Hour.ToString();
             string minutes = p.Minute.ToString();
             string seconds = p.Second.ToString();
+
+            day = day.Length == 1 ? "0" + day : day;
+            month = month.Length == 1 ? "0" + month : month;
+            hour = hour.Length == 1 ? "0" + hour : hour;
+            minutes = minutes.Length == 1 ? "0" + minutes : minutes;
+            seconds = seconds.Length == 1 ? "0" + seconds : seconds;
+
             string completeSTR = year + "-" + month + "-" + day + " " + hour + ":" + minutes +":" + seconds;
             return completeSTR;
         }
